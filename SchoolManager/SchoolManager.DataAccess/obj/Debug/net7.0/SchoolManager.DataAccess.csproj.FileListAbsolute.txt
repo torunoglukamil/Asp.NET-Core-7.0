@@ -1,0 +1,15 @@
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.DataAccess\obj\Debug\net7.0\SchoolManager.DataAccess.csproj.AssemblyReference.cache
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.DataAccess\obj\Debug\net7.0\SchoolManager.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.DataAccess\obj\Debug\net7.0\SchoolManager.DataAccess.AssemblyInfoInputs.cache
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.DataAccess\obj\Debug\net7.0\SchoolManager.DataAccess.AssemblyInfo.cs
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.DataAccess\obj\Debug\net7.0\SchoolManager.DataAccess.csproj.CoreCompileInputs.cache
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.DataAccess\bin\Debug\net7.0\SchoolManager.DataAccess.deps.json
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.DataAccess\bin\Debug\net7.0\SchoolManager.DataAccess.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.DataAccess\bin\Debug\net7.0\SchoolManager.DataAccess.pdb
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.DataAccess\bin\Debug\net7.0\SchoolManager.Models.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.DataAccess\bin\Debug\net7.0\SchoolManager.Models.pdb
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.DataAccess\obj\Debug\net7.0\SchoolManager.DataAccess.csproj.CopyComplete
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.DataAccess\obj\Debug\net7.0\SchoolManager.DataAccess.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.DataAccess\obj\Debug\net7.0\refint\SchoolManager.DataAccess.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.DataAccess\obj\Debug\net7.0\SchoolManager.DataAccess.pdb
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.DataAccess\obj\Debug\net7.0\ref\SchoolManager.DataAccess.dll

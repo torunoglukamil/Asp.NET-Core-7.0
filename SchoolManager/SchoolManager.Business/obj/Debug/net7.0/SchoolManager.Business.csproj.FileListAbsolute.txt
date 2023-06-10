@@ -1,0 +1,17 @@
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Business\obj\Debug\net7.0\SchoolManager.Business.csproj.AssemblyReference.cache
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Business\obj\Debug\net7.0\SchoolManager.Business.GeneratedMSBuildEditorConfig.editorconfig
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Business\obj\Debug\net7.0\SchoolManager.Business.AssemblyInfoInputs.cache
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Business\obj\Debug\net7.0\SchoolManager.Business.AssemblyInfo.cs
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Business\obj\Debug\net7.0\SchoolManager.Business.csproj.CoreCompileInputs.cache
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Business\bin\Debug\net7.0\SchoolManager.Business.deps.json
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Business\bin\Debug\net7.0\SchoolManager.Business.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Business\bin\Debug\net7.0\SchoolManager.Business.pdb
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Business\bin\Debug\net7.0\SchoolManager.DataAccess.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Business\bin\Debug\net7.0\SchoolManager.Models.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Business\bin\Debug\net7.0\SchoolManager.DataAccess.pdb
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Business\bin\Debug\net7.0\SchoolManager.Models.pdb
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Business\obj\Debug\net7.0\SchoolManager.Business.csproj.CopyComplete
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Business\obj\Debug\net7.0\SchoolManager.Business.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Business\obj\Debug\net7.0\refint\SchoolManager.Business.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Business\obj\Debug\net7.0\SchoolManager.Business.pdb
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Business\obj\Debug\net7.0\ref\SchoolManager.Business.dll

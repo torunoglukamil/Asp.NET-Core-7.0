@@ -1,0 +1,12 @@
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Models\bin\Debug\net7.0\SchoolManager.Models.deps.json
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Models\bin\Debug\net7.0\SchoolManager.Models.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Models\bin\Debug\net7.0\SchoolManager.Models.pdb
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Models\obj\Debug\net7.0\SchoolManager.Models.csproj.AssemblyReference.cache
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Models\obj\Debug\net7.0\SchoolManager.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Models\obj\Debug\net7.0\SchoolManager.Models.AssemblyInfoInputs.cache
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Models\obj\Debug\net7.0\SchoolManager.Models.AssemblyInfo.cs
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Models\obj\Debug\net7.0\SchoolManager.Models.csproj.CoreCompileInputs.cache
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Models\obj\Debug\net7.0\SchoolManager.Models.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Models\obj\Debug\net7.0\refint\SchoolManager.Models.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Models\obj\Debug\net7.0\SchoolManager.Models.pdb
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager.Models\obj\Debug\net7.0\ref\SchoolManager.Models.dll

@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Server=localhost;Port=5432;Database=school_manager;Userid=postgres;Password=admin;" Npgsql.EntityFrameworkCore.PostgreSQL -o Models -Schemas public -force -UseDatabaseNames -NoPluralize
