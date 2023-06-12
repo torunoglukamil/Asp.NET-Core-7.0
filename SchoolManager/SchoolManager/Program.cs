@@ -1,16 +1,19 @@
 using Microsoft.EntityFrameworkCore;
+using SchoolManager.Business.Services;
+using SchoolManager.DataAccess.Queries;
+using SchoolManager.DataAccess.Repositories;
 using SchoolManager.Models.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddControllers();
-
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 builder.Services.AddDbContext<school_managerContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<StudentQuery>();
+builder.Services.AddScoped<StudentRepository>();
+builder.Services.AddScoped<StudentService>();
 
 var app = builder.Build();
-
 app.MapGet("/school_manager", () => "Service is running");
-
 app.MapControllers();
-
 app.Run();

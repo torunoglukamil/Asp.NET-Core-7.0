@@ -1,33 +1,51 @@
-﻿using SchoolManager.Models.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using SchoolManager.Models.Models;
 
 namespace SchoolManager.DataAccess.Queries
 {
-    public class StudentQuery
+    public class StudentQuery : ControllerBase
     {
-        private readonly school_managerContext _context;
+        private readonly school_managerContext _db;
 
         public StudentQuery(school_managerContext context)
         {
-            _context = context;
+            _db = context;
         }
 
-        public List<students> GetAllList()
+        public IActionResult GetStudents()
         {
-            var isAdmin = true;
-            var query = _context.students.AsQueryable();
-            if (!isAdmin)
+            try
             {
-                query = query.Where(p => p.id > 0);
+                var studentList = _db.students.ToList();
+                return Ok(studentList);
             }
-            var result = query.ToList();
-            return result;
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
         }
 
-        public students GetById(int id)
+        public IActionResult GetStudentById(int id)
         {
-            var query = _context.students.Where(p => p.id == id);
-            var result = query.FirstOrDefault();
-            return result;
+            try
+            {
+                var student = _db.students.Where(s => s.id == id).FirstOrDefault();
+                if (student == null)
+                {
+                    return NotFound();
+                }
+                var classroom = _db.classrooms.Where(c => c.id == student.classroom_id).FirstOrDefault();
+                if (classroom == null)
+                {
+                    return NotFound();
+                }
+                student.classroom = classroom;
+                return Ok(student);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
         }
     }
 }

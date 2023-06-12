@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SchoolManager.Models.Models;
 
-public partial class students
+public partial class student
 {
     public int id { get; set; }
 
@@ -19,5 +19,5 @@ public partial class students
 
     public int classroom_id { get; set; }
 
-    public virtual classrooms classroom { get; set; } = null!;
+    public virtual classroom? classroom { get; set; }
 }

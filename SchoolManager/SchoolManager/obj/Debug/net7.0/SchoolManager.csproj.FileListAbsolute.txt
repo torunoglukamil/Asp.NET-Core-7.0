@@ -41,3 +41,8 @@ C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager\bin\Debug\net7.0\M
 C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
 C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager\bin\Debug\net7.0\Mono.TextTemplating.dll
 C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager\bin\Debug\net7.0\System.CodeDom.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager\obj\Debug\net7.0\SchoolManager.MvcApplicationPartsAssemblyInfo.cs
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
