@@ -10,7 +10,6 @@
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "7.0.7",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.7",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4",
           "SchoolManager.Business": "1.0.0",
           "SchoolManager.Models": "1.0.0"
         },
@@ -388,7 +387,6 @@
       },
       "SchoolManager.Models/1.0.0": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "7.0.7",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4"
         },
         "runtime": {

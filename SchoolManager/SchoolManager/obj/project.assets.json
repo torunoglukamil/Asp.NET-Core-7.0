@@ -896,7 +896,6 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "7.0.7",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4"
         },
         "compile": {
@@ -2050,7 +2049,6 @@
     "net7.0": [
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 7.0.7",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.7",
-      "Npgsql.EntityFrameworkCore.PostgreSQL >= 7.0.4",
       "SchoolManager.Business >= 1.0.0",
       "SchoolManager.Models >= 1.0.0"
     ]
@@ -2111,10 +2109,6 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[7.0.7, )"
-          },
-          "Npgsql.EntityFrameworkCore.PostgreSQL": {
-            "target": "Package",
-            "version": "[7.0.4, )"
           }
         },
         "imports": [

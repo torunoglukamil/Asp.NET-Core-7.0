@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "9tiu8eggex/ycUWg/UxCzj0OFAfrWN4e3jKpDnz+HZj8JeT1CyS5xnOW/aFnO/lpQuXChFdp3odUzTy3IDBYAw==",
+  "dgSpecHash": "MnSigMbzFjeSmbWcT75J5/QNiWgIWY1yYtovr42UHQrFTDnnhk43Zq9LhrqvRrH62RiBE7JknsilJ1SoGPpnaQ==",
   "success": true,
   "projectFilePath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\SchoolManager\\SchoolManager.Business\\SchoolManager.Business.csproj",
   "expectedPackageFiles": [
@@ -22,9 +22,9 @@
     "C:\\Users\\pulsa\\.nuget\\packages\\microsoft.aspnetcore.webutilities\\2.2.0\\microsoft.aspnetcore.webutilities.2.2.0.nupkg.sha512",
     "C:\\Users\\pulsa\\.nuget\\packages\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",
     "C:\\Users\\pulsa\\.nuget\\packages\\microsoft.dotnet.platformabstractions\\2.1.0\\microsoft.dotnet.platformabstractions.2.1.0.nupkg.sha512",
-    "C:\\Users\\pulsa\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.7\\microsoft.entityframeworkcore.7.0.7.nupkg.sha512",
-    "C:\\Users\\pulsa\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.7\\microsoft.entityframeworkcore.abstractions.7.0.7.nupkg.sha512",
-    "C:\\Users\\pulsa\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.7\\microsoft.entityframeworkcore.analyzers.7.0.7.nupkg.sha512",
+    "C:\\Users\\pulsa\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.5\\microsoft.entityframeworkcore.7.0.5.nupkg.sha512",
+    "C:\\Users\\pulsa\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.5\\microsoft.entityframeworkcore.abstractions.7.0.5.nupkg.sha512",
+    "C:\\Users\\pulsa\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.5\\microsoft.entityframeworkcore.analyzers.7.0.5.nupkg.sha512",
     "C:\\Users\\pulsa\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.5\\microsoft.entityframeworkcore.relational.7.0.5.nupkg.sha512",
     "C:\\Users\\pulsa\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\7.0.0\\microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\pulsa\\.nuget\\packages\\microsoft.extensions.caching.memory\\7.0.0\\microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
