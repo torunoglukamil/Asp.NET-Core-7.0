@@ -16,7 +16,7 @@ namespace SchoolManager.DataAccess.Repositories
         {
             try
             {
-                var _student = _db.students.Where(s => s.email == student.email).FirstOrDefault();
+                student? _student = _db.students.Where(s => s.email == student.email).FirstOrDefault();
                 if (_student != null)
                 {
                     return BadRequest("email-already-in-use");
@@ -29,7 +29,7 @@ namespace SchoolManager.DataAccess.Repositories
                         return BadRequest("phone-already-in-use");
                     }
                 }
-                var classroom = _db.classrooms.Where(c => c.id == student.classroom_id).FirstOrDefault();
+                classroom? classroom = _db.classrooms.Where(c => c.id == student.classroom_id).FirstOrDefault();
                 if (classroom == null)
                 {
                     return BadRequest("classroom-not-found");
@@ -68,12 +68,12 @@ namespace SchoolManager.DataAccess.Repositories
         {
             try
             {
-                var _student = _db.students.Where(s => s.id == student.id).FirstOrDefault();
+                student? _student = _db.students.Where(s => s.id == student.id).FirstOrDefault();
                 if (_student == null)
                 {
                     return BadRequest("student-not-found");
                 }
-                var classroom = _db.classrooms.Where(c => c.id == student.classroom_id).FirstOrDefault();
+                classroom? classroom = _db.classrooms.Where(c => c.id == student.classroom_id).FirstOrDefault();
                 if (classroom == null)
                 {
                     return BadRequest("classroom-not-found");
@@ -107,7 +107,7 @@ namespace SchoolManager.DataAccess.Repositories
         {
             try
             {
-                var student = _db.students.Where(s => s.id == id).FirstOrDefault();
+                student? student = _db.students.Where(s => s.id == id).FirstOrDefault();
                 if (student == null)
                 {
                     return BadRequest("student-not-found");

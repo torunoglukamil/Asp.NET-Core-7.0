@@ -12,6 +12,9 @@ builder.Services.AddDbContext<school_managerContext>(options => options.UseNpgsq
 builder.Services.AddScoped<StudentQuery>();
 builder.Services.AddScoped<StudentRepository>();
 builder.Services.AddScoped<StudentService>();
+builder.Services.AddScoped<ClassroomQuery>();
+builder.Services.AddScoped<ClassroomRepository>();
+builder.Services.AddScoped<ClassroomService>();
 
 var app = builder.Build();
 app.MapGet("/school_manager", () => "Service is running");
