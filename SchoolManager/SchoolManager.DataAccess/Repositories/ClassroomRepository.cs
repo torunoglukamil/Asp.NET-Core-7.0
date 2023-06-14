@@ -8,15 +8,15 @@ namespace SchoolManager.DataAccess.Repositories
     public class ClassroomRepository : ControllerBase
     {
         private readonly school_managerContext _db;
-        private readonly IValidator<classroom> _validator;
+        private readonly IValidator<Classroom> _validator;
 
-        public ClassroomRepository(school_managerContext context, IValidator<classroom> validator)
+        public ClassroomRepository(school_managerContext context, IValidator<Classroom> validator)
         {
             _db = context;
             _validator = validator;
         }
 
-        public async Task<IActionResult> CreateClassroom(classroom classroom)
+        public async Task<IActionResult> CreateClassroom(Classroom classroom)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace SchoolManager.DataAccess.Repositories
                 {
                     return BadRequest(validationResult.Errors.FirstOrDefault()!.ErrorMessage);
                 }
-                classroom? _classroom = _db.classrooms.Where(x => x.grade == classroom.grade && x.branch == classroom.branch).FirstOrDefault();
+                Classroom? _classroom = _db.classrooms.Where(x => x.grade == classroom.grade && x.branch == classroom.branch).FirstOrDefault();
                 if (_classroom != null)
                 {
                     return BadRequest("Sınıf zaten mevcut.");
@@ -40,7 +40,7 @@ namespace SchoolManager.DataAccess.Repositories
             }
         }
 
-        public async Task<IActionResult> UpdateClassroom(classroom classroom)
+        public async Task<IActionResult> UpdateClassroom(Classroom classroom)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace SchoolManager.DataAccess.Repositories
                 {
                     return BadRequest(validationResult.Errors.FirstOrDefault()!.ErrorMessage);
                 }
-                classroom? _classroom = _db.classrooms.Where(x => x.grade == classroom.grade && x.branch == classroom.branch).FirstOrDefault();
+                Classroom? _classroom = _db.classrooms.Where(x => x.grade == classroom.grade && x.branch == classroom.branch).FirstOrDefault();
                 if (_classroom != null && _classroom.id != classroom.id)
                 {
                     return BadRequest("Sınıf zaten mevcut.");
@@ -74,7 +74,7 @@ namespace SchoolManager.DataAccess.Repositories
         {
             try
             {
-                classroom? classroom = _db.classrooms.Where(x => x.id == id).FirstOrDefault();
+                Classroom? classroom = _db.classrooms.Where(x => x.id == id).FirstOrDefault();
                 if (classroom == null)
                 {
                     return BadRequest("Sınıf bulunamadı.");

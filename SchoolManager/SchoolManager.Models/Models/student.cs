@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace SchoolManager.Models.Models;
 
-namespace SchoolManager.Models.Models;
-
-public partial class student
+public partial class Student
 {
     public int id { get; set; }
 
@@ -19,5 +16,5 @@ public partial class student
 
     public int classroom_id { get; set; }
 
-    public virtual classroom? classroom { get; set; }
+    public virtual Classroom? classroom { get; set; }
 }

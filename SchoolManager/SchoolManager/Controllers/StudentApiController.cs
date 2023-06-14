@@ -32,7 +32,7 @@ namespace SchoolManager.Controllers
 
         [HttpPost]
         [Route("api/[controller]/CreateStudent")]
-        public async Task<IActionResult> Post([FromBody] student student)
+        public async Task<IActionResult> Post([FromBody] Student student)
         {
             IActionResult result = await _service.Repository.CreateStudent(student);
             return result;
@@ -40,7 +40,7 @@ namespace SchoolManager.Controllers
 
         [HttpPut]
         [Route("api/[controller]/UpdateStudent")]
-        public async Task<IActionResult> Put([FromBody] student student)
+        public async Task<IActionResult> Put([FromBody] Student student)
         {
             IActionResult result = await _service.Repository.UpdateStudent(student);
             return result;

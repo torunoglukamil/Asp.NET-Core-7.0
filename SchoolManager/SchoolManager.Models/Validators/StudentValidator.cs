@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace SchoolManager.Models.Validators
 {
-    public class StudentValidator : AbstractValidator<student>
+    public class StudentValidator : AbstractValidator<Student>
     {
         public StudentValidator()
         {

@@ -13,12 +13,12 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 );
 builder.Services.AddDbContext<school_managerContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IValidator<classroom>, ClassroomValidator>();
+builder.Services.AddScoped<IValidator<Classroom>, ClassroomValidator>();
 builder.Services.AddScoped<ClassroomQuery>();
 builder.Services.AddScoped<ClassroomRepository>();
 builder.Services.AddScoped<ClassroomService>();
 
-builder.Services.AddScoped<IValidator<student>, StudentValidator>();
+builder.Services.AddScoped<IValidator<Student>, StudentValidator>();
 builder.Services.AddScoped<StudentQuery>();
 builder.Services.AddScoped<StudentRepository>();
 builder.Services.AddScoped<StudentService>();

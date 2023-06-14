@@ -3,7 +3,7 @@ using SchoolManager.Models.Models;
 
 namespace SchoolManager.Models.Validators
 {
-    public class ClassroomValidator : AbstractValidator<classroom>
+    public class ClassroomValidator : AbstractValidator<Classroom>
     {
         public ClassroomValidator()
         {

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace SchoolManager.Models.Models;
 
@@ -15,9 +13,9 @@ public partial class school_managerContext : DbContext
     {
     }
 
-    public virtual DbSet<classroom> classrooms { get; set; }
+    public virtual DbSet<Classroom> classrooms { get; set; }
 
-    public virtual DbSet<student> students { get; set; }
+    public virtual DbSet<Student> students { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
@@ -25,14 +23,14 @@ public partial class school_managerContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<classroom>(entity =>
+        modelBuilder.Entity<Classroom>(entity =>
         {
             entity.HasKey(e => e.id).HasName("classrooms_pkey");
 
             entity.Property(e => e.branch).HasMaxLength(1);
         });
 
-        modelBuilder.Entity<student>(entity =>
+        modelBuilder.Entity<Student>(entity =>
         {
             entity.HasKey(e => e.id).HasName("students_pkey");
 

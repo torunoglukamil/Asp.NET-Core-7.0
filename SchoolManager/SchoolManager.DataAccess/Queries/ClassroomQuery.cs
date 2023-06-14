@@ -16,7 +16,7 @@ namespace SchoolManager.DataAccess.Queries
         {
             try
             {
-                List<classroom> classroomList = _db.classrooms.ToList();
+                List<Classroom> classroomList = _db.classrooms.ToList();
                 return Ok(classroomList);
             }
             catch (Exception e)
@@ -29,7 +29,7 @@ namespace SchoolManager.DataAccess.Queries
         {
             try
             {
-                classroom? classroom = _db.classrooms.Where(x => x.id == id).FirstOrDefault();
+                Classroom? classroom = _db.classrooms.Where(x => x.id == id).FirstOrDefault();
                 if (classroom == null)
                 {
                     return NotFound();

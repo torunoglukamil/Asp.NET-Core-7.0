@@ -8,15 +8,15 @@ namespace SchoolManager.DataAccess.Repositories
     public class StudentRepository : ControllerBase
     {
         private readonly school_managerContext _db;
-        private readonly IValidator<student> _validator;
+        private readonly IValidator<Student> _validator;
 
-        public StudentRepository(school_managerContext context, IValidator<student> validator)
+        public StudentRepository(school_managerContext context, IValidator<Student> validator)
         {
             _db = context;
             _validator = validator;
         }
 
-        public async Task<IActionResult> CreateStudent(student student)
+        public async Task<IActionResult> CreateStudent(Student student)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace SchoolManager.DataAccess.Repositories
                 {
                     return BadRequest(validationResult.Errors.FirstOrDefault()!.ErrorMessage);
                 }
-                student? _student = _db.students.Where(x => x.email == student.email).FirstOrDefault();
+                Student? _student = _db.students.Where(x => x.email == student.email).FirstOrDefault();
                 if (_student != null)
                 {
                     return BadRequest("E-posta adresi zaten kullanımda.");
@@ -38,7 +38,7 @@ namespace SchoolManager.DataAccess.Repositories
                         return BadRequest("Telefon numarası zaten kullanımda.");
                     }
                 }
-                classroom? classroom = _db.classrooms.Where(x => x.id == student.classroom_id).FirstOrDefault();
+                Classroom? classroom = _db.classrooms.Where(x => x.id == student.classroom_id).FirstOrDefault();
                 if (classroom == null)
                 {
                     return BadRequest("Sınıf bulunamadı.");
@@ -53,7 +53,7 @@ namespace SchoolManager.DataAccess.Repositories
             }
         }
 
-        public async Task<IActionResult> UpdateStudent(student student)
+        public async Task<IActionResult> UpdateStudent(Student student)
         {
             try
             {
@@ -62,12 +62,12 @@ namespace SchoolManager.DataAccess.Repositories
                 {
                     return BadRequest(validationResult.Errors.FirstOrDefault()!.ErrorMessage);
                 }
-                student? _student = _db.students.Where(x => x.id == student.id).FirstOrDefault();
+                Student? _student = _db.students.Where(x => x.id == student.id).FirstOrDefault();
                 if (_student == null)
                 {
                     return BadRequest("Öğrenci bulunamadı.");
                 }
-                classroom? classroom = _db.classrooms.Where(x => x.id == student.classroom_id).FirstOrDefault();
+                Classroom? classroom = _db.classrooms.Where(x => x.id == student.classroom_id).FirstOrDefault();
                 if (classroom == null)
                 {
                     return BadRequest("Sınıf bulunamadı.");
@@ -89,7 +89,7 @@ namespace SchoolManager.DataAccess.Repositories
         {
             try
             {
-                student? student = _db.students.Where(x => x.id == id).FirstOrDefault();
+                Student? student = _db.students.Where(x => x.id == id).FirstOrDefault();
                 if (student == null)
                 {
                     return BadRequest("Öğrenci bulunamadı.");
