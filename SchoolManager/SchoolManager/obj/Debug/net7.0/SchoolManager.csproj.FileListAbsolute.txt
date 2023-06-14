@@ -46,3 +46,6 @@ C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager\bin\Debug\net7.0\H
 C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Design.dll
 C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager\bin\Debug\net7.0\Mono.TextTemplating.dll
 C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager\bin\Debug\net7.0\System.CodeDom.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager\bin\Debug\net7.0\FluentValidation.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\SchoolManager\SchoolManager\bin\Debug\net7.0\FluentValidation.AspNetCore.dll

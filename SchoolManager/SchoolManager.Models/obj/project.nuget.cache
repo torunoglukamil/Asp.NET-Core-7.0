@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "5LRUY+fXAd7lcUetBqrseo2bqV9aSGjzMWd1K7DrY/t3G9a9DHWOCcX4ENi1E/DnWnPstfHs6WID4QSsOfDcTg==",
+  "dgSpecHash": "zjLm5lnCEQ3OvcLURmRR/ZVvPT6bjfpA3QGevG/rjMDSXFsjC30xrwFdaoErCcGuK3JN7RvtE67yAM2KnvqG5w==",
   "success": true,
   "projectFilePath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\SchoolManager\\SchoolManager.Models\\SchoolManager.Models.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\pulsa\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
+    "C:\\Users\\pulsa\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "C:\\Users\\pulsa\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "C:\\Users\\pulsa\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.5\\microsoft.entityframeworkcore.7.0.5.nupkg.sha512",
     "C:\\Users\\pulsa\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.5\\microsoft.entityframeworkcore.abstractions.7.0.5.nupkg.sha512",
     "C:\\Users\\pulsa\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.5\\microsoft.entityframeworkcore.analyzers.7.0.5.nupkg.sha512",

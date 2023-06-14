@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc;
 using SchoolManager.Models.Models;
 
 namespace SchoolManager.DataAccess.Repositories
@@ -6,53 +8,40 @@ namespace SchoolManager.DataAccess.Repositories
     public class StudentRepository : ControllerBase
     {
         private readonly school_managerContext _db;
+        private readonly IValidator<student> _validator;
 
-        public StudentRepository(school_managerContext context)
+        public StudentRepository(school_managerContext context, IValidator<student> validator)
         {
             _db = context;
+            _validator = validator;
         }
 
-        public IActionResult CreateStudent(student student)
+        public async Task<IActionResult> CreateStudent(student student)
         {
             try
             {
-                student? _student = _db.students.Where(s => s.email == student.email).FirstOrDefault();
+                ValidationResult validationResult = await _validator.ValidateAsync(student);
+                if (!validationResult.IsValid)
+                {
+                    return BadRequest(validationResult.Errors.FirstOrDefault()!.ErrorMessage);
+                }
+                student? _student = _db.students.Where(x => x.email == student.email).FirstOrDefault();
                 if (_student != null)
                 {
-                    return BadRequest("email-already-in-use");
+                    return BadRequest("E-posta adresi zaten kullanımda.");
                 }
                 if (student.phone != null)
                 {
-                    _student = _db.students.Where(s => s.phone == student.phone).FirstOrDefault();
+                    _student = _db.students.Where(x => x.phone == student.phone).FirstOrDefault();
                     if (_student != null)
                     {
-                        return BadRequest("phone-already-in-use");
+                        return BadRequest("Telefon numarası zaten kullanımda.");
                     }
                 }
-                classroom? classroom = _db.classrooms.Where(c => c.id == student.classroom_id).FirstOrDefault();
+                classroom? classroom = _db.classrooms.Where(x => x.id == student.classroom_id).FirstOrDefault();
                 if (classroom == null)
                 {
-                    return BadRequest("classroom-not-found");
-                }
-                if (student.first_name.Length > 50)
-                {
-                    return BadRequest("first-name-over-50-characters");
-                }
-                if (student.last_name.Length > 50)
-                {
-                    return BadRequest("last-name-over-50-characters");
-                }
-                if (student.age < 18)
-                {
-                    return BadRequest("age-under-18");
-                }
-                if (student.email.Length > 100)
-                {
-                    return BadRequest("email-over-100-characters");
-                }
-                if ((student.phone?.Length ?? 0) > 15)
-                {
-                    return BadRequest("phone-over-15-characters");
+                    return BadRequest("Sınıf bulunamadı.");
                 }
                 _db.students.Add(student);
                 _db.SaveChanges();
@@ -64,31 +53,24 @@ namespace SchoolManager.DataAccess.Repositories
             }
         }
 
-        public IActionResult UpdateStudent(student student)
+        public async Task<IActionResult> UpdateStudent(student student)
         {
             try
             {
-                student? _student = _db.students.Where(s => s.id == student.id).FirstOrDefault();
+                ValidationResult validationResult = await _validator.ValidateAsync(student);
+                if (!validationResult.IsValid)
+                {
+                    return BadRequest(validationResult.Errors.FirstOrDefault()!.ErrorMessage);
+                }
+                student? _student = _db.students.Where(x => x.id == student.id).FirstOrDefault();
                 if (_student == null)
                 {
-                    return BadRequest("student-not-found");
+                    return BadRequest("Öğrenci bulunamadı.");
                 }
-                classroom? classroom = _db.classrooms.Where(c => c.id == student.classroom_id).FirstOrDefault();
+                classroom? classroom = _db.classrooms.Where(x => x.id == student.classroom_id).FirstOrDefault();
                 if (classroom == null)
                 {
-                    return BadRequest("classroom-not-found");
-                }
-                if (student.first_name.Length > 50)
-                {
-                    return BadRequest("first-name-over-50-characters");
-                }
-                if (student.last_name.Length > 50)
-                {
-                    return BadRequest("last-name-over-50-characters");
-                }
-                if (student.age < 18)
-                {
-                    return BadRequest("age-under-18");
+                    return BadRequest("Sınıf bulunamadı.");
                 }
                 _student.first_name = student.first_name;
                 _student.last_name = student.last_name;
@@ -107,10 +89,10 @@ namespace SchoolManager.DataAccess.Repositories
         {
             try
             {
-                student? student = _db.students.Where(s => s.id == id).FirstOrDefault();
+                student? student = _db.students.Where(x => x.id == id).FirstOrDefault();
                 if (student == null)
                 {
-                    return BadRequest("student-not-found");
+                    return BadRequest("Öğrenci bulunamadı.");
                 }
                 _db.students.Remove(student);
                 _db.SaveChanges();

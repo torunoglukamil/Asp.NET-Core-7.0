@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "J6I/uLI39No3mFELsyjMC5YWJKnM89ORSEhXB986ocR9yALZQv0pfal24i6JuBv5ByNBPiL8XOfgp/MujUhqiw==",
+  "dgSpecHash": "Tey42AL0/GfgPI0idAPIBxjh9/TEvL9XV2lRSIXyeB4a+AcT3LAqAMsoNj2FsEkB0bYTII/xaQFOkhwI5+egdQ==",
   "success": true,
   "projectFilePath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\SchoolManager\\SchoolManager\\SchoolManager.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\pulsa\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
+    "C:\\Users\\pulsa\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "C:\\Users\\pulsa\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "C:\\Users\\pulsa\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\pulsa\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\pulsa\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",

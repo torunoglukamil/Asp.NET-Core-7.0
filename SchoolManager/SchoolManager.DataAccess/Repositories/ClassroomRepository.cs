@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc;
 using SchoolManager.Models.Models;
 
 namespace SchoolManager.DataAccess.Repositories
@@ -6,24 +8,27 @@ namespace SchoolManager.DataAccess.Repositories
     public class ClassroomRepository : ControllerBase
     {
         private readonly school_managerContext _db;
+        private readonly IValidator<classroom> _validator;
 
-        public ClassroomRepository(school_managerContext context)
+        public ClassroomRepository(school_managerContext context, IValidator<classroom> validator)
         {
             _db = context;
+            _validator = validator;
         }
 
-        public IActionResult CreateClassroom(classroom classroom)
+        public async Task<IActionResult> CreateClassroom(classroom classroom)
         {
             try
             {
-                classroom? _classroom = _db.classrooms.Where(c => c.grade == classroom.grade && c.branch == classroom.branch).FirstOrDefault();
+                ValidationResult validationResult = await _validator.ValidateAsync(classroom);
+                if (!validationResult.IsValid)
+                {
+                    return BadRequest(validationResult.Errors.FirstOrDefault()!.ErrorMessage);
+                }
+                classroom? _classroom = _db.classrooms.Where(x => x.grade == classroom.grade && x.branch == classroom.branch).FirstOrDefault();
                 if (_classroom != null)
                 {
-                    return BadRequest("classroom-already-exist");
-                }
-                if (classroom.branch.Length > 1)
-                {
-                    return BadRequest("branch-over-1-character");
+                    return BadRequest("Sınıf zaten mevcut.");
                 }
                 _db.classrooms.Add(classroom);
                 _db.SaveChanges();
@@ -35,23 +40,24 @@ namespace SchoolManager.DataAccess.Repositories
             }
         }
 
-        public IActionResult UpdateClassroom(classroom classroom)
+        public async Task<IActionResult> UpdateClassroom(classroom classroom)
         {
             try
             {
-                classroom? _classroom = _db.classrooms.Where(c => c.grade == classroom.grade && c.branch == classroom.branch).FirstOrDefault();
+                ValidationResult validationResult = await _validator.ValidateAsync(classroom);
+                if (!validationResult.IsValid)
+                {
+                    return BadRequest(validationResult.Errors.FirstOrDefault()!.ErrorMessage);
+                }
+                classroom? _classroom = _db.classrooms.Where(x => x.grade == classroom.grade && x.branch == classroom.branch).FirstOrDefault();
                 if (_classroom != null && _classroom.id != classroom.id)
                 {
-                    return BadRequest("classroom-already-exist");
+                    return BadRequest("Sınıf zaten mevcut.");
                 }
-                _classroom = _db.classrooms.Where(c => c.id == classroom.id).FirstOrDefault();
+                _classroom = _db.classrooms.Where(x => x.id == classroom.id).FirstOrDefault();
                 if (_classroom == null)
                 {
-                    return BadRequest("classroom-not-found");
-                }
-                if (classroom.branch.Length != 1)
-                {
-                    return BadRequest("branch-not-1-character");
+                    return BadRequest("Sınıf bulunamadı.");
                 }
                 _classroom.grade = classroom.grade;
                 _classroom.branch = classroom.branch;
@@ -68,10 +74,10 @@ namespace SchoolManager.DataAccess.Repositories
         {
             try
             {
-                classroom? classroom = _db.classrooms.Where(c => c.id == id).FirstOrDefault();
+                classroom? classroom = _db.classrooms.Where(x => x.id == id).FirstOrDefault();
                 if (classroom == null)
                 {
-                    return BadRequest("classroom-not-found");
+                    return BadRequest("Sınıf bulunamadı.");
                 }
                 _db.classrooms.Remove(classroom);
                 _db.SaveChanges();

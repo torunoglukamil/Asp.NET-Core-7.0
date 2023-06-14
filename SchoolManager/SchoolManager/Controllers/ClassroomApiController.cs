@@ -18,7 +18,7 @@ namespace SchoolManager.Controllers
         [Route("api/[controller]/GetClassrooms")]
         public IActionResult Get()
         {
-            var result = _service.Query.GetClassrooms();
+            IActionResult result = _service.Query.GetClassrooms();
             return result;
         }
 
@@ -26,23 +26,23 @@ namespace SchoolManager.Controllers
         [Route("api/[controller]/GetClassroomById/{id}")]
         public IActionResult Get(int id)
         {
-            var result = _service.Query.GetClassroomById(id);
+            IActionResult result = _service.Query.GetClassroomById(id);
             return result;
         }
 
         [HttpPost]
         [Route("api/[controller]/CreateClassroom")]
-        public IActionResult Post([FromBody] classroom classroom)
+        public async Task<IActionResult> Post([FromBody] classroom classroom)
         {
-            var result = _service.Repository.CreateClassroom(classroom);
+            IActionResult result = await _service.Repository.CreateClassroom(classroom);
             return result;
         }
 
         [HttpPut]
         [Route("api/[controller]/UpdateClassroom")]
-        public IActionResult Put([FromBody] classroom classroom)
+        public async Task<IActionResult> Put([FromBody] classroom classroom)
         {
-            var result = _service.Repository.UpdateClassroom(classroom);
+            IActionResult result = await _service.Repository.UpdateClassroom(classroom);
             return result;
         }
 
@@ -50,7 +50,7 @@ namespace SchoolManager.Controllers
         [Route("api/[controller]/DeleteClassroomById/{id}")]
         public IActionResult Delete(int id)
         {
-            var result = _service.Repository.DeleteClassroomById(id);
+            IActionResult result = _service.Repository.DeleteClassroomById(id);
             return result;
         }
     }

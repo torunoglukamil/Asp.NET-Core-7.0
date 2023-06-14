@@ -29,7 +29,7 @@ namespace SchoolManager.DataAccess.Queries
         {
             try
             {
-                classroom? classroom = _db.classrooms.Where(c => c.id == id).FirstOrDefault();
+                classroom? classroom = _db.classrooms.Where(x => x.id == id).FirstOrDefault();
                 if (classroom == null)
                 {
                     return NotFound();
