@@ -45,11 +45,11 @@ namespace SchoolManager.DataAccess.Repositories
                 }
                 _db.students.Add(student);
                 _db.SaveChanges();
-                return Ok();
+                return Ok("Öğrenci başarıyla oluşturuldu.");
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
 
@@ -62,7 +62,20 @@ namespace SchoolManager.DataAccess.Repositories
                 {
                     return BadRequest(validationResult.Errors.FirstOrDefault()!.ErrorMessage);
                 }
-                Student? _student = _db.students.Where(x => x.id == student.id).FirstOrDefault();
+                Student? _student = _db.students.Where(x => x.email == student.email).FirstOrDefault();
+                if (_student != null && _student.id != student.id)
+                {
+                    return BadRequest("E-posta adresi zaten kullanımda.");
+                }
+                if (student.phone != null)
+                {
+                    _student = _db.students.Where(x => x.phone == student.phone).FirstOrDefault();
+                    if (_student != null && _student.id != student.id)
+                    {
+                        return BadRequest("Telefon numarası zaten kullanımda.");
+                    }
+                }
+                _student = _db.students.Where(x => x.id == student.id).FirstOrDefault();
                 if (_student == null)
                 {
                     return BadRequest("Öğrenci bulunamadı.");
@@ -75,13 +88,15 @@ namespace SchoolManager.DataAccess.Repositories
                 _student.first_name = student.first_name;
                 _student.last_name = student.last_name;
                 _student.age = student.age;
+                _student.email = student.email;
+                _student.phone = student.phone;
                 _student.classroom_id = student.classroom_id;
                 _db.SaveChanges();
-                return Ok();
+                return Ok("Öğrenci başarıyla güncellendi.");
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
 
@@ -96,11 +111,11 @@ namespace SchoolManager.DataAccess.Repositories
                 }
                 _db.students.Remove(student);
                 _db.SaveChanges();
-                return Ok();
+                return Ok("Öğrenci başarıyla silindi.");
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
     }

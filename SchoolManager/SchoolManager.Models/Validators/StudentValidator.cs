@@ -11,30 +11,30 @@ namespace SchoolManager.Models.Validators
             RuleFor(x => x.first_name)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("Öğrenci ismi eksik.")
-                .MaximumLength(50)
-                .WithMessage("Öğrenci ismi en fazla 50 karakter olmalı.");
+                .WithMessage("Öğrenci ismi eksik.");
             RuleFor(x => x.last_name)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("Öğrenci soyismi eksik.")
-                .MaximumLength(50)
-                .WithMessage("Öğrenci soyismi en fazla 50 karakter olmalı.");
+                .WithMessage("Öğrenci soyismi eksik.");
             RuleFor(x => x.age)
                 .NotNull()
-                .GreaterThan(Convert.ToSByte(17))
+                .WithMessage("Öğrenci yaşı eksik.")
+                .GreaterThan(17)
                 .WithMessage("Öğrenci yaşı en az 18 olmalı.");
             RuleFor(x => x.email)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("E-posta adresi eksik.")
                 .EmailAddress()
-                .WithMessage("E-posta adresi doğru formatta değil.")
-                .MaximumLength(100)
-                .WithMessage("E-posta adresi en fazla 100 karakter olmalı.");
+                .WithMessage("E-posta adresi doğru formatta değil.");
             RuleFor(x => x.phone)
                 .Matches(new Regex(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$"))
+                .When(x => x.phone != null && x.phone != string.Empty)
                 .WithMessage("Telefon numarası 5XX XXX XXXX formatında olmalı.");
+            RuleFor(x => x.classroom_id)
+                .NotNull()
+                .GreaterThan(0)
+                .WithMessage("Sınıf bilgisi eksik.");
         }
     }
 }

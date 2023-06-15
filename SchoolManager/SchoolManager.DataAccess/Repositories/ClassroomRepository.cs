@@ -32,11 +32,11 @@ namespace SchoolManager.DataAccess.Repositories
                 }
                 _db.classrooms.Add(classroom);
                 _db.SaveChanges();
-                return Ok();
+                return Ok("Sınıf başarıyla oluşturuldu.");
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
 
@@ -62,11 +62,11 @@ namespace SchoolManager.DataAccess.Repositories
                 _classroom.grade = classroom.grade;
                 _classroom.branch = classroom.branch;
                 _db.SaveChanges();
-                return Ok();
+                return Ok("Sınıf başarıyla güncellendi.");
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
 
@@ -81,11 +81,11 @@ namespace SchoolManager.DataAccess.Repositories
                 }
                 _db.classrooms.Remove(classroom);
                 _db.SaveChanges();
-                return Ok();
+                return Ok("Sınıf başarıyla silindi.");
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
     }

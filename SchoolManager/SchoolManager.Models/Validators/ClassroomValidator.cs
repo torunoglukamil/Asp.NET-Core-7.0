@@ -9,8 +9,11 @@ namespace SchoolManager.Models.Validators
         {
             RuleFor(x => x.grade)
                 .NotNull()
-                .GreaterThan(Convert.ToSByte(0))
-                .WithMessage("Sınıf derecesi en az 1 olmalı.");
+                .WithMessage("Sınıf derecesi eksik.")
+                .GreaterThan(0)
+                .WithMessage("Sınıf derecesi en az 1 olmalı.")
+                .LessThan(5)
+                .WithMessage("Sınıf derecesi en fazla 4 olmalı.");
             RuleFor(x => x.branch)
                 .NotNull()
                 .NotEmpty()

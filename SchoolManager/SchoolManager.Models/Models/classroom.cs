@@ -2,11 +2,11 @@
 
 public partial class Classroom
 {
-    public int id { get; set; }
+    public int? id { get; set; }
 
-    public short grade { get; set; }
+    public int? grade { get; set; }
 
-    public string branch { get; set; } = null!;
+    public string? branch { get; set; }
 
     public virtual ICollection<Student>? students { get; set; }
 }

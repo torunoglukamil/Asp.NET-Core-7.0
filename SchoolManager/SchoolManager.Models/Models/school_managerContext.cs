@@ -26,26 +26,14 @@ public partial class school_managerContext : DbContext
         modelBuilder.Entity<Classroom>(entity =>
         {
             entity.HasKey(e => e.id).HasName("classrooms_pkey");
-
-            entity.Property(e => e.branch).HasMaxLength(1);
         });
 
         modelBuilder.Entity<Student>(entity =>
         {
             entity.HasKey(e => e.id).HasName("students_pkey");
 
-            entity.HasIndex(e => e.email, "students_email_key").IsUnique();
-
-            entity.HasIndex(e => e.phone, "students_phone_key").IsUnique();
-
-            entity.Property(e => e.email).HasMaxLength(100);
-            entity.Property(e => e.first_name).HasMaxLength(50);
-            entity.Property(e => e.last_name).HasMaxLength(50);
-            entity.Property(e => e.phone).HasMaxLength(15);
-
             entity.HasOne(d => d.classroom).WithMany(p => p.students)
                 .HasForeignKey(d => d.classroom_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("students_fkey_classrooms");
         });
 

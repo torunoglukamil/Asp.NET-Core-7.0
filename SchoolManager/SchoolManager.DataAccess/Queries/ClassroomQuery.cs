@@ -16,12 +16,12 @@ namespace SchoolManager.DataAccess.Queries
         {
             try
             {
-                List<Classroom> classroomList = _db.classrooms.ToList();
+                List<Classroom> classroomList = _db.classrooms.OrderBy(x => x.grade).ThenBy(x => x.branch).ToList();
                 return Ok(classroomList);
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
 
@@ -38,7 +38,7 @@ namespace SchoolManager.DataAccess.Queries
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
     }

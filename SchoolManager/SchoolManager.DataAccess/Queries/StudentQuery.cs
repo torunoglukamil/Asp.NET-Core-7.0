@@ -21,7 +21,7 @@ namespace SchoolManager.DataAccess.Queries
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
 
@@ -32,19 +32,19 @@ namespace SchoolManager.DataAccess.Queries
                 Student? student = _db.students.Where(x => x.id == id).FirstOrDefault();
                 if (student == null)
                 {
-                    return NotFound();
+                    return BadRequest("Öğrenci bulunamadı.");
                 }
                 Classroom? classroom = _db.classrooms.Where(x => x.id == student.classroom_id).FirstOrDefault();
                 if (classroom == null)
                 {
-                    return NotFound();
+                    return BadRequest("Sınıf bulunamadı.");
                 }
                 student.classroom = classroom;
                 return Ok(student);
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
     }
