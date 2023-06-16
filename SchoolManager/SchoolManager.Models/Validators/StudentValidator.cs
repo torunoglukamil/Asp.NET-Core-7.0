@@ -28,8 +28,8 @@ namespace SchoolManager.Models.Validators
                 .EmailAddress()
                 .WithMessage("E-posta adresi doğru formatta değil.");
             RuleFor(x => x.phone)
-                .Matches(new Regex(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$"))
-                .When(x => x.phone != null && x.phone != string.Empty)
+                .Matches(new Regex(@"^[1-9]{1}[0-9]{9}$"))
+                .When(x => x.phone != null)
                 .WithMessage("Telefon numarası 5XX XXX XXXX formatında olmalı.");
             RuleFor(x => x.classroom_id)
                 .NotNull()

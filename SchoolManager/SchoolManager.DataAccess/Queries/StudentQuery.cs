@@ -16,7 +16,16 @@ namespace SchoolManager.DataAccess.Queries
         {
             try
             {
-                List<Student> studentList = _db.students.ToList();
+                List<Student> studentList = new List<Student>();
+                foreach (Student student in _db.students.OrderBy(x => x.first_name).ThenBy(x => x.last_name).ThenBy(x => x.age).ToList())
+                {
+                    Classroom? classroom = _db.classrooms.Where(x => x.id == student.classroom_id).FirstOrDefault();
+                    if (classroom != null)
+                    {
+                        student.classroom = classroom;
+                        studentList.Add(student);
+                    }
+                }
                 return Ok(studentList);
             }
             catch (Exception e)
