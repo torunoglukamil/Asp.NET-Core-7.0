@@ -1,5 +1,6 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using YMA.Business.Interfaces;
 using YMA.Business.Services;
 using YMA.DataAccess.Helpers;
 using YMA.DataAccess.Queries;
@@ -12,6 +13,9 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<ymaContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddSingleton<ResponseHelper>();
+
+builder.Services.AddScoped<IValidator<AuthModel>, AuthValidator>();
+builder.Services.AddScoped<IAuthService, FirebaseAuthService>();
 
 builder.Services.AddScoped<IValidator<address>, AddressValidator>();
 
