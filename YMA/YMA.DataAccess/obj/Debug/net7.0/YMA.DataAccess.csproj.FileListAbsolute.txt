@@ -1,0 +1,15 @@
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\bin\Debug\net7.0\YMA.DataAccess.deps.json
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\bin\Debug\net7.0\YMA.DataAccess.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\bin\Debug\net7.0\YMA.DataAccess.pdb
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\obj\Debug\net7.0\YMA.DataAccess.csproj.AssemblyReference.cache
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\obj\Debug\net7.0\YMA.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\obj\Debug\net7.0\YMA.DataAccess.AssemblyInfoInputs.cache
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\obj\Debug\net7.0\YMA.DataAccess.AssemblyInfo.cs
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\obj\Debug\net7.0\YMA.DataAccess.csproj.CoreCompileInputs.cache
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\obj\Debug\net7.0\YMA.DataAccess.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\obj\Debug\net7.0\refint\YMA.DataAccess.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\obj\Debug\net7.0\YMA.DataAccess.pdb
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\obj\Debug\net7.0\ref\YMA.DataAccess.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\bin\Debug\net7.0\YMA.Models.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\bin\Debug\net7.0\YMA.Models.pdb
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\obj\Debug\net7.0\YMA.DataAccess.csproj.CopyComplete
