@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
-namespace YMA.Models.Models;
+namespace YMA.Models.Entities;
 
 public partial class ymaContext : DbContext
 {

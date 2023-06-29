@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using System.Text.RegularExpressions;
 using YMA.Models.Models;
 
 namespace YMA.Models.Validators
@@ -18,7 +19,23 @@ namespace YMA.Models.Validators
                 .NotNull()
                 .WithMessage("Şifrenizi giriniz.")
                 .NotEmpty()
-                .WithMessage("Şifrenizi giriniz.");
+                .WithMessage("Şifrenizi giriniz.")
+                .MinimumLength(8)
+                .When(x => x.is_creation == true)
+                .WithMessage("Şifre en az 8 haneli olmalı.")
+                .Matches(new Regex(@"^(?=.*[A-Za-z])"))
+                .When(x => x.is_creation == true)
+                .WithMessage("Şifre en az 1 tane harf içermeli.")
+                .Matches(new Regex(@"^(?=.*[0-9])"))
+                .When(x => x.is_creation == true)
+                .WithMessage("Şifre en az 1 tane rakam içermeli.");
+            RuleFor(x => x.password_again)
+                .NotNull()
+                .When(x => x.is_creation == true)
+                .WithMessage("Girilen şifreler eşleşmiyor.")
+                .NotEmpty()
+                .When(x => x.is_creation == true)
+                .WithMessage("Girilen şifreler eşleşmiyor.");
         }
     }
 }

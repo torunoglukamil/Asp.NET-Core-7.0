@@ -2,7 +2,7 @@
 
 namespace YMA.Models.Models;
 
-public partial class address
+public class AddressModel
 {
     private readonly TextInfo _textInfo = Thread.CurrentThread.CurrentCulture.TextInfo;
 
@@ -43,10 +43,4 @@ public partial class address
         get { return _neighbourhood; }
         set { _neighbourhood = _textInfo.ToTitleCase(value!.Trim()); }
     }
-
-    public DateTime? create_date { get; set; }
-
-    public bool? is_disabled { get; set; }
-
-    public virtual ICollection<account>? accounts { get; set; }
 }

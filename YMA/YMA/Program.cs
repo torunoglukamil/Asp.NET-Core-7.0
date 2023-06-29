@@ -5,6 +5,8 @@ using YMA.Business.Services;
 using YMA.DataAccess.Helpers;
 using YMA.DataAccess.Queries;
 using YMA.DataAccess.Repositories;
+using YMA.Models.Converters;
+using YMA.Models.Entities;
 using YMA.Models.Models;
 using YMA.Models.Validators;
 
@@ -16,10 +18,12 @@ builder.Services.AddSingleton<ResponseHelper>();
 
 builder.Services.AddScoped<IValidator<AuthModel>, AuthValidator>();
 builder.Services.AddScoped<IAuthService, FirebaseAuthService>();
+builder.Services.AddScoped<AuthService>();
 
-builder.Services.AddScoped<IValidator<address>, AddressValidator>();
+builder.Services.AddScoped<IValidator<AddressModel>, AddressValidator>();
 
-builder.Services.AddScoped<IValidator<account>, AccountValidator>();
+builder.Services.AddSingleton<AccountConverter>();
+builder.Services.AddScoped<IValidator<AccountModel>, AccountValidator>();
 builder.Services.AddScoped<AccountQuery>();
 builder.Services.AddScoped<AccountRepository>();
 builder.Services.AddScoped<AccountService>();

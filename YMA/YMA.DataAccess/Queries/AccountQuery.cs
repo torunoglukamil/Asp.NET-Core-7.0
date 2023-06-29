@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using YMA.DataAccess.Helpers;
+using YMA.Models.Converters;
+using YMA.Models.Entities;
 using YMA.Models.Models;
 
 namespace YMA.DataAccess.Queries
@@ -8,14 +10,16 @@ namespace YMA.DataAccess.Queries
     {
         private readonly ymaContext _db;
         private readonly ResponseHelper _helper;
+        private readonly AccountConverter _converter;
 
-        public AccountQuery(ymaContext db, ResponseHelper helper)
+        public AccountQuery(ymaContext db, ResponseHelper helper, AccountConverter converter)
         {
             _db = db;
             _helper = helper;
+            _converter = converter;
         }
 
-        public ResponseModel GetAccountById(int id) => _helper.TryCatch(
+        public ResponseModel GetAccountById(int id, bool returnAccountModel) => _helper.TryCatch(
              () =>
              {
                  account? account = _db.accounts.Where(x => x.id == id).FirstOrDefault();
@@ -24,7 +28,7 @@ namespace YMA.DataAccess.Queries
                      return new ResponseModel()
                      {
                          status_code = StatusCodes.Status400BadRequest,
-                         data = "Hesap bulunamadı.",
+                         message = "Hesap bulunamadı.",
                      };
                  }
                  if (account.is_disabled ?? false)
@@ -33,13 +37,13 @@ namespace YMA.DataAccess.Queries
                      {
                          status_code = StatusCodes.Status400BadRequest,
                          type = "account-disabled",
-                         data = "Hesap devre dışı bırakıldı.",
+                         message = "Hesap devre dışı bırakıldı.",
                      };
                  }
                  return new ResponseModel()
                  {
                      status_code = StatusCodes.Status200OK,
-                     data = account,
+                     data = returnAccountModel ? _converter.ToAccountModel(account) : account,
                  };
              }
           );
@@ -52,7 +56,7 @@ namespace YMA.DataAccess.Queries
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status400BadRequest,
-                    data = "E-posta adresi zaten kullanımda.",
+                    message = "E-posta adresi zaten kullanımda.",
                 };
             }
             return new ResponseModel()
@@ -71,7 +75,7 @@ namespace YMA.DataAccess.Queries
                     return new ResponseModel()
                     {
                         status_code = StatusCodes.Status400BadRequest,
-                        data = "Telefon numarası zaten kullanımda.",
+                        message = "Telefon numarası zaten kullanımda.",
                     };
                 }
             }

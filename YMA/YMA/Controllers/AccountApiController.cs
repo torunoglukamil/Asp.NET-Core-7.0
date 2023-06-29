@@ -16,15 +16,15 @@ namespace YMA.Controllers
 
         [HttpGet]
         [Route("api/[controller]/GetAccountById/{id}")]
-        public ResponseModel Get(int id) => _service.Query.GetAccountById(id);
+        public ResponseModel Get(int id) => _service.Query.GetAccountById(id, true);
 
         [HttpPost]
         [Route("api/[controller]/CreateAccount")]
-        public async Task<ResponseModel> Post([FromBody] account account) => await _service.Repository.CreateAccount(account);
+        public async Task<ResponseModel> Post([FromBody] AccountModel account) => await _service.Repository.CreateAccount(account);
 
         [HttpPut]
         [Route("api/[controller]/UpdateAccount")]
-        public async Task<ResponseModel> Put([FromBody] account account) => await _service.Repository.UpdateAccount(account);
+        public async Task<ResponseModel> Put([FromBody] AccountModel account) => await _service.Repository.UpdateAccount(account);
 
         [HttpDelete]
         [Route("api/[controller]/DisableAccountById/{id}")]

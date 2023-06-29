@@ -4,6 +4,8 @@ namespace YMA.Business.Interfaces
 {
     public interface IAuthService
     {
-        Task<ResponseModel> SignInWithEmailAndPassword(AuthModel authModel);
+        Task<ResponseModel> CreateAccountWithEmailAndPassword(AuthModel auth);
+
+        Task<ResponseModel> SignInWithEmailAndPassword(AuthModel auth);
     }
 }

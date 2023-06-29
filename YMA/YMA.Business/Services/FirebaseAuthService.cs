@@ -1,6 +1,4 @@
 ﻿using Firebase.Auth;
-using FluentValidation;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using YMA.Business.Interfaces;
@@ -11,15 +9,13 @@ namespace YMA.Business.Services
 {
     public class FirebaseAuthService : IAuthService
     {
-        private readonly FirebaseAuthProvider _auth;
+        private readonly FirebaseAuthProvider _firebaseAuth;
         private readonly ResponseHelper _helper;
-        private readonly IValidator<AuthModel> _validator;
 
-        public FirebaseAuthService(IConfiguration config, ResponseHelper helper, IValidator<AuthModel> validator)
+        public FirebaseAuthService(IConfiguration config, ResponseHelper helper)
         {
-            _auth = new FirebaseAuthProvider(new FirebaseConfig(config.GetValue<string>("FirebaseWebApiKey")));
+            _firebaseAuth = new FirebaseAuthProvider(new FirebaseConfig(config.GetValue<string>("FirebaseWebApiKey")));
             _helper = helper;
-            _validator = validator;
         }
 
         private String GetMessageByAuthErrorReason(AuthErrorReason reason)
@@ -43,34 +39,45 @@ namespace YMA.Business.Services
             }
         }
 
-        public async Task<ResponseModel> SignInWithEmailAndPassword(AuthModel authModel) => await _helper.TryCatch(
+        public async Task<ResponseModel> CreateAccountWithEmailAndPassword(AuthModel auth) => await _helper.TryCatch(
            async () =>
            {
-               ValidationResult validationResult = await _validator.ValidateAsync(authModel);
-               if (!validationResult.IsValid)
-               {
-                   return new ResponseModel()
-                   {
-                       status_code = StatusCodes.Status400BadRequest,
-                       data = validationResult.Errors.FirstOrDefault()!.ErrorMessage,
-                   };
-               }
                try
                {
-                   await _auth.SignInWithEmailAndPasswordAsync(authModel.email, authModel.password);
+                   await _firebaseAuth.CreateUserWithEmailAndPasswordAsync(auth.email, auth.password);
                }
                catch (FirebaseAuthException e)
                {
                    return new ResponseModel()
                    {
                        status_code = StatusCodes.Status400BadRequest,
-                       data = GetMessageByAuthErrorReason(e.Reason),
+                       message = GetMessageByAuthErrorReason(e.Reason),
                    };
                }
                return new ResponseModel()
                {
                    status_code = StatusCodes.Status200OK,
-                   data = "Hesaba başarıyla giriş yapıldı."
+               };
+           });
+
+        public async Task<ResponseModel> SignInWithEmailAndPassword(AuthModel auth) => await _helper.TryCatch(
+           async () =>
+           {
+               try
+               {
+                   await _firebaseAuth.SignInWithEmailAndPasswordAsync(auth.email, auth.password);
+               }
+               catch (FirebaseAuthException e)
+               {
+                   return new ResponseModel()
+                   {
+                       status_code = StatusCodes.Status400BadRequest,
+                       message = GetMessageByAuthErrorReason(e.Reason),
+                   };
+               }
+               return new ResponseModel()
+               {
+                   status_code = StatusCodes.Status200OK,
                };
            });
     }

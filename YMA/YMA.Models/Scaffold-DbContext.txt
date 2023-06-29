@@ -1,5 +1,3 @@
-﻿Scaffold-DbContext "Server=localhost;Port=5432;Database=yma;Userid=postgres;Password=admin;" Npgsql.EntityFrameworkCore.PostgreSQL -o Models -Schemas public -force -UseDatabaseNames -NoPluralize
+﻿Scaffold-DbContext "Server=localhost;Port=5432;Database=yma;Userid=postgres;Password=admin;" Npgsql.EntityFrameworkCore.PostgreSQL -o Entities -Schemas public -force -UseDatabaseNames -NoPluralize
 
-Scaffold-DbContext "Server=localhost;Port=5432;Database=yma;Userid=postgres;Password=admin;" Npgsql.EntityFrameworkCore.PostgreSQL -o Models -Schemas public -force -UseDatabaseNames
-
-Scaffold-DbContext "Server=localhost;Port=5432;Database=yma;Userid=postgres;Password=admin;" Npgsql.EntityFrameworkCore.PostgreSQL -o TEST -Schemas public -force -UseDatabaseNames
+Scaffold-DbContext "Server=localhost;Port=5432;Database=yma;Userid=postgres;Password=admin;" Npgsql.EntityFrameworkCore.PostgreSQL -o Entities -Schemas public -force -UseDatabaseNames

@@ -2,7 +2,7 @@
 
 namespace YMA.Models.Models;
 
-public partial class account
+public class AccountModel
 {
     private readonly TextInfo _textInfo = Thread.CurrentThread.CurrentCulture.TextInfo;
 
@@ -49,10 +49,4 @@ public partial class account
     }
 
     public int? default_address_id { get; set; }
-
-    public DateTime? create_date { get; set; }
-
-    public bool? is_disabled { get; set; }
-
-    public virtual address? default_address { get; set; }
 }

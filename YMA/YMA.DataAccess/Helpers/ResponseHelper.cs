@@ -16,10 +16,11 @@ namespace YMA.DataAccess.Helpers
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status400BadRequest,
-                    data = e.Message,
+                    message = e.Message,
                 };
             }
         }
+
         public async Task<ResponseModel> TryCatch(Func<Task<ResponseModel>> function)
         {
             try
@@ -31,7 +32,7 @@ namespace YMA.DataAccess.Helpers
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status400BadRequest,
-                    data = e.Message,
+                    message = e.Message,
                 };
             }
         }

@@ -3,29 +3,29 @@ using YMA.Models.Models;
 
 namespace YMA.Models.Validators
 {
-    public class AddressValidator : AbstractValidator<address>
+    public class AddressValidator : AbstractValidator<AddressModel>
     {
         public AddressValidator() {
             RuleFor(x => x.full_address)
                 .NotNull()
-                .WithMessage("Tam adres bilgisi eksik.")
+                .WithMessage("Tam adres giriniz.")
                 .NotEmpty()
-                .WithMessage("Tam adres bilgisi eksik.");
+                .WithMessage("Tam adres giriniz.");
             RuleFor(x => x.province)
                 .NotNull()
-                .WithMessage("İl bilgisi eksik.")
+                .WithMessage("İl seçiniz.")
                 .NotEmpty()
-                .WithMessage("İl bilgisi eksik.");
+                .WithMessage("İl seçiniz.");
             RuleFor(x => x.district)
                 .NotNull()
-                .WithMessage("İlçe bilgisi eksik.")
+                .WithMessage("İlçe seçiniz.")
                 .NotEmpty()
-                .WithMessage("İlçe bilgisi eksik.");
+                .WithMessage("İlçe seçiniz.");
             RuleFor(x => x.neighbourhood)
                 .NotNull()
-                .WithMessage("Mahalle bilgisi eksik.")
+                .WithMessage("Mahalle seçiniz.")
                 .NotEmpty()
-                .WithMessage("Mahalle bilgisi eksik.");
+                .WithMessage("Mahalle seçiniz.");
         }
     }
 }
