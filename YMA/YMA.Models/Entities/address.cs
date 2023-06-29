@@ -19,7 +19,5 @@ public partial class address
 
     public DateTime? create_date { get; set; }
 
-    public bool? is_disabled { get; set; }
-
     public virtual ICollection<account> accounts { get; set; } = new List<account>();
 }
