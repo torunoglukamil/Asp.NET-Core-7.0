@@ -35,16 +35,16 @@ namespace YMA.Business.Services
                 case AuthErrorReason.WrongPassword:
                     return "Şifrenizi yanlış girdiniz.";
                 default:
-                    return "Bir hata oldu. Lütfen sonra tekrar deneyin.";
+                    return "Bir hata oluştu. Lütfen sonra tekrar deneyin.";
             }
         }
 
-        public async Task<ResponseModel> CreateAccountWithEmailAndPassword(AuthModel auth) => await _helper.TryCatch(
+        public async Task<ResponseModel> CreateAccount(CreateAccountModel createAccount) => await _helper.TryCatch(
            async () =>
            {
                try
                {
-                   await _firebaseAuth.CreateUserWithEmailAndPasswordAsync(auth.email, auth.password);
+                   await _firebaseAuth.CreateUserWithEmailAndPasswordAsync(createAccount.email, createAccount.password);
                }
                catch (FirebaseAuthException e)
                {
@@ -58,14 +58,15 @@ namespace YMA.Business.Services
                {
                    status_code = StatusCodes.Status200OK,
                };
-           });
+           }
+        );
 
-        public async Task<ResponseModel> SignInWithEmailAndPassword(AuthModel auth) => await _helper.TryCatch(
+        public async Task<ResponseModel> SignInAccount(SignInAccountModel signInAccount) => await _helper.TryCatch(
            async () =>
            {
                try
                {
-                   await _firebaseAuth.SignInWithEmailAndPasswordAsync(auth.email, auth.password);
+                   await _firebaseAuth.SignInWithEmailAndPasswordAsync(signInAccount.email, signInAccount.password);
                }
                catch (FirebaseAuthException e)
                {
@@ -79,6 +80,29 @@ namespace YMA.Business.Services
                {
                    status_code = StatusCodes.Status200OK,
                };
-           });
+           }
+        );
+
+        public async Task<ResponseModel> SendPasswordResetEmail(string email) => await _helper.TryCatch(
+           async () =>
+           {
+               try
+               {
+                   await _firebaseAuth.SendPasswordResetEmailAsync(email);
+               }
+               catch (FirebaseAuthException e)
+               {
+                   return new ResponseModel()
+                   {
+                       status_code = StatusCodes.Status400BadRequest,
+                       message = GetMessageByAuthErrorReason(e.Reason),
+                   };
+               }
+               return new ResponseModel()
+               {
+                   status_code = StatusCodes.Status200OK,
+               };
+           }
+        );
     }
 }

@@ -26,7 +26,7 @@ namespace YMA.DataAccess.Repositories
             _converter = converter;
         }
 
-        public async Task<ResponseModel> CreateAccount(AccountModel account) => await _helper.TryCatch(
+        public async Task<ResponseModel> CreateAccountValidate(AccountModel account) => await _helper.TryCatch(
            async () =>
            {
                ValidationResult validationResult = await _validator.ValidateAsync(account);
@@ -48,6 +48,16 @@ namespace YMA.DataAccess.Repositories
                {
                    return phoneResponse;
                }
+               return new ResponseModel()
+               {
+                   status_code = StatusCodes.Status200OK,
+               };
+           }
+        );
+
+        public ResponseModel CreateAccount(AccountModel account) => _helper.TryCatch(
+           () =>
+           {
                account _account = _converter.ToAccount(account);
                _account.create_date = DateTime.Now;
                _account.is_disabled = false;
@@ -58,7 +68,8 @@ namespace YMA.DataAccess.Repositories
                    status_code = StatusCodes.Status200OK,
                    message = "Hesap başarıyla oluşturuldu.",
                };
-           });
+           }
+        );
 
         public async Task<ResponseModel> UpdateAccount(AccountModel account) => await _helper.TryCatch(
            async () =>
@@ -92,21 +103,29 @@ namespace YMA.DataAccess.Repositories
                    status_code = StatusCodes.Status200OK,
                    message = "Hesap bilgileri başarıyla güncellendi.",
                };
-           });
+           }
+        );
 
-        public ResponseModel DisableAccountById(int id) => _helper.TryCatch(
+        public ResponseModel DisableAccount(int id) => _helper.TryCatch(
            () =>
            {
-               ResponseModel accountResponse = _query.GetAccountById(id, false);
-               if (accountResponse.status_code == StatusCodes.Status400BadRequest)
+               account? account = _db.accounts.Where(x => x.id == id).FirstOrDefault();
+               if (account == null)
                {
-                   if (accountResponse.type == "account-disabled")
+                   return new ResponseModel()
                    {
-                       accountResponse.message = "Hesap zaten devre dışı bırakıldı.";
-                   }
-                   return accountResponse;
+                       status_code = StatusCodes.Status400BadRequest,
+                       message = "Hesap bulunamadı.",
+                   };
                }
-               account account = accountResponse.data!;
+               if (account.is_disabled ?? false)
+               {
+                   return new ResponseModel()
+                   {
+                       status_code = StatusCodes.Status400BadRequest,
+                       message = "Hesap zaten devre dışı.",
+                   };
+               }
                account.is_disabled = true;
                _db.SaveChanges();
                return new ResponseModel()
@@ -114,6 +133,37 @@ namespace YMA.DataAccess.Repositories
                    status_code = StatusCodes.Status200OK,
                    message = "Hesap başarıyla devre dışı bırakıldı.",
                };
-           });
+           }
+        );
+
+        public ResponseModel ActivateAccount(int id) => _helper.TryCatch(
+           () =>
+           {
+               account? account = _db.accounts.Where(x => x.id == id).FirstOrDefault();
+               if (account == null)
+               {
+                   return new ResponseModel()
+                   {
+                       status_code = StatusCodes.Status400BadRequest,
+                       message = "Hesap bulunamadı.",
+                   };
+               }
+               if (!(account.is_disabled ?? false))
+               {
+                   return new ResponseModel()
+                   {
+                       status_code = StatusCodes.Status400BadRequest,
+                       message = "Hesap zaten aktif.",
+                   };
+               }
+               account.is_disabled = false;
+               _db.SaveChanges();
+               return new ResponseModel()
+               {
+                   status_code = StatusCodes.Status200OK,
+                   message = "Hesap başarıyla aktifleştirildi.",
+               };
+           }
+        );
     }
 }

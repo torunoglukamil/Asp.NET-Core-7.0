@@ -36,14 +36,41 @@ namespace YMA.DataAccess.Queries
                      return new ResponseModel()
                      {
                          status_code = StatusCodes.Status400BadRequest,
-                         type = "account-disabled",
-                         message = "Hesap devre dışı bırakıldı.",
+                         message = "Hesap devre dışı.",
                      };
                  }
                  return new ResponseModel()
                  {
                      status_code = StatusCodes.Status200OK,
                      data = returnAccountModel ? _converter.ToAccountModel(account) : account,
+                 };
+             }
+          );
+
+        public ResponseModel GetAccountByEmail(string email) => _helper.TryCatch(
+             () =>
+             {
+                 account? account = _db.accounts.Where(x => x.email == email).FirstOrDefault();
+                 if (account == null)
+                 {
+                     return new ResponseModel()
+                     {
+                         status_code = StatusCodes.Status400BadRequest,
+                         message = "Hesap bulunamadı.",
+                     };
+                 }
+                 if (account.is_disabled ?? false)
+                 {
+                     return new ResponseModel()
+                     {
+                         status_code = StatusCodes.Status400BadRequest,
+                         message = "Hesap devre dışı.",
+                     };
+                 }
+                 return new ResponseModel()
+                 {
+                     status_code = StatusCodes.Status200OK,
+                     data = _converter.ToAccountModel(account),
                  };
              }
           );

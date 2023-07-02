@@ -16,7 +16,8 @@ namespace YMA.DataAccess.Helpers
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status400BadRequest,
-                    message = e.Message,
+                    message = "Bir hata oluştu. Lütfen sonra tekrar deneyin.",
+                    data = e.Message,
                 };
             }
         }
@@ -32,7 +33,8 @@ namespace YMA.DataAccess.Helpers
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status400BadRequest,
-                    message = e.Message,
+                    message = "Bir hata oluştu. Lütfen sonra tekrar deneyin.",
+                    data = e.Message,
                 };
             }
         }

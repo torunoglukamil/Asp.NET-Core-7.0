@@ -7,23 +7,29 @@ using YMA.Models.Models;
 
 namespace YMA.Business.Services
 {
-    public class AuthService : IAuthService
+    public class AuthService
     {
         private readonly IAuthService _service;
+        private readonly AccountService _accountService;
         private readonly ResponseHelper _helper;
-        private readonly IValidator<AuthModel> _validator;
+        private readonly IValidator<CreateAccountModel> _createAccountValidator;
+        private readonly IValidator<SignInAccountModel> _signInAccountValidator;
+        private readonly IValidator<EmailModel> _emailValidator;
 
-        public AuthService(IAuthService service, ResponseHelper helper, IValidator<AuthModel> validator)
+        public AuthService(IAuthService service, AccountService accountService, ResponseHelper helper, IValidator<CreateAccountModel> createAccountValidator, IValidator<SignInAccountModel> signInAccountValidator, IValidator<EmailModel> emailValidator)
         {
             _service = service;
+            _accountService = accountService;
             _helper = helper;
-            _validator = validator;
+            _createAccountValidator = createAccountValidator;
+            _signInAccountValidator = signInAccountValidator;
+            _emailValidator = emailValidator;
         }
 
-        public async Task<ResponseModel> CreateAccountWithEmailAndPassword(AuthModel auth) => await _helper.TryCatch(
+        public async Task<ResponseModel> CreateAccount(CreateAccountModel createAccount, AccountModel account) => await _helper.TryCatch(
            async () =>
            {
-               ValidationResult validationResult = await _validator.ValidateAsync(auth);
+               ValidationResult validationResult = await _createAccountValidator.ValidateAsync(createAccount);
                if (!validationResult.IsValid)
                {
                    return new ResponseModel()
@@ -32,22 +38,24 @@ namespace YMA.Business.Services
                        message = validationResult.Errors.FirstOrDefault()!.ErrorMessage,
                    };
                }
-               ResponseModel response = await _service.CreateAccountWithEmailAndPassword(auth);
+               ResponseModel response = await _accountService.Repository.CreateAccountValidate(account);
                if (response.status_code == StatusCodes.Status400BadRequest)
                {
                    return response;
                }
-               return new ResponseModel()
+               response = await _service.CreateAccount(createAccount);
+               if (response.status_code == StatusCodes.Status400BadRequest)
                {
-                   status_code = StatusCodes.Status200OK,
-                   message = "Hesap başarıyla oluşturuldu."
-               };
-           });
+                   return response;
+               }
+               return _accountService.Repository.CreateAccount(account);
+           }
+        );
 
-        public async Task<ResponseModel> SignInWithEmailAndPassword(AuthModel auth) => await _helper.TryCatch(
+        public async Task<ResponseModel> SignInAccount(SignInAccountModel signInAccount) => await _helper.TryCatch(
            async () =>
            {
-               ValidationResult validationResult = await _validator.ValidateAsync(auth);
+               ValidationResult validationResult = await _signInAccountValidator.ValidateAsync(signInAccount);
                if (!validationResult.IsValid)
                {
                    return new ResponseModel()
@@ -56,7 +64,28 @@ namespace YMA.Business.Services
                        message = validationResult.Errors.FirstOrDefault()!.ErrorMessage,
                    };
                }
-               ResponseModel response = await _service.SignInWithEmailAndPassword(auth);
+               ResponseModel response = await _service.SignInAccount(signInAccount);
+               if (response.status_code == StatusCodes.Status400BadRequest)
+               {
+                   return response;
+               }
+               return _accountService.Query.GetAccountByEmail(signInAccount.email!);
+           }
+        );
+
+        public async Task<ResponseModel> SendPasswordResetEmail(EmailModel email) => await _helper.TryCatch(
+           async () =>
+           {
+               ValidationResult validationResult = await _emailValidator.ValidateAsync(email);
+               if (!validationResult.IsValid)
+               {
+                   return new ResponseModel()
+                   {
+                       status_code = StatusCodes.Status400BadRequest,
+                       message = validationResult.Errors.FirstOrDefault()!.ErrorMessage,
+                   };
+               }
+               ResponseModel response = await _service.SendPasswordResetEmail(email.email!);
                if (response.status_code == StatusCodes.Status400BadRequest)
                {
                    return response;
@@ -64,8 +93,9 @@ namespace YMA.Business.Services
                return new ResponseModel()
                {
                    status_code = StatusCodes.Status200OK,
-                   message = "Hesaba başarıyla giriş yapıldı."
+                   message = "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.",
                };
-           });
+           }
+        );
     }
 }

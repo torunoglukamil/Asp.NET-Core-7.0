@@ -16,7 +16,9 @@ builder.Services.AddDbContext<ymaContext>(options => options.UseNpgsql(builder.C
 
 builder.Services.AddSingleton<ResponseHelper>();
 
-builder.Services.AddScoped<IValidator<AuthModel>, AuthValidator>();
+builder.Services.AddScoped<IValidator<CreateAccountModel>, CreateAccountValidator>();
+builder.Services.AddScoped<IValidator<SignInAccountModel>, SignInAccountValidator>();
+builder.Services.AddScoped<IValidator<EmailModel>, EmailValidator>();
 builder.Services.AddScoped<IAuthService, FirebaseAuthService>();
 builder.Services.AddScoped<AuthService>();
 

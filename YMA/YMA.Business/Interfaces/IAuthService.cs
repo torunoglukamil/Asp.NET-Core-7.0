@@ -4,8 +4,10 @@ namespace YMA.Business.Interfaces
 {
     public interface IAuthService
     {
-        Task<ResponseModel> CreateAccountWithEmailAndPassword(AuthModel auth);
+        Task<ResponseModel> CreateAccount(CreateAccountModel account);
 
-        Task<ResponseModel> SignInWithEmailAndPassword(AuthModel auth);
+        Task<ResponseModel> SignInAccount(SignInAccountModel account);
+
+        Task<ResponseModel> SendPasswordResetEmail(string email);
     }
 }
