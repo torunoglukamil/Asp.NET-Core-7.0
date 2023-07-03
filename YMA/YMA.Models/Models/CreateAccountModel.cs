@@ -2,7 +2,13 @@
 {
     public class CreateAccountModel
     {
-        public string? email { get; set; }
+        private string? _email;
+
+        public string? email
+        {
+            get { return _email; }
+            set { _email = value!.Replace(" ", "").ToLower(); }
+        }
 
         public string? password { get; set; }
 
