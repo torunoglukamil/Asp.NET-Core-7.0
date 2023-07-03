@@ -5,7 +5,7 @@ namespace YMA.Entities.Converters
 {
     public class AccountConverter
     {
-        public AccountModel ToAccountModel(account account) => new AccountModel()
+        public AccountModel ToModel(account account) => new AccountModel()
         {
             id = account.id,
             first_name = account.first_name,

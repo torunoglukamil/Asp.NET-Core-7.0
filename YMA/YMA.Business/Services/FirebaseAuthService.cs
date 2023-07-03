@@ -10,12 +10,12 @@ namespace YMA.Business.Services
     public class FirebaseAuthService : IAuthService
     {
         private readonly FirebaseAuthProvider _firebaseAuth;
-        private readonly ResponseHelper _helper;
+        private readonly ResponseHelper _responseHelper;
 
-        public FirebaseAuthService(IConfiguration config, ResponseHelper helper)
+        public FirebaseAuthService(IConfiguration config, ResponseHelper responseHelper)
         {
             _firebaseAuth = new FirebaseAuthProvider(new FirebaseConfig(config.GetValue<string>("FirebaseWebApiKey")));
-            _helper = helper;
+            _responseHelper = responseHelper;
         }
 
         private String GetMessageByAuthErrorReason(AuthErrorReason reason)
@@ -39,7 +39,7 @@ namespace YMA.Business.Services
             }
         }
 
-        public async Task<ResponseModel> CreateAccount(CreateAccountModel createAccount) => await _helper.TryCatch(
+        public async Task<ResponseModel> CreateAccount(CreateAccountModel createAccount) => await _responseHelper.TryCatch(
            async () =>
            {
                try
@@ -61,7 +61,7 @@ namespace YMA.Business.Services
            }
         );
 
-        public async Task<ResponseModel> SignInAccount(SignInAccountModel signInAccount) => await _helper.TryCatch(
+        public async Task<ResponseModel> SignInAccount(SignInAccountModel signInAccount) => await _responseHelper.TryCatch(
            async () =>
            {
                try

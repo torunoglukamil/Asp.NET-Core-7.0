@@ -14,6 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ymaContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddSingleton<LogConverter>();
+builder.Services.AddScoped<LogRepository>();
+
 builder.Services.AddSingleton<ResponseHelper>();
 
 builder.Services.AddScoped<IValidator<CreateAccountModel>, CreateAccountValidator>();

@@ -9,24 +9,24 @@ namespace YMA.Business.Services
 {
     public class AuthService
     {
-        private readonly IAuthService _service;
+        private readonly IAuthService _authService;
         private readonly AccountService _accountService;
-        private readonly ResponseHelper _helper;
+        private readonly ResponseHelper _responseHelper;
         private readonly IValidator<CreateAccountModel> _createAccountValidator;
         private readonly IValidator<SignInAccountModel> _signInAccountValidator;
         private readonly IValidator<EmailModel> _emailValidator;
 
-        public AuthService(IAuthService service, AccountService accountService, ResponseHelper helper, IValidator<CreateAccountModel> createAccountValidator, IValidator<SignInAccountModel> signInAccountValidator, IValidator<EmailModel> emailValidator)
+        public AuthService(IAuthService authService, AccountService accountService, ResponseHelper responseHelper, IValidator<CreateAccountModel> createAccountValidator, IValidator<SignInAccountModel> signInAccountValidator, IValidator<EmailModel> emailValidator)
         {
-            _service = service;
+            _authService = authService;
             _accountService = accountService;
-            _helper = helper;
+            _responseHelper = responseHelper;
             _createAccountValidator = createAccountValidator;
             _signInAccountValidator = signInAccountValidator;
             _emailValidator = emailValidator;
         }
 
-        public async Task<ResponseModel> CreateAccount(CreateAccountModel createAccount, AccountModel account) => await _helper.TryCatch(
+        public async Task<ResponseModel> CreateAccount(CreateAccountModel createAccount, AccountModel account) => await _responseHelper.TryCatch(
            async () =>
            {
                ValidationResult validationResult = await _createAccountValidator.ValidateAsync(createAccount);
@@ -43,7 +43,7 @@ namespace YMA.Business.Services
                {
                    return response;
                }
-               response = await _service.CreateAccount(createAccount);
+               response = await _authService.CreateAccount(createAccount);
                if (response.status_code == StatusCodes.Status400BadRequest)
                {
                    return response;
@@ -52,7 +52,7 @@ namespace YMA.Business.Services
            }
         );
 
-        public async Task<ResponseModel> SignInAccount(SignInAccountModel signInAccount) => await _helper.TryCatch(
+        public async Task<ResponseModel> SignInAccount(SignInAccountModel signInAccount) => await _responseHelper.TryCatch(
            async () =>
            {
                ValidationResult validationResult = await _signInAccountValidator.ValidateAsync(signInAccount);
@@ -64,7 +64,7 @@ namespace YMA.Business.Services
                        message = validationResult.Errors.FirstOrDefault()!.ErrorMessage,
                    };
                }
-               ResponseModel response = await _service.SignInAccount(signInAccount);
+               ResponseModel response = await _authService.SignInAccount(signInAccount);
                if (response.status_code == StatusCodes.Status400BadRequest)
                {
                    return response;
@@ -73,7 +73,7 @@ namespace YMA.Business.Services
            }
         );
 
-        public async Task<ResponseModel> SendPasswordResetEmail(EmailModel email) => await _helper.TryCatch(
+        public async Task<ResponseModel> SendPasswordResetEmail(EmailModel email) => await _responseHelper.TryCatch(
            async () =>
            {
                ValidationResult validationResult = await _emailValidator.ValidateAsync(email);
@@ -85,7 +85,7 @@ namespace YMA.Business.Services
                        message = validationResult.Errors.FirstOrDefault()!.ErrorMessage,
                    };
                }
-               ResponseModel response = await _service.SendPasswordResetEmail(email.email!);
+               ResponseModel response = await _authService.SendPasswordResetEmail(email.email!);
                if (response.status_code == StatusCodes.Status400BadRequest)
                {
                    return response;

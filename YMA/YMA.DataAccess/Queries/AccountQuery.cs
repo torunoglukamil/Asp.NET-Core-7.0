@@ -9,17 +9,17 @@ namespace YMA.DataAccess.Queries
     public class AccountQuery
     {
         private readonly ymaContext _db;
-        private readonly ResponseHelper _helper;
-        private readonly AccountConverter _converter;
+        private readonly ResponseHelper _responseHelper;
+        private readonly AccountConverter _accountConverter;
 
-        public AccountQuery(ymaContext db, ResponseHelper helper, AccountConverter converter)
+        public AccountQuery(ymaContext db, ResponseHelper responseHelper, AccountConverter accountConverter)
         {
             _db = db;
-            _helper = helper;
-            _converter = converter;
+            _responseHelper = responseHelper;
+            _accountConverter = accountConverter;
         }
 
-        public ResponseModel GetAccountById(int id, bool returnAccountModel) => _helper.TryCatch(
+        public ResponseModel GetAccountById(int id, bool returnAccountModel) => _responseHelper.TryCatch(
              () =>
              {
                  account? account = _db.accounts.Where(x => x.id == id).FirstOrDefault();
@@ -42,12 +42,12 @@ namespace YMA.DataAccess.Queries
                  return new ResponseModel()
                  {
                      status_code = StatusCodes.Status200OK,
-                     data = returnAccountModel ? _converter.ToAccountModel(account) : account,
+                     data = returnAccountModel ? _accountConverter.ToModel(account) : account,
                  };
              }
           );
 
-        public ResponseModel GetAccountByEmail(string email) => _helper.TryCatch(
+        public ResponseModel GetAccountByEmail(string email) => _responseHelper.TryCatch(
              () =>
              {
                  account? account = _db.accounts.Where(x => x.email == email).FirstOrDefault();
@@ -70,7 +70,7 @@ namespace YMA.DataAccess.Queries
                  return new ResponseModel()
                  {
                      status_code = StatusCodes.Status200OK,
-                     data = _converter.ToAccountModel(account),
+                     data = _accountConverter.ToModel(account),
                  };
              }
           );
