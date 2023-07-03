@@ -25,7 +25,7 @@ namespace YMA.Business.Services
                 case AuthErrorReason.UserDisabled:
                     return "Hesap devre dışı.";
                 case AuthErrorReason.InvalidEmailAddress:
-                    return "Hesap bulunamadı.";
+                    return "E-posta adresi geçersiz.";
                 case AuthErrorReason.WeakPassword:
                     return "Lütfen daha güçlü bir şifre oluşturunuz.";
                 case AuthErrorReason.EmailExists:
