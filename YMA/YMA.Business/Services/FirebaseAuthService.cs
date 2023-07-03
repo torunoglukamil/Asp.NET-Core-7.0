@@ -83,26 +83,25 @@ namespace YMA.Business.Services
            }
         );
 
-        public async Task<ResponseModel> SendPasswordResetEmail(string email) => await _helper.TryCatch(
-           async () =>
-           {
-               try
-               {
-                   await _firebaseAuth.SendPasswordResetEmailAsync(email);
-               }
-               catch (FirebaseAuthException e)
-               {
-                   return new ResponseModel()
-                   {
-                       status_code = StatusCodes.Status400BadRequest,
-                       message = GetMessageByAuthErrorReason(e.Reason),
-                   };
-               }
-               return new ResponseModel()
-               {
-                   status_code = StatusCodes.Status200OK,
-               };
-           }
-        );
+        public async Task<ResponseModel> SendPasswordResetEmail(string email)
+        {
+            try
+            {
+                await _firebaseAuth.SendPasswordResetEmailAsync(email);
+            }
+            catch (Exception e)
+            {
+                return new ResponseModel()
+                {
+                    status_code = StatusCodes.Status400BadRequest,
+                    message = "Hesap bulunamadı.",
+                    data = e.Message,
+                };
+            }
+            return new ResponseModel()
+            {
+                status_code = StatusCodes.Status200OK,
+            };
+        }
     }
 }
