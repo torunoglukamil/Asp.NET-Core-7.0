@@ -319,7 +319,7 @@
           }
         }
       },
-      "YMA.Models/1.0.0": {
+      "YMA.Entities/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
@@ -327,10 +327,10 @@
           "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4"
         },
         "compile": {
-          "bin/placeholder/YMA.Models.dll": {}
+          "bin/placeholder/YMA.Entities.dll": {}
         },
         "runtime": {
-          "bin/placeholder/YMA.Models.dll": {}
+          "bin/placeholder/YMA.Entities.dll": {}
         }
       }
     }
@@ -788,15 +788,15 @@
         "postgresql.png"
       ]
     },
-    "YMA.Models/1.0.0": {
+    "YMA.Entities/1.0.0": {
       "type": "project",
-      "path": "../YMA.Models/YMA.Models.csproj",
-      "msbuildProject": "../YMA.Models/YMA.Models.csproj"
+      "path": "../YMA.Models/YMA.Entities.csproj",
+      "msbuildProject": "../YMA.Models/YMA.Entities.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "YMA.Models >= 1.0.0"
+      "YMA.Entities >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -826,8 +826,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\YMA.Models.csproj": {
-              "projectPath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\YMA.Models.csproj"
+            "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\YMA.Entities.csproj": {
+              "projectPath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\YMA.Entities.csproj"
             }
           }
         }

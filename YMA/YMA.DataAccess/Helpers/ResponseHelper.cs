@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using YMA.Models.Models;
+using YMA.Entities.Models;
 
 namespace YMA.DataAccess.Helpers
 {

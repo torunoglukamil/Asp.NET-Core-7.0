@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using YMA.Business.Services;
-using YMA.Models.Models;
+using YMA.Entities.Models;
 
 namespace YMA.Controllers
 {

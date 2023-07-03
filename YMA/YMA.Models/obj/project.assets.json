@@ -787,9 +787,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\YMA.Models.csproj",
-      "projectName": "YMA.Models",
-      "projectPath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\YMA.Models.csproj",
+      "projectUniqueName": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\YMA.Entities.csproj",
+      "projectName": "YMA.Entities",
+      "projectPath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\YMA.Entities.csproj",
       "packagesPath": "C:\\Users\\pulsa\\.nuget\\packages\\",
       "outputPath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\obj\\",
       "projectStyle": "PackageReference",

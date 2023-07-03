@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using YMA.Business.Interfaces;
 using YMA.DataAccess.Helpers;
-using YMA.Models.Models;
+using YMA.Entities.Models;
 
 namespace YMA.Business.Services
 {

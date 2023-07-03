@@ -1802,7 +1802,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "YMA.Models": "1.0.0"
+          "YMA.Entities": "1.0.0"
         },
         "compile": {
           "bin/placeholder/YMA.DataAccess.dll": {}
@@ -1811,7 +1811,7 @@
           "bin/placeholder/YMA.DataAccess.dll": {}
         }
       },
-      "YMA.Models/1.0.0": {
+      "YMA.Entities/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
@@ -1819,10 +1819,10 @@
           "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4"
         },
         "compile": {
-          "bin/placeholder/YMA.Models.dll": {}
+          "bin/placeholder/YMA.Entities.dll": {}
         },
         "runtime": {
-          "bin/placeholder/YMA.Models.dll": {}
+          "bin/placeholder/YMA.Entities.dll": {}
         }
       }
     }
@@ -5945,17 +5945,17 @@
       "path": "../YMA.DataAccess/YMA.DataAccess.csproj",
       "msbuildProject": "../YMA.DataAccess/YMA.DataAccess.csproj"
     },
-    "YMA.Models/1.0.0": {
+    "YMA.Entities/1.0.0": {
       "type": "project",
-      "path": "../YMA.Models/YMA.Models.csproj",
-      "msbuildProject": "../YMA.Models/YMA.Models.csproj"
+      "path": "../YMA.Models/YMA.Entities.csproj",
+      "msbuildProject": "../YMA.Models/YMA.Entities.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.8",
       "YMA.Business >= 1.0.0",
-      "YMA.Models >= 1.0.0"
+      "YMA.Entities >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -5989,8 +5989,8 @@
             "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Business\\YMA.Business.csproj": {
               "projectPath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Business\\YMA.Business.csproj"
             },
-            "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\YMA.Models.csproj": {
-              "projectPath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\YMA.Models.csproj"
+            "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\YMA.Entities.csproj": {
+              "projectPath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\YMA.Entities.csproj"
             }
           }
         }

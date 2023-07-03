@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\YMA.Business\YMA.Business.csproj" />
-    <ProjectReference Include="..\YMA.Models\YMA.Models.csproj" />
+    <ProjectReference Include="..\YMA.Models\YMA.Entities.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
-﻿using YMA.Models.Entities;
-using YMA.Models.Models;
+﻿using YMA.Entities.Entities;
+using YMA.Entities.Models;
 
-namespace YMA.Models.Converters
+namespace YMA.Entities.Converters
 {
     public class AccountConverter
     {

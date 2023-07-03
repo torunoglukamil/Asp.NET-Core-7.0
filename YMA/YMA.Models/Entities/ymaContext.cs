@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace YMA.Models.Entities;
+namespace YMA.Entities.Entities;
 
 public partial class ymaContext : DbContext
 {

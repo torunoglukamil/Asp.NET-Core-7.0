@@ -11,7 +11,7 @@ C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.Business\obj\Debug\net7.0\refint\YMA.B
 C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.Business\obj\Debug\net7.0\YMA.Business.pdb
 C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.Business\obj\Debug\net7.0\ref\YMA.Business.dll
 C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.Business\bin\Debug\net7.0\YMA.DataAccess.dll
-C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.Business\bin\Debug\net7.0\YMA.Models.dll
 C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.Business\bin\Debug\net7.0\YMA.DataAccess.pdb
-C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.Business\bin\Debug\net7.0\YMA.Models.pdb
 C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.Business\obj\Debug\net7.0\YMA.Business.csproj.CopyComplete
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.Business\bin\Debug\net7.0\YMA.Entities.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.Business\bin\Debug\net7.0\YMA.Entities.pdb

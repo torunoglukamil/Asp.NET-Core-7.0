@@ -10,6 +10,6 @@ C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\obj\Debug\net7.0\YMA.DataAc
 C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\obj\Debug\net7.0\refint\YMA.DataAccess.dll
 C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\obj\Debug\net7.0\YMA.DataAccess.pdb
 C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\obj\Debug\net7.0\ref\YMA.DataAccess.dll
-C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\bin\Debug\net7.0\YMA.Models.dll
-C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\bin\Debug\net7.0\YMA.Models.pdb
 C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\obj\Debug\net7.0\YMA.DataAccess.csproj.CopyComplete
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\bin\Debug\net7.0\YMA.Entities.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA.DataAccess\bin\Debug\net7.0\YMA.Entities.pdb

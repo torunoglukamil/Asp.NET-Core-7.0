@@ -3,7 +3,7 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using YMA.Business.Interfaces;
 using YMA.DataAccess.Helpers;
-using YMA.Models.Models;
+using YMA.Entities.Models;
 
 namespace YMA.Business.Services
 {

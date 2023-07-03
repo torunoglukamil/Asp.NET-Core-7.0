@@ -5,10 +5,10 @@ using YMA.Business.Services;
 using YMA.DataAccess.Helpers;
 using YMA.DataAccess.Queries;
 using YMA.DataAccess.Repositories;
-using YMA.Models.Converters;
-using YMA.Models.Entities;
-using YMA.Models.Models;
-using YMA.Models.Validators;
+using YMA.Entities.Converters;
+using YMA.Entities.Entities;
+using YMA.Entities.Models;
+using YMA.Entities.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();

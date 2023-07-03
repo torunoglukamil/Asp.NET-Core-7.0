@@ -10,7 +10,7 @@
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Tools": "7.0.8",
           "YMA.Business": "1.0.0",
-          "YMA.Models": "1.0.0"
+          "YMA.Entities": "1.0.0"
         },
         "runtime": {
           "YMA.dll": {}
@@ -979,19 +979,19 @@
       },
       "YMA.DataAccess/1.0.0": {
         "dependencies": {
-          "YMA.Models": "1.0.0"
+          "YMA.Entities": "1.0.0"
         },
         "runtime": {
           "YMA.DataAccess.dll": {}
         }
       },
-      "YMA.Models/1.0.0": {
+      "YMA.Entities/1.0.0": {
         "dependencies": {
           "FluentValidation.AspNetCore": "11.3.0",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4"
         },
         "runtime": {
-          "YMA.Models.dll": {}
+          "YMA.Entities.dll": {}
         }
       }
     }
@@ -1684,7 +1684,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "YMA.Models/1.0.0": {
+    "YMA.Entities/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

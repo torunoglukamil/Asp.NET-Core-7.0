@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\YMA.Models\YMA.Models.csproj" />
+    <ProjectReference Include="..\YMA.Models\YMA.Entities.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Tk8K9WNZBtcumpF9xWAOoKVICjRmij61VGrZ8mMbeOSRVdbJkdCgLzvyBDh13MdylyNuMRZSfjbUa4YJCbMepQ==",
+  "dgSpecHash": "g5DT09ySznfzrjxiW1gdcK/zydqpJ6GcGeggJYF3s/qpKrsgs82Tgf/Ya2gnbcqEPGWGiyNvIY3fEcv+hx9P/g==",
   "success": true,
-  "projectFilePath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\YMA.Models.csproj",
+  "projectFilePath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\YMA.Entities.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pulsa\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
     "C:\\Users\\pulsa\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",

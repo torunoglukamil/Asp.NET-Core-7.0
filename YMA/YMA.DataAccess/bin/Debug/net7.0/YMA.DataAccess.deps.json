@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v7.0": {
       "YMA.DataAccess/1.0.0": {
         "dependencies": {
-          "YMA.Models": "1.0.0"
+          "YMA.Entities": "1.0.0"
         },
         "runtime": {
           "YMA.DataAccess.dll": {}
@@ -148,13 +148,13 @@
           }
         }
       },
-      "YMA.Models/1.0.0": {
+      "YMA.Entities/1.0.0": {
         "dependencies": {
           "FluentValidation.AspNetCore": "11.3.0",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4"
         },
         "runtime": {
-          "YMA.Models.dll": {}
+          "YMA.Entities.dll": {}
         }
       }
     }
@@ -291,7 +291,7 @@
       "path": "npgsql.entityframeworkcore.postgresql/7.0.4",
       "hashPath": "npgsql.entityframeworkcore.postgresql.7.0.4.nupkg.sha512"
     },
-    "YMA.Models/1.0.0": {
+    "YMA.Entities/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

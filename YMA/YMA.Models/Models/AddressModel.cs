@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace YMA.Models.Models;
+namespace YMA.Entities.Models;
 
 public class AddressModel
 {

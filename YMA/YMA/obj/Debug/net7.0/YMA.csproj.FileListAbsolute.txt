@@ -40,11 +40,11 @@ C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA\bin\Debug\net7.0\Npgsql.dll
 C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA\bin\Debug\net7.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA\bin\Debug\net7.0\YMA.Business.dll
 C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA\bin\Debug\net7.0\YMA.DataAccess.dll
-C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA\bin\Debug\net7.0\YMA.Models.dll
 C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA\bin\Debug\net7.0\YMA.Business.pdb
-C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA\bin\Debug\net7.0\YMA.Models.pdb
 C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA\bin\Debug\net7.0\YMA.DataAccess.pdb
 C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA\obj\Debug\net7.0\YMA.MvcApplicationPartsAssemblyInfo.cs
 C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA\bin\Debug\net7.0\Firebase.Auth.dll
 C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA\bin\Debug\net7.0\System.ServiceModel.dll
 C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA\bin\Debug\net7.0\YMA.Entities.dll
+C:\_FILES\GitHub\Asp.NET-Core-7.0\YMA\YMA\bin\Debug\net7.0\YMA.Entities.pdb

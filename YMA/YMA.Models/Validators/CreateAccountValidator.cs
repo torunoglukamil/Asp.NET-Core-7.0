@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using System.Text.RegularExpressions;
-using YMA.Models.Models;
+using YMA.Entities.Models;
 
-namespace YMA.Models.Validators
+namespace YMA.Entities.Validators
 {
     public class CreateAccountValidator : AbstractValidator<CreateAccountModel>
     {

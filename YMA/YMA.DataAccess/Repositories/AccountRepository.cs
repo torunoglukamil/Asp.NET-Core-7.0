@@ -3,9 +3,9 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using YMA.DataAccess.Helpers;
 using YMA.DataAccess.Queries;
-using YMA.Models.Converters;
-using YMA.Models.Entities;
-using YMA.Models.Models;
+using YMA.Entities.Converters;
+using YMA.Entities.Entities;
+using YMA.Entities.Models;
 
 namespace YMA.DataAccess.Repositories
 {

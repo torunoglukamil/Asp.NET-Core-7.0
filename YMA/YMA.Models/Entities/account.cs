@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace YMA.Models.Entities;
+namespace YMA.Entities.Entities;
 
 public partial class account
 {

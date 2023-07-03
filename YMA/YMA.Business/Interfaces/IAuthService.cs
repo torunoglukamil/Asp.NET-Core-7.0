@@ -1,4 +1,4 @@
-﻿using YMA.Models.Models;
+﻿using YMA.Entities.Models;
 
 namespace YMA.Business.Interfaces
 {

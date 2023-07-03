@@ -1,4 +1,4 @@
-﻿namespace YMA.Models.Models
+﻿namespace YMA.Entities.Models
 {
     public class ResponseModel
     {
