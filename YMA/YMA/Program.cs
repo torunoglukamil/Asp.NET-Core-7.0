@@ -33,6 +33,18 @@ builder.Services.AddScoped<AccountQuery>();
 builder.Services.AddScoped<AccountRepository>();
 builder.Services.AddScoped<AccountService>();
 
+builder.Services.AddSingleton<AdConverter>();
+builder.Services.AddScoped<AdQuery>();
+builder.Services.AddScoped<AdService>();
+
+builder.Services.AddSingleton<ExchangeConverter>();
+builder.Services.AddScoped<ExchangeQuery>();
+builder.Services.AddScoped<ExchangeService>();
+
+builder.Services.AddSingleton<CategoryConverter>();
+builder.Services.AddScoped<CategoryQuery>();
+builder.Services.AddScoped<CategoryService>();
+
 var app = builder.Build();
 app.MapGet("/yma", () => "Service is running");
 app.MapControllers();

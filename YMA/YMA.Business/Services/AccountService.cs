@@ -14,8 +14,8 @@ namespace YMA.Business.Services
             _repository = repository;
         }
 
-        public AccountQuery Query { get {  return _query; } }
+        public AccountQuery Query { get { return _query; } }
 
-        public AccountRepository Repository { get {  return _repository; } }
+        public AccountRepository Repository { get { return _repository; } }
     }
 }

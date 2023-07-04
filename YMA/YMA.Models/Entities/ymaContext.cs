@@ -17,7 +17,15 @@ public partial class ymaContext : DbContext
 
     public virtual DbSet<account> accounts { get; set; }
 
+    public virtual DbSet<ad> ads { get; set; }
+
     public virtual DbSet<address> addresses { get; set; }
+
+    public virtual DbSet<category> categories { get; set; }
+
+    public virtual DbSet<exchange> exchanges { get; set; }
+
+    public virtual DbSet<featured_category> featured_categories { get; set; }
 
     public virtual DbSet<log> logs { get; set; }
 
@@ -38,11 +46,35 @@ public partial class ymaContext : DbContext
                 .HasConstraintName("accounts_fkey_addresses");
         });
 
+        modelBuilder.Entity<ad>(entity =>
+        {
+            entity.HasNoKey();
+        });
+
         modelBuilder.Entity<address>(entity =>
         {
             entity.HasKey(e => e.id).HasName("addresses_pkey");
 
             entity.Property(e => e.create_date).HasColumnType("timestamp without time zone");
+        });
+
+        modelBuilder.Entity<category>(entity =>
+        {
+            entity.HasKey(e => e.id).HasName("categories_pkey");
+        });
+
+        modelBuilder.Entity<exchange>(entity =>
+        {
+            entity.HasNoKey();
+        });
+
+        modelBuilder.Entity<featured_category>(entity =>
+        {
+            entity.HasNoKey();
+
+            entity.HasOne(d => d.category).WithMany()
+                .HasForeignKey(d => d.category_id)
+                .HasConstraintName("featured_categories_fkey_categories");
         });
 
         modelBuilder.Entity<log>(entity =>
