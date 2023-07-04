@@ -970,7 +970,6 @@
       },
       "YMA.Business/1.0.0": {
         "dependencies": {
-          "Firebase.Auth": "1.0.0",
           "YMA.DataAccess": "1.0.0"
         },
         "runtime": {
@@ -979,6 +978,7 @@
       },
       "YMA.DataAccess/1.0.0": {
         "dependencies": {
+          "Firebase.Auth": "1.0.0",
           "YMA.Entities": "1.0.0"
         },
         "runtime": {

@@ -43,12 +43,6 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "dependencies": {
-            "Firebase.Auth": {
-              "target": "Package",
-              "version": "[1.0.0, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -108,6 +102,12 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "Firebase.Auth": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

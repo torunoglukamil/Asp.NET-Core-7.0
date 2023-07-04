@@ -1,101 +1,21 @@
-﻿using FluentValidation;
-using FluentValidation.Results;
-using Microsoft.AspNetCore.Http;
-using YMA.Business.Interfaces;
-using YMA.DataAccess.Helpers;
-using YMA.Entities.Models;
+﻿using YMA.DataAccess.Queries;
+using YMA.DataAccess.Repositories;
 
 namespace YMA.Business.Services
 {
     public class AuthService
     {
-        private readonly IAuthService _authService;
-        private readonly AccountService _accountService;
-        private readonly ResponseHelper _responseHelper;
-        private readonly IValidator<CreateAccountModel> _createAccountValidator;
-        private readonly IValidator<SignInAccountModel> _signInAccountValidator;
-        private readonly IValidator<EmailModel> _emailValidator;
+        private readonly AuthQuery _query;
+        private readonly AuthRepository _repository;
 
-        public AuthService(IAuthService authService, AccountService accountService, ResponseHelper responseHelper, IValidator<CreateAccountModel> createAccountValidator, IValidator<SignInAccountModel> signInAccountValidator, IValidator<EmailModel> emailValidator)
+        public AuthService(AuthQuery query, AuthRepository repository)
         {
-            _authService = authService;
-            _accountService = accountService;
-            _responseHelper = responseHelper;
-            _createAccountValidator = createAccountValidator;
-            _signInAccountValidator = signInAccountValidator;
-            _emailValidator = emailValidator;
+            _query = query;
+            _repository = repository;
         }
 
-        public async Task<ResponseModel> CreateAccount(CreateAccountModel createAccount, AccountModel account) => await _responseHelper.TryCatch(
-           async () =>
-           {
-               ValidationResult validationResult = await _createAccountValidator.ValidateAsync(createAccount);
-               if (!validationResult.IsValid)
-               {
-                   return new ResponseModel()
-                   {
-                       status_code = StatusCodes.Status400BadRequest,
-                       message = validationResult.Errors.FirstOrDefault()!.ErrorMessage,
-                   };
-               }
-               ResponseModel response = await _accountService.Repository.CreateAccountValidate(account);
-               if (response.status_code == StatusCodes.Status400BadRequest)
-               {
-                   return response;
-               }
-               response = await _authService.CreateAccount(createAccount);
-               if (response.status_code == StatusCodes.Status400BadRequest)
-               {
-                   return response;
-               }
-               return _accountService.Repository.CreateAccount(account);
-           }
-        );
+        public AuthQuery Query { get { return _query; } }
 
-        public async Task<ResponseModel> SignInAccount(SignInAccountModel signInAccount) => await _responseHelper.TryCatch(
-           async () =>
-           {
-               ValidationResult validationResult = await _signInAccountValidator.ValidateAsync(signInAccount);
-               if (!validationResult.IsValid)
-               {
-                   return new ResponseModel()
-                   {
-                       status_code = StatusCodes.Status400BadRequest,
-                       message = validationResult.Errors.FirstOrDefault()!.ErrorMessage,
-                   };
-               }
-               ResponseModel response = await _authService.SignInAccount(signInAccount);
-               if (response.status_code == StatusCodes.Status400BadRequest)
-               {
-                   return response;
-               }
-               return _accountService.Query.GetAccountByEmail(signInAccount.email!);
-           }
-        );
-
-        public async Task<ResponseModel> SendPasswordResetEmail(EmailModel email) => await _responseHelper.TryCatch(
-           async () =>
-           {
-               ValidationResult validationResult = await _emailValidator.ValidateAsync(email);
-               if (!validationResult.IsValid)
-               {
-                   return new ResponseModel()
-                   {
-                       status_code = StatusCodes.Status400BadRequest,
-                       message = validationResult.Errors.FirstOrDefault()!.ErrorMessage,
-                   };
-               }
-               ResponseModel response = await _authService.SendPasswordResetEmail(email.email!);
-               if (response.status_code == StatusCodes.Status400BadRequest)
-               {
-                   return response;
-               }
-               return new ResponseModel()
-               {
-                   status_code = StatusCodes.Status200OK,
-                   message = "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.",
-               };
-           }
-        );
+        public AuthRepository Repository { get { return _repository; } }
     }
 }

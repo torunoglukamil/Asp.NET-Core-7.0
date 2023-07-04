@@ -5,7 +5,7 @@ namespace YMA.Entities.Converters
 {
     public class LogConverter
     {
-        public log ToLog(LogModel log) => new log()
+        public static log ToLog(LogModel log) => new()
         {
             type = log.type,
             message = log.message,

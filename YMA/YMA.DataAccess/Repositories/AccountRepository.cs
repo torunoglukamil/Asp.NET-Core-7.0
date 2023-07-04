@@ -13,20 +13,16 @@ namespace YMA.DataAccess.Repositories
     {
         private readonly ymaContext _db;
         private readonly AccountQuery _accountQuery;
-        private readonly ResponseHelper _responseHelper;
         private readonly IValidator<AccountModel> _accountValidator;
-        private readonly AccountConverter _accountConverter;
 
-        public AccountRepository(ymaContext db, AccountQuery accountQuery, ResponseHelper responseHelper, IValidator<AccountModel> accountValidator, AccountConverter accountConverter)
+        public AccountRepository(ymaContext db, AccountQuery accountQuery, IValidator<AccountModel> accountValidator)
         {
             _db = db;
             _accountQuery = accountQuery;
-            _responseHelper = responseHelper;
             _accountValidator = accountValidator;
-            _accountConverter = accountConverter;
         }
 
-        public async Task<ResponseModel> CreateAccountValidate(AccountModel account) => await _responseHelper.TryCatch(
+        public async Task<ResponseModel> CreateAccountValidate(AccountModel account) => await ResponseHelper.TryCatch(
            async () =>
            {
                ValidationResult validationResult = await _accountValidator.ValidateAsync(account);
@@ -55,10 +51,10 @@ namespace YMA.DataAccess.Repositories
            }
         );
 
-        public ResponseModel CreateAccount(AccountModel account) => _responseHelper.TryCatch(
+        public ResponseModel CreateAccount(AccountModel account) => ResponseHelper.TryCatch(
            () =>
            {
-               account _account = _accountConverter.ToAccount(account);
+               account _account = AccountConverter.ToAccount(account);
                _account.create_date = DateTime.Now;
                _account.is_disabled = false;
                _db.accounts.Add(_account);
@@ -71,7 +67,7 @@ namespace YMA.DataAccess.Repositories
            }
         );
 
-        public async Task<ResponseModel> UpdateAccount(AccountModel account) => await _responseHelper.TryCatch(
+        public async Task<ResponseModel> UpdateAccount(AccountModel account) => await ResponseHelper.TryCatch(
            async () =>
            {
                ValidationResult validationResult = await _accountValidator.ValidateAsync(account);
@@ -106,7 +102,7 @@ namespace YMA.DataAccess.Repositories
            }
         );
 
-        public ResponseModel DisableAccount(int id) => _responseHelper.TryCatch(
+        public ResponseModel DisableAccount(int id) => ResponseHelper.TryCatch(
            () =>
            {
                account? account = _db.accounts.Where(x => x.id == id).FirstOrDefault();
@@ -136,7 +132,7 @@ namespace YMA.DataAccess.Repositories
            }
         );
 
-        public ResponseModel ActivateAccount(int id) => _responseHelper.TryCatch(
+        public ResponseModel ActivateAccount(int id) => ResponseHelper.TryCatch(
            () =>
            {
                account? account = _db.accounts.Where(x => x.id == id).FirstOrDefault();

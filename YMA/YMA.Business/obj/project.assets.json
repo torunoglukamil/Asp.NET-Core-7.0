@@ -1657,6 +1657,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
+          "Firebase.Auth": "1.0.0",
           "YMA.Entities": "1.0.0"
         },
         "compile": {
@@ -5581,7 +5582,6 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "Firebase.Auth >= 1.0.0",
       "YMA.DataAccess >= 1.0.0"
     ]
   },
@@ -5627,12 +5627,6 @@
     "frameworks": {
       "net7.0": {
         "targetAlias": "net7.0",
-        "dependencies": {
-          "Firebase.Auth": {
-            "target": "Package",
-            "version": "[1.0.0, )"
-          }
-        },
         "imports": [
           "net461",
           "net462",

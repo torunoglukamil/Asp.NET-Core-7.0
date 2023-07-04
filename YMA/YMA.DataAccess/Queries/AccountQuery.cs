@@ -9,17 +9,13 @@ namespace YMA.DataAccess.Queries
     public class AccountQuery
     {
         private readonly ymaContext _db;
-        private readonly ResponseHelper _responseHelper;
-        private readonly AccountConverter _accountConverter;
 
-        public AccountQuery(ymaContext db, ResponseHelper responseHelper, AccountConverter accountConverter)
+        public AccountQuery(ymaContext db)
         {
             _db = db;
-            _responseHelper = responseHelper;
-            _accountConverter = accountConverter;
         }
 
-        public ResponseModel GetAccountById(int id, bool returnAccountModel) => _responseHelper.TryCatch(
+        public ResponseModel GetAccountById(int id, bool returnAccountModel) => ResponseHelper.TryCatch(
              () =>
              {
                  account? account = _db.accounts.Where(x => x.id == id).FirstOrDefault();
@@ -42,12 +38,12 @@ namespace YMA.DataAccess.Queries
                  return new ResponseModel()
                  {
                      status_code = StatusCodes.Status200OK,
-                     data = returnAccountModel ? _accountConverter.ToModel(account) : account,
+                     data = returnAccountModel ? global::YMA.Entities.Converters.AccountConverter.ToModel(account) : account,
                  };
              }
           );
 
-        public ResponseModel GetAccountByEmail(string email) => _responseHelper.TryCatch(
+        public ResponseModel GetAccountByEmail(string email) => ResponseHelper.TryCatch(
              () =>
              {
                  account? account = _db.accounts.Where(x => x.email == email).FirstOrDefault();
@@ -70,7 +66,7 @@ namespace YMA.DataAccess.Queries
                  return new ResponseModel()
                  {
                      status_code = StatusCodes.Status200OK,
-                     data = _accountConverter.ToModel(account),
+                     data = AccountConverter.ToModel(account),
                  };
              }
           );

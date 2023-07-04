@@ -5,7 +5,14 @@ namespace YMA.DataAccess.Helpers
 {
     public class ResponseHelper
     {
-        public ResponseModel TryCatch(Func<ResponseModel> function)
+        private static ResponseModel GetExceptionResponse(Exception e) => new()
+        {
+            status_code = StatusCodes.Status400BadRequest,
+            message = "Bir hata oluştu. Lütfen sonra tekrar deneyin.",
+            data = e.Message,
+        };
+
+        public static ResponseModel TryCatch(Func<ResponseModel> function)
         {
             try
             {
@@ -13,16 +20,11 @@ namespace YMA.DataAccess.Helpers
             }
             catch (Exception e)
             {
-                return new ResponseModel()
-                {
-                    status_code = StatusCodes.Status400BadRequest,
-                    message = "Bir hata oluştu. Lütfen sonra tekrar deneyin.",
-                    data = e.Message,
-                };
+                return GetExceptionResponse(e);
             }
         }
 
-        public async Task<ResponseModel> TryCatch(Func<Task<ResponseModel>> function)
+        public static async Task<ResponseModel> TryCatch(Func<Task<ResponseModel>> function)
         {
             try
             {
@@ -30,12 +32,7 @@ namespace YMA.DataAccess.Helpers
             }
             catch (Exception e)
             {
-                return new ResponseModel()
-                {
-                    status_code = StatusCodes.Status400BadRequest,
-                    message = "Bir hata oluştu. Lütfen sonra tekrar deneyin.",
-                    data = e.Message,
-                };
+                return GetExceptionResponse(e);
             }
         }
     }

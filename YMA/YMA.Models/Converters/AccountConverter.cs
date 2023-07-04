@@ -5,7 +5,7 @@ namespace YMA.Entities.Converters
 {
     public class AccountConverter
     {
-        public AccountModel ToModel(account account) => new AccountModel()
+        public static AccountModel ToModel(account account) => new()
         {
             id = account.id,
             first_name = account.first_name,
@@ -15,7 +15,7 @@ namespace YMA.Entities.Converters
             default_address_id = account.default_address_id,
         };
 
-        public account ToAccount(AccountModel account) => new account()
+        public static account ToAccount(AccountModel account) => new()
         {
             first_name = account.first_name,
             last_name = account.last_name,

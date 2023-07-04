@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Firebase.Auth" Version="1.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\YMA.DataAccess\YMA.DataAccess.csproj" />
   </ItemGroup>
 

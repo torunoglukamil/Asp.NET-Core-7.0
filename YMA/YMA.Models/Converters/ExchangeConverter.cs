@@ -5,7 +5,7 @@ namespace YMA.Entities.Converters
 {
     public class ExchangeConverter
     {
-        public ExchangeModel ToModel(exchange exchange) => new ExchangeModel()
+        public static ExchangeModel ToModel(exchange exchange) => new()
         {
             currency = exchange.currency,
             unit_price = exchange.unit_price,

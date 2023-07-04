@@ -17,14 +17,14 @@ namespace YMA.Controllers
 
         [HttpPost]
         [Route("api/[controller]/CreateAccount")]
-        public async Task<ResponseModel> CreateAccount([FromBody] dynamic data) => await _authService.CreateAccount(JsonConvert.DeserializeObject<CreateAccountModel>(data.ToString()), JsonConvert.DeserializeObject<AccountModel>(data.ToString()));
+        public async Task<ResponseModel> CreateAccount([FromBody] dynamic data) => await _authService.Repository.CreateAccount(JsonConvert.DeserializeObject<CreateAccountModel>(data.ToString()), JsonConvert.DeserializeObject<AccountModel>(data.ToString()));
 
         [HttpGet]
         [Route("api/[controller]/SignInAccount")]
-        public async Task<ResponseModel> SignInAccount([FromBody] SignInAccountModel signInAccount) => await _authService.SignInAccount(signInAccount);
+        public async Task<ResponseModel> SignInAccount([FromBody] SignInAccountModel signInAccount) => await _authService.Query.SignInAccount(signInAccount);
 
         [HttpPost]
         [Route("api/[controller]/SendPasswordResetEmail")]
-        public async Task<ResponseModel> SendPasswordResetEmail([FromBody] EmailModel email) => await _authService.SendPasswordResetEmail(email);
+        public async Task<ResponseModel> SendPasswordResetEmail([FromBody] EmailModel email) => await _authService.Query.SendPasswordResetEmail(email);
     }
 }

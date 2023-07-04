@@ -9,20 +9,16 @@ namespace YMA.DataAccess.Queries
     public class ExchangeQuery
     {
         private readonly ymaContext _db;
-        private readonly ResponseHelper _responseHelper;
-        private readonly ExchangeConverter _exchangeConverter;
 
-        public ExchangeQuery(ymaContext db, ResponseHelper responseHelper, ExchangeConverter exchangeConverter)
+        public ExchangeQuery(ymaContext db)
         {
             _db = db;
-            _responseHelper = responseHelper;
-            _exchangeConverter = exchangeConverter;
         }
 
-        public ResponseModel GetExchangeList() => _responseHelper.TryCatch(
+        public ResponseModel GetExchangeList() => ResponseHelper.TryCatch(
              () =>
              {
-                 List<ExchangeModel> exchangeList = _db.exchanges.Where(x => x.is_disabled == false).OrderBy(x => x.order_number).Select(x => _exchangeConverter.ToModel(x)).ToList();
+                 List<ExchangeModel> exchangeList = _db.exchanges.Where(x => x.is_disabled == false).OrderBy(x => x.order_number).Select(x => ExchangeConverter.ToModel(x)).ToList();
                  return new ResponseModel()
                  {
                      status_code = StatusCodes.Status200OK,

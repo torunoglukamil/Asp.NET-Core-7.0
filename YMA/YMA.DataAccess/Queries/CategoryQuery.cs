@@ -9,20 +9,16 @@ namespace YMA.DataAccess.Queries
     public class CategoryQuery
     {
         private readonly ymaContext _db;
-        private readonly ResponseHelper _responseHelper;
-        private readonly CategoryConverter _categoryConverter;
 
-        public CategoryQuery(ymaContext db, ResponseHelper responseHelper, CategoryConverter categoryConverter)
+        public CategoryQuery(ymaContext db)
         {
             _db = db;
-            _responseHelper = responseHelper;
-            _categoryConverter = categoryConverter;
         }
 
-        public ResponseModel GetCategoryList() => _responseHelper.TryCatch(
+        public ResponseModel GetCategoryList() => ResponseHelper.TryCatch(
              () =>
              {
-                 List<CategoryModel> categoryList = _db.categories.Where(x => x.is_disabled == false).OrderBy(x => x.name).Select(x => _categoryConverter.ToModel(x)).ToList();
+                 List<CategoryModel> categoryList = _db.categories.Where(x => x.is_disabled == false).OrderBy(x => x.name).Select(x => CategoryConverter.ToModel(x)).ToList();
                  return new ResponseModel()
                  {
                      status_code = StatusCodes.Status200OK,
@@ -31,16 +27,16 @@ namespace YMA.DataAccess.Queries
              }
           );
 
-        public ResponseModel GetFeaturedCategoryList() => _responseHelper.TryCatch(
+        public ResponseModel GetFeaturedCategoryList() => ResponseHelper.TryCatch(
              () =>
              {
-                 List<CategoryModel> categoryList = new List<CategoryModel>();
+                 List<CategoryModel> categoryList = new();
                  _db.featured_categories.OrderByDescending(x => x.order_counter).ToList().ForEach(x =>
                  {
                      category? category = _db.categories.Where(y => y.id == x.category_id).FirstOrDefault();
                      if (category != null)
                      {
-                         categoryList.Add(_categoryConverter.ToModel(category));
+                         categoryList.Add(CategoryConverter.ToModel(category));
                      }
                  });
                  return new ResponseModel()

@@ -5,7 +5,7 @@ namespace YMA.Entities.Converters
 {
     public class CategoryConverter
     {
-        public CategoryModel ToModel(category category) => new CategoryModel()
+        public static CategoryModel ToModel(category category) => new()
         {
             id = category.id,
             name = category.name,

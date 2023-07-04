@@ -5,7 +5,7 @@ namespace YMA.Entities.Converters
 {
     public class AdConverter
     {
-        public AdModel ToModel(ad ad) => new AdModel()
+        public static AdModel ToModel(ad ad) => new()
         {
             image_url = ad.image_url,
         };
