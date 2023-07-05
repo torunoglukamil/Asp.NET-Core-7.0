@@ -41,6 +41,9 @@ builder.Services.AddScoped<ExchangeService>();
 builder.Services.AddScoped<CategoryQuery>();
 builder.Services.AddScoped<CategoryService>();
 
+builder.Services.AddScoped<BrandQuery>();
+builder.Services.AddScoped<BrandService>();
+
 var app = builder.Build();
 app.MapGet("/yma", () => "Service is running");
 app.MapControllers();

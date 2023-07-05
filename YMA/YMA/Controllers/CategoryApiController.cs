@@ -19,7 +19,11 @@ namespace YMA.Controllers
         public ResponseModel GetCategoryList() => _categoryService.Query.GetCategoryList();
 
         [HttpGet]
-        [Route("api/[controller]/GetFeaturedCategoryList")]
-        public ResponseModel GetFeaturedCategoryList() => _categoryService.Query.GetFeaturedCategoryList();
+        [Route("api/[controller]/GetCategoryList/{searchText}")]
+        public ResponseModel GetCategoryList(string searchText) => _categoryService.Query.GetCategoryList(searchText);
+
+        [HttpGet]
+        [Route("api/[controller]/GetFeaturedCategoryList/{length}")]
+        public ResponseModel GetFeaturedCategoryList(int length) => _categoryService.Query.GetFeaturedCategoryList(length);
     }
 }

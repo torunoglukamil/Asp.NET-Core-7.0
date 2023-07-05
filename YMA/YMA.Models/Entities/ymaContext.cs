@@ -21,9 +21,13 @@ public partial class ymaContext : DbContext
 
     public virtual DbSet<address> addresses { get; set; }
 
+    public virtual DbSet<brand> brands { get; set; }
+
     public virtual DbSet<category> categories { get; set; }
 
     public virtual DbSet<exchange> exchanges { get; set; }
+
+    public virtual DbSet<featured_brand> featured_brands { get; set; }
 
     public virtual DbSet<featured_category> featured_categories { get; set; }
 
@@ -58,6 +62,11 @@ public partial class ymaContext : DbContext
             entity.Property(e => e.create_date).HasColumnType("timestamp without time zone");
         });
 
+        modelBuilder.Entity<brand>(entity =>
+        {
+            entity.HasKey(e => e.id).HasName("brands_pkey");
+        });
+
         modelBuilder.Entity<category>(entity =>
         {
             entity.HasKey(e => e.id).HasName("categories_pkey");
@@ -66,6 +75,15 @@ public partial class ymaContext : DbContext
         modelBuilder.Entity<exchange>(entity =>
         {
             entity.HasNoKey();
+        });
+
+        modelBuilder.Entity<featured_brand>(entity =>
+        {
+            entity.HasNoKey();
+
+            entity.HasOne(d => d.brand).WithMany()
+                .HasForeignKey(d => d.brand_id)
+                .HasConstraintName("featured_brands_fkey_brands");
         });
 
         modelBuilder.Entity<featured_category>(entity =>

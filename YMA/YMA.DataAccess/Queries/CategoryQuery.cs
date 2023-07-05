@@ -27,7 +27,19 @@ namespace YMA.DataAccess.Queries
              }
           );
 
-        public ResponseModel GetFeaturedCategoryList() => ResponseHelper.TryCatch(
+        public ResponseModel GetCategoryList(string searchText) => ResponseHelper.TryCatch(
+             () =>
+             {
+                 List<CategoryModel> categoryList = _db.categories.Where(x => x.is_disabled == false).ToList().Where(x => SearchHelper.IsSearchedText(x.name, searchText)).OrderBy(x => x.name).Select(x => CategoryConverter.ToModel(x)).ToList();
+                 return new ResponseModel()
+                 {
+                     status_code = StatusCodes.Status200OK,
+                     data = categoryList,
+                 };
+             }
+          );
+
+        public ResponseModel GetFeaturedCategoryList(int length) => ResponseHelper.TryCatch(
              () =>
              {
                  List<CategoryModel> categoryList = new();
@@ -39,6 +51,10 @@ namespace YMA.DataAccess.Queries
                          categoryList.Add(CategoryConverter.ToModel(category));
                      }
                  });
+                 if (categoryList.Count > length)
+                 {
+                     categoryList = categoryList.GetRange(0, length);
+                 }
                  return new ResponseModel()
                  {
                      status_code = StatusCodes.Status200OK,
