@@ -16,7 +16,7 @@ namespace YMA.Controllers
 
         [HttpGet]
         [Route("api/[controller]/GetAccountById/{id}")]
-        public ResponseModel GetAccountById(int id) => _accountService.Query.GetAccountById(id, true);
+        public ResponseModel GetAccountById(int id) => _accountService.Query.GetAccountById(id);
 
         [HttpPut]
         [Route("api/[controller]/UpdateAccount")]

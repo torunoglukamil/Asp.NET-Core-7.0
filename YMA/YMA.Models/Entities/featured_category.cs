@@ -9,5 +9,7 @@ public partial class featured_category
 
     public int? order_counter { get; set; }
 
+    public int id { get; set; }
+
     public virtual category? category { get; set; }
 }

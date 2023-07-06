@@ -1,8 +1,10 @@
-﻿namespace YMA.Entities.Models
+﻿using Microsoft.AspNetCore.Http;
+
+namespace YMA.Entities.Models
 {
     public class ResponseModel
     {
-        public int status_code { get; set; }
+        public int status_code { get; set; } = StatusCodes.Status400BadRequest;
 
         public string? message { get; set; }
 

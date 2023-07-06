@@ -18,4 +18,6 @@ public partial class exchange
     public int? order_number { get; set; }
 
     public bool? is_disabled { get; set; }
+
+    public int id { get; set; }
 }

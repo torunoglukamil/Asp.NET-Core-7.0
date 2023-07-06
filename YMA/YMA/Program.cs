@@ -14,6 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<ymaContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<LogRepository>();
+builder.Services.AddScoped<ResponseHelper>();
 
 builder.Services.AddScoped<IValidator<CreateAccountModel>, CreateAccountValidator>();
 builder.Services.AddScoped<IValidator<SignInAccountModel>, SignInAccountValidator>();
@@ -43,6 +44,15 @@ builder.Services.AddScoped<CategoryService>();
 
 builder.Services.AddScoped<BrandQuery>();
 builder.Services.AddScoped<BrandService>();
+
+builder.Services.AddScoped<CompanyQuery>();
+builder.Services.AddScoped<CompanyService>();
+
+builder.Services.AddScoped<ProductQuery>();
+builder.Services.AddScoped<ProductService>();
+
+builder.Services.AddScoped<VersionQuery>();
+builder.Services.AddScoped<VersionService>();
 
 var app = builder.Build();
 app.MapGet("/yma", () => "Service is running");

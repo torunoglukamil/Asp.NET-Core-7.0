@@ -22,10 +22,7 @@ namespace YMA.DataAccess.Repositories
                 _db.logs.Add(_log);
                 _db.SaveChanges();
             }
-            catch (Exception)
-            {
-                return;
-            }
+            catch (Exception) { }
         }
     }
 }

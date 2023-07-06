@@ -12,4 +12,6 @@ public partial class log
     public string? data { get; set; }
 
     public DateTime? create_date { get; set; }
+
+    public int id { get; set; }
 }
