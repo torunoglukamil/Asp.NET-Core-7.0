@@ -22,6 +22,8 @@
 
         public double? discount { get; set; }
 
+        public bool? is_in_stock { get; set; }
+
         public BrandModel? brand { get; set; }
 
         public CategoryModel? category { get; set; }

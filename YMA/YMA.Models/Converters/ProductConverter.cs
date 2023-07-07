@@ -17,6 +17,7 @@ namespace YMA.Entities.Converters
             oem_no = product.oem_no,
             price = product.price,
             discount = product.discount,
+            is_in_stock = product.stock_counter != 0,
             brand = brand,
             category = category,
             company = company,
