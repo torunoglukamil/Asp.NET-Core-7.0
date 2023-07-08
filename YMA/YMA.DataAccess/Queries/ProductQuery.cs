@@ -57,51 +57,24 @@ namespace YMA.DataAccess.Queries
             return productModelList;
         }
 
-        public ResponseModel GetProductList() => _responseHelper.TryCatch(
-            "ProductQuery.GetProductList",
-            () =>
-            {
-                List<product> productList = _db.products.Where(x => x.is_disabled == false).OrderBy(x => x.name).ToList();
-                List<ProductModel> productModelList = GetProductModelList(productList);
-                return new ResponseModel()
-                {
-                    status_code = StatusCodes.Status200OK,
-                    data = productModelList,
-                };
-            }
-          );
-
-        public ResponseModel GetProductList(string searchText) => _responseHelper.TryCatch(
-            "ProductQuery.GetProductListBySearch",
-            () =>
-            {
-                List<product> productList = _db.products.Where(x => x.is_disabled == false).ToList().Where(x => SearchHelper.IsSearchedText(x.name, searchText)).OrderBy(x => x.name).ToList();
-                List<ProductModel> productModelList = GetProductModelList(productList);
-                return new ResponseModel()
-                {
-                    status_code = StatusCodes.Status200OK,
-                    data = productModelList,
-                };
-            }
-          );
-
-        public ResponseModel GetFeaturedProductList(int length) => _responseHelper.TryCatch(
+        public ResponseModel GetFeaturedProductList(int? length, string? searchText) => _responseHelper.TryCatch(
             "ProductQuery.GetFeaturedProductList",
             () =>
             {
                 List<product> productList = new();
                 _db.featured_products.OrderByDescending(x => x.order_counter).ToList().ForEach(x =>
                 {
-                    product? product = _db.products.Where(y => y.id == x.product_id).FirstOrDefault();
+                    product? product = _db.products.Where(y => y.id == x.product_id).Where(x => x.is_disabled == false).FirstOrDefault();
                     if (product != null)
                     {
                         productList.Add(product);
                     }
                 });
                 List<ProductModel> productModelList = GetProductModelList(productList);
-                if (productModelList.Count > length)
+                productModelList = ProductHelper.GetProductListBySearch(productModelList, searchText);
+                if ((length ?? 0) != 0 && productModelList.Count > length)
                 {
-                    productModelList = productModelList.GetRange(0, length);
+                    productModelList = productModelList.GetRange(0, length ?? 1);
                 }
                 return new ResponseModel()
                 {

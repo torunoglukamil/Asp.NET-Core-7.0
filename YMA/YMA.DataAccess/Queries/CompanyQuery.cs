@@ -44,11 +44,12 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetCompanyList() => _responseHelper.TryCatch(
+        public ResponseModel GetCompanyList(string? searchText) => _responseHelper.TryCatch(
             "CompanyQuery.GetCompanyList",
             () =>
             {
                 List<CompanyModel> companyList = _db.companies.Where(x => x.is_disabled == false).OrderBy(x => x.name).Select(x => CompanyConverter.ToModel(x)).ToList();
+                companyList = CompanyHelper.GetCompanyListBySearch(companyList, searchText);
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status200OK,
@@ -57,35 +58,23 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetCompanyList(string searchText) => _responseHelper.TryCatch(
-            "CompanyQuery.GetCompanyListBySearch",
-            () =>
-            {
-                List<CompanyModel> companyList = _db.companies.Where(x => x.is_disabled == false).ToList().Where(x => SearchHelper.IsSearchedText(x.name, searchText)).OrderBy(x => x.name).Select(x => CompanyConverter.ToModel(x)).ToList();
-                return new ResponseModel()
-                {
-                    status_code = StatusCodes.Status200OK,
-                    data = companyList,
-                };
-            }
-          );
-
-        public ResponseModel GetFeaturedCompanyList(int length) => _responseHelper.TryCatch(
+        public ResponseModel GetFeaturedCompanyList(int? length, string? searchText) => _responseHelper.TryCatch(
             "CompanyQuery.GetFeaturedCompanyList",
             () =>
             {
                 List<CompanyModel> companyList = new();
                 _db.featured_companies.OrderByDescending(x => x.order_counter).ToList().ForEach(x =>
                 {
-                    company? company = _db.companies.Where(y => y.id == x.company_id).FirstOrDefault();
+                    company? company = _db.companies.Where(y => y.id == x.company_id).Where(x => x.is_disabled == false).FirstOrDefault();
                     if (company != null)
                     {
                         companyList.Add(CompanyConverter.ToModel(company));
                     }
                 });
-                if (companyList.Count > length)
+                companyList = CompanyHelper.GetCompanyListBySearch(companyList, searchText);
+                if ((length ?? 0) != 0 && companyList.Count > length)
                 {
-                    companyList = companyList.GetRange(0, length);
+                    companyList = companyList.GetRange(0, length ?? 1);
                 }
                 return new ResponseModel()
                 {

@@ -44,11 +44,12 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetBrandList() => _responseHelper.TryCatch(
+        public ResponseModel GetBrandList(string? searchText) => _responseHelper.TryCatch(
             "BrandQuery.GetBrandList",
             () =>
             {
                 List<BrandModel> brandList = _db.brands.Where(x => x.is_disabled == false).OrderBy(x => x.name).Select(x => BrandConverter.ToModel(x)).ToList();
+                brandList = BrandHelper.GetBrandListBySearch(brandList, searchText);
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status200OK,
@@ -57,35 +58,23 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetBrandList(string searchText) => _responseHelper.TryCatch(
-            "BrandQuery.GetBrandListBySearch",
-            () =>
-            {
-                List<BrandModel> brandList = _db.brands.Where(x => x.is_disabled == false).ToList().Where(x => SearchHelper.IsSearchedText(x.name, searchText)).OrderBy(x => x.name).Select(x => BrandConverter.ToModel(x)).ToList();
-                return new ResponseModel()
-                {
-                    status_code = StatusCodes.Status200OK,
-                    data = brandList,
-                };
-            }
-          );
-
-        public ResponseModel GetFeaturedBrandList(int length) => _responseHelper.TryCatch(
+        public ResponseModel GetFeaturedBrandList(int? length, string? searchText) => _responseHelper.TryCatch(
             "BrandQuery.GetFeaturedBrandList",
             () =>
             {
                 List<BrandModel> brandList = new();
                 _db.featured_brands.OrderByDescending(x => x.order_counter).ToList().ForEach(x =>
                 {
-                    brand? brand = _db.brands.Where(y => y.id == x.brand_id).FirstOrDefault();
+                    brand? brand = _db.brands.Where(y => y.id == x.brand_id).Where(x => x.is_disabled == false).FirstOrDefault();
                     if (brand != null)
                     {
                         brandList.Add(BrandConverter.ToModel(brand));
                     }
                 });
-                if (brandList.Count > length)
+                brandList = BrandHelper.GetBrandListBySearch(brandList, searchText);
+                if ((length ?? 0) != 0 && brandList.Count > length)
                 {
-                    brandList = brandList.GetRange(0, length);
+                    brandList = brandList.GetRange(0, length ?? 1);
                 }
                 return new ResponseModel()
                 {

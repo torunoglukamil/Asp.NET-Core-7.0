@@ -44,11 +44,12 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetCategoryList() => _responseHelper.TryCatch(
+        public ResponseModel GetCategoryList(string? searchText) => _responseHelper.TryCatch(
             "CategoryQuery.GetCategoryList",
             () =>
             {
                 List<CategoryModel> categoryList = _db.categories.Where(x => x.is_disabled == false).OrderBy(x => x.name).Select(x => CategoryConverter.ToModel(x)).ToList();
+                categoryList = CategoryHelper.GetCategoryListBySearch(categoryList, searchText);
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status200OK,
@@ -57,35 +58,23 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetCategoryList(string searchText) => _responseHelper.TryCatch(
-            "CategoryQuery.GetCategoryListBySearch",
-            () =>
-            {
-                List<CategoryModel> categoryList = _db.categories.Where(x => x.is_disabled == false).ToList().Where(x => SearchHelper.IsSearchedText(x.name, searchText)).OrderBy(x => x.name).Select(x => CategoryConverter.ToModel(x)).ToList();
-                return new ResponseModel()
-                {
-                    status_code = StatusCodes.Status200OK,
-                    data = categoryList,
-                };
-            }
-          );
-
-        public ResponseModel GetFeaturedCategoryList(int length) => _responseHelper.TryCatch(
+        public ResponseModel GetFeaturedCategoryList(int? length, string? searchText) => _responseHelper.TryCatch(
             "CategoryQuery.GetFeaturedCategoryList",
             () =>
             {
                 List<CategoryModel> categoryList = new();
                 _db.featured_categories.OrderByDescending(x => x.order_counter).ToList().ForEach(x =>
                 {
-                    category? category = _db.categories.Where(y => y.id == x.category_id).FirstOrDefault();
+                    category? category = _db.categories.Where(y => y.id == x.category_id).Where(x => x.is_disabled == false).FirstOrDefault();
                     if (category != null)
                     {
                         categoryList.Add(CategoryConverter.ToModel(category));
                     }
                 });
-                if (categoryList.Count > length)
+                categoryList = CategoryHelper.GetCategoryListBySearch(categoryList, searchText);
+                if ((length ?? 0) != 0 && categoryList.Count > length)
                 {
-                    categoryList = categoryList.GetRange(0, length);
+                    categoryList = categoryList.GetRange(0, length ?? 1);
                 }
                 return new ResponseModel()
                 {

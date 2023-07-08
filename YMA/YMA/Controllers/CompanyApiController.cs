@@ -15,15 +15,11 @@ namespace YMA.Controllers
         }
 
         [HttpGet]
-        [Route("api/[controller]/GetCompanyList")]
-        public ResponseModel GetCompanyList() => _companyService.Query.GetCompanyList();
+        [Route("api/[controller]/GetCompanyList/{searchText?}")]
+        public ResponseModel GetCompanyList(string? searchText) => _companyService.Query.GetCompanyList(searchText);
 
         [HttpGet]
-        [Route("api/[controller]/GetCompanyList/{searchText}")]
-        public ResponseModel GetCompanyList(string searchText) => _companyService.Query.GetCompanyList(searchText);
-
-        [HttpGet]
-        [Route("api/[controller]/GetFeaturedCompanyList/{length}")]
-        public ResponseModel GetFeaturedCompanyList(int length) => _companyService.Query.GetFeaturedCompanyList(length);
+        [Route("api/[controller]/GetFeaturedCompanyList/{length?}/{searchText?}")]
+        public ResponseModel GetFeaturedCompanyList(int? length, string? searchText) => _companyService.Query.GetFeaturedCompanyList(length, searchText);
     }
 }

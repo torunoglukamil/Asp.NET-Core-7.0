@@ -15,15 +15,11 @@ namespace YMA.Controllers
         }
 
         [HttpGet]
-        [Route("api/[controller]/GetBrandList")]
-        public ResponseModel GetBrandList() => _brandService.Query.GetBrandList();
+        [Route("api/[controller]/GetBrandList/{searchText?}")]
+        public ResponseModel GetBrandList(string? searchText) => _brandService.Query.GetBrandList(searchText);
 
         [HttpGet]
-        [Route("api/[controller]/GetBrandList/{searchText}")]
-        public ResponseModel GetBrandList(string searchText) => _brandService.Query.GetBrandList(searchText);
-
-        [HttpGet]
-        [Route("api/[controller]/GetFeaturedBrandList/{length}")]
-        public ResponseModel GetFeaturedBrandList(int length) => _brandService.Query.GetFeaturedBrandList(length);
+        [Route("api/[controller]/GetFeaturedBrandList/{length?}/{searchText?}")]
+        public ResponseModel GetFeaturedBrandList(int? length, string? searchText) => _brandService.Query.GetFeaturedBrandList(length, searchText);
     }
 }

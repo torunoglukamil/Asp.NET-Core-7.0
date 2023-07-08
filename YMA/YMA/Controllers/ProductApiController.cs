@@ -15,15 +15,7 @@ namespace YMA.Controllers
         }
 
         [HttpGet]
-        [Route("api/[controller]/GetProductList")]
-        public ResponseModel GetProductList() => _productService.Query.GetProductList();
-
-        [HttpGet]
-        [Route("api/[controller]/GetProductList/{searchText}")]
-        public ResponseModel GetProductList(string searchText) => _productService.Query.GetProductList(searchText);
-
-        [HttpGet]
-        [Route("api/[controller]/GetFeaturedProductList/{length}")]
-        public ResponseModel GetFeaturedProductList(int length) => _productService.Query.GetFeaturedProductList(length);
+        [Route("api/[controller]/GetFeaturedProductList/{length?}/{searchText?}")]
+        public ResponseModel GetFeaturedProductList(int? length, string? searchText) => _productService.Query.GetFeaturedProductList(length, searchText);
     }
 }
