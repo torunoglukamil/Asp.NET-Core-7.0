@@ -57,25 +57,100 @@ namespace YMA.DataAccess.Queries
             return productModelList;
         }
 
+        private List<product> GetFeaturedProductList()
+        {
+            List<product> productList = new();
+            _db.featured_products.OrderByDescending(x => x.order_counter).ToList().ForEach(x =>
+            {
+                product? product = _db.products.Where(y => y.id == x.product_id).Where(x => x.is_disabled == false).FirstOrDefault();
+                if (product != null)
+                {
+                    productList.Add(product);
+                }
+            });
+            return productList;
+        }
+
         public ResponseModel GetFeaturedProductList(int? length, string? searchText) => _responseHelper.TryCatch(
             "ProductQuery.GetFeaturedProductList",
             () =>
             {
-                List<product> productList = new();
-                _db.featured_products.OrderByDescending(x => x.order_counter).ToList().ForEach(x =>
-                {
-                    product? product = _db.products.Where(y => y.id == x.product_id).Where(x => x.is_disabled == false).FirstOrDefault();
-                    if (product != null)
-                    {
-                        productList.Add(product);
-                    }
-                });
+                List<product> productList = GetFeaturedProductList();
                 List<ProductModel> productModelList = GetProductModelList(productList);
                 productModelList = ProductHelper.GetProductListBySearch(productModelList, searchText);
                 if ((length ?? 0) != 0 && productModelList.Count > length)
                 {
                     productModelList = productModelList.GetRange(0, length ?? 1);
                 }
+                return new ResponseModel()
+                {
+                    status_code = StatusCodes.Status200OK,
+                    data = productModelList,
+                };
+            }
+          );
+
+        public ResponseModel GetCategoryProductList(int id, string? searchText) => _responseHelper.TryCatch(
+            "ProductQuery.GetCategoryProductList",
+            () =>
+            {
+                List<product> productList = GetFeaturedProductList();
+                List<product> categoryProductList = new();
+                productList.ForEach(x =>
+                {
+                    if (x.category_id == id)
+                    {
+                        categoryProductList.Add(x);
+                    }
+                });
+                List<ProductModel> productModelList = GetProductModelList(categoryProductList);
+                productModelList = ProductHelper.GetProductListBySearch(productModelList, searchText);
+                return new ResponseModel()
+                {
+                    status_code = StatusCodes.Status200OK,
+                    data = productModelList,
+                };
+            }
+          );
+
+        public ResponseModel GetBrandProductList(int id, string? searchText) => _responseHelper.TryCatch(
+            "ProductQuery.GetBrandProductList",
+            () =>
+            {
+                List<product> productList = GetFeaturedProductList();
+                List<product> brandProductList = new();
+                productList.ForEach(x =>
+                {
+                    if (x.brand_id == id)
+                    {
+                        brandProductList.Add(x);
+                    }
+                });
+                List<ProductModel> productModelList = GetProductModelList(brandProductList);
+                productModelList = ProductHelper.GetProductListBySearch(productModelList, searchText);
+                return new ResponseModel()
+                {
+                    status_code = StatusCodes.Status200OK,
+                    data = productModelList,
+                };
+            }
+          );
+
+        public ResponseModel GetCompanyProductList(int id, string? searchText) => _responseHelper.TryCatch(
+            "ProductQuery.GetCompanyProductList",
+            () =>
+            {
+                List<product> productList = GetFeaturedProductList();
+                List<product> companyProductList = new();
+                productList.ForEach(x =>
+                {
+                    if (x.company_id == id)
+                    {
+                        companyProductList.Add(x);
+                    }
+                });
+                List<ProductModel> productModelList = GetProductModelList(companyProductList);
+                productModelList = ProductHelper.GetProductListBySearch(productModelList, searchText);
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status200OK,
