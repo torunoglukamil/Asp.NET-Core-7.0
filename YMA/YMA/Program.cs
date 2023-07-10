@@ -51,6 +51,12 @@ builder.Services.AddScoped<CompanyService>();
 builder.Services.AddScoped<ProductQuery>();
 builder.Services.AddScoped<ProductService>();
 
+builder.Services.AddScoped<IValidator<ReplyCompanyInviteModel>, ReplyCompanyInviteValidator>();
+builder.Services.AddScoped<IValidator<CompanyInviteModel>, CompanyInviteValidator>();
+builder.Services.AddScoped<CompanyInviteQuery>();
+builder.Services.AddScoped<CompanyInviteRepository>();
+builder.Services.AddScoped<CompanyInviteService>();
+
 builder.Services.AddScoped<VersionQuery>();
 builder.Services.AddScoped<VersionService>();
 

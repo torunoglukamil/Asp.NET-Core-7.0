@@ -25,6 +25,10 @@ public partial class company
 
     public bool? is_disabled { get; set; }
 
+    public virtual ICollection<company_invite> company_invitereceivers { get; set; } = new List<company_invite>();
+
+    public virtual ICollection<company_invite> company_invitesenders { get; set; } = new List<company_invite>();
+
     public virtual ICollection<featured_company> featured_companies { get; set; } = new List<featured_company>();
 
     public virtual ICollection<product> products { get; set; } = new List<product>();

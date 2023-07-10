@@ -27,6 +27,8 @@ public partial class ymaContext : DbContext
 
     public virtual DbSet<company> companies { get; set; }
 
+    public virtual DbSet<company_invite> company_invites { get; set; }
+
     public virtual DbSet<exchange> exchanges { get; set; }
 
     public virtual DbSet<featured_brand> featured_brands { get; set; }
@@ -87,6 +89,22 @@ public partial class ymaContext : DbContext
             entity.HasKey(e => e.id).HasName("companies_pkey");
 
             entity.Property(e => e.create_date).HasColumnType("timestamp without time zone");
+        });
+
+        modelBuilder.Entity<company_invite>(entity =>
+        {
+            entity.HasKey(e => e.id).HasName("company_invites_pkey");
+
+            entity.Property(e => e.create_date).HasColumnType("timestamp without time zone");
+            entity.Property(e => e.reply_date).HasColumnType("timestamp without time zone");
+
+            entity.HasOne(d => d.receiver).WithMany(p => p.company_invitereceivers)
+                .HasForeignKey(d => d.receiver_id)
+                .HasConstraintName("company_invites_fkey_companies_receiver");
+
+            entity.HasOne(d => d.sender).WithMany(p => p.company_invitesenders)
+                .HasForeignKey(d => d.sender_id)
+                .HasConstraintName("company_invites_fkey_companies_sender");
         });
 
         modelBuilder.Entity<exchange>(entity =>
