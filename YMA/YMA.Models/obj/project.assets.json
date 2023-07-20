@@ -782,7 +782,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pulsa\\.nuget\\packages\\": {}
+    "C:\\Users\\mehmetkamil\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -790,11 +790,11 @@
       "projectUniqueName": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\YMA.Entities.csproj",
       "projectName": "YMA.Entities",
       "projectPath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\YMA.Entities.csproj",
-      "packagesPath": "C:\\Users\\pulsa\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\mehmetkamil\\.nuget\\packages\\",
       "outputPath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\pulsa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\mehmetkamil\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

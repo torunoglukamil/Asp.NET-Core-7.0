@@ -14,10 +14,6 @@ namespace YMA.Controllers
             _companyInviteService = companyInviteService;
         }
 
-        [HttpGet]
-        [Route("api/[controller]/GetCompanyInviteList/{companyId}")]
-        public ResponseModel GetCompanyInviteList(int companyId) => _companyInviteService.Query.GetCompanyInviteList(companyId);
-
         [HttpPost]
         [Route("api/[controller]/CreateCompanyInvite")]
         public async Task<ResponseModel> CreateCompanyInvite([FromBody] CompanyInviteModel companyInvite) => await _companyInviteService.Repository.CreateCompanyInvite(companyInvite);

@@ -37,14 +37,14 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetCompanyInviteList(int companyId) => _responseHelper.TryCatch(
+        public ResponseModel GetCompanyInviteList(int companyId1, int companyId2) => _responseHelper.TryCatch(
             "CompanyInviteQuery.GetCompanyInviteList",
             () =>
             {
                 List<CompanyInviteModel> companyInviteList = new();
                 _db.company_invites.ToList().ForEach(x =>
                 {
-                    if ((x.receiver_id == companyId || x.sender_id == companyId) && x.is_accepted != false)
+                    if (((x.receiver_id == companyId1 && x.sender_id == companyId2) || (x.receiver_id == companyId2 && x.sender_id == companyId1)) && x.is_accepted != false)
                     {
                         companyInviteList.Add(CompanyInviteConverter.ToModel(x));
                     }

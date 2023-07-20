@@ -17,5 +17,7 @@
         public string? address { get; set; }
 
         public string? theme_color { get; set; }
+
+        public List<CompanyInviteModel>? company_invite_list { get; set; }
     }
 }

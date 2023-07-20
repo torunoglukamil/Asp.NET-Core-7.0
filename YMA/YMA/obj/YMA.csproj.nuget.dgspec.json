@@ -10,11 +10,11 @@
         "projectUniqueName": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Business\\YMA.Business.csproj",
         "projectName": "YMA.Business",
         "projectPath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Business\\YMA.Business.csproj",
-        "packagesPath": "C:\\Users\\pulsa\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\mehmetkamil\\.nuget\\packages\\",
         "outputPath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Business\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\pulsa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mehmetkamil\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -69,11 +69,11 @@
         "projectUniqueName": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.DataAccess\\YMA.DataAccess.csproj",
         "projectName": "YMA.DataAccess",
         "projectPath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.DataAccess\\YMA.DataAccess.csproj",
-        "packagesPath": "C:\\Users\\pulsa\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\mehmetkamil\\.nuget\\packages\\",
         "outputPath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\pulsa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mehmetkamil\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -134,11 +134,11 @@
         "projectUniqueName": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\YMA.Entities.csproj",
         "projectName": "YMA.Entities",
         "projectPath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\YMA.Entities.csproj",
-        "packagesPath": "C:\\Users\\pulsa\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\mehmetkamil\\.nuget\\packages\\",
         "outputPath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA.Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\pulsa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mehmetkamil\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -199,11 +199,11 @@
         "projectUniqueName": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA\\YMA.csproj",
         "projectName": "YMA",
         "projectPath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA\\YMA.csproj",
-        "packagesPath": "C:\\Users\\pulsa\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\mehmetkamil\\.nuget\\packages\\",
         "outputPath": "C:\\_FILES\\GitHub\\Asp.NET-Core-7.0\\YMA\\YMA\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\pulsa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mehmetkamil\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -241,7 +241,7 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.8, )"
+              "version": "[7.0.9, )"
             }
           },
           "imports": [
