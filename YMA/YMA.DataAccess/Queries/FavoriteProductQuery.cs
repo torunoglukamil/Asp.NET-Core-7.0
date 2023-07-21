@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using YMA.DataAccess.Helpers;
-using YMA.Entities.Converters;
 using YMA.Entities.Entities;
 using YMA.Entities.Models;
 
@@ -17,15 +16,15 @@ namespace YMA.DataAccess.Queries
             _responseHelper = responseHelper;
         }
 
-        public ResponseModel GetFavoriteProductList() => _responseHelper.TryCatch(
-            "FavoriteProductQuery.GetFavoriteProductList",
+        public ResponseModel GetFavoriteProductIdList(int accountId) => _responseHelper.TryCatch(
+            "FavoriteProductQuery.GetFavoriteProductIdList",
             () =>
             {
-                List<AdModel> adList = _db.ads.Where(x => x.is_disabled == false).OrderBy(x => x.order_number).Select(x => AdConverter.ToModel(x)).ToList();
+                List<int> favoriteProductIdList = _db.favorite_products.Where(x => x.account_id == accountId).Select(x => x.product_id ?? 0).ToList();
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status200OK,
-                    data = adList,
+                    data = favoriteProductIdList,
                 };
             }
           );

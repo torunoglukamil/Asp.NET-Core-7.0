@@ -41,6 +41,10 @@ builder.Services.AddScoped<BrandService>();
 builder.Services.AddScoped<ProductQuery>();
 builder.Services.AddScoped<ProductService>();
 
+builder.Services.AddScoped<FavoriteProductQuery>();
+builder.Services.AddScoped<FavoriteProductRepository>();
+builder.Services.AddScoped<FavoriteProductService>();
+
 builder.Services.AddScoped<AdQuery>();
 builder.Services.AddScoped<AdService>();
 

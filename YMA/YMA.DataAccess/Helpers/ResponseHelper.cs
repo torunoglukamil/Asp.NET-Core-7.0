@@ -1,4 +1,5 @@
 ﻿using Firebase.Auth;
+using YMA.DataAccess.Constants;
 using YMA.DataAccess.Repositories;
 using YMA.Entities.Models;
 
@@ -7,7 +8,6 @@ namespace YMA.DataAccess.Helpers
     public class ResponseHelper
     {
         private readonly LogRepository _logRepository;
-        private const string DefaultExceptionMessage = "Bir hata oluştu. Lütfen sonra tekrar deneyin.";
 
         public ResponseHelper(LogRepository logRepository)
         {
@@ -55,7 +55,7 @@ namespace YMA.DataAccess.Helpers
             });
         }
 
-        public ResponseModel TryCatch(string methodName, Func<ResponseModel> function, string message = DefaultExceptionMessage)
+        public ResponseModel TryCatch(string methodName, Func<ResponseModel> function, string message = StringConstants.DefaultExceptionMessage)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace YMA.DataAccess.Helpers
             }
         }
 
-        public async Task<ResponseModel> TryCatch(string methodName, Func<Task<ResponseModel>> function, string message = DefaultExceptionMessage)
+        public async Task<ResponseModel> TryCatch(string methodName, Func<Task<ResponseModel>> function, string message = StringConstants.DefaultExceptionMessage)
         {
             try
             {
