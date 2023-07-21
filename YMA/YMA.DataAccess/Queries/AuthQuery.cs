@@ -1,10 +1,9 @@
-﻿using FluentValidation;
-using FluentValidation.Results;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using YMA.DataAccess.Helpers;
 using YMA.DataAccess.Repositories;
 using YMA.Entities.Interfaces;
 using YMA.Entities.Models;
+using YMA.Entities.Validators;
 
 namespace YMA.DataAccess.Queries
 {
@@ -14,32 +13,29 @@ namespace YMA.DataAccess.Queries
         private readonly AccountQuery _accountQuery;
         private readonly LogRepository _logRepository;
         private readonly ResponseHelper _responseHelper;
-        private readonly IValidator<SignInAccountModel> _signInAccountValidator;
-        private readonly IValidator<EmailModel> _emailValidator;
+        private readonly ValidationHelper<SignInAccountModel> _signInAccountValidator;
+        private readonly ValidationHelper<EmailModel> _emailValidator;
 
-        public AuthQuery(IAuthQuery authQuery, AccountQuery accountQuery, LogRepository logRepository, ResponseHelper responseHelper, IValidator<SignInAccountModel> signInAccountValidator, IValidator<EmailModel> emailValidator)
+        public AuthQuery(IAuthQuery authQuery, AccountQuery accountQuery, LogRepository logRepository, ResponseHelper responseHelper)
         {
             _authQuery = authQuery;
             _accountQuery = accountQuery;
             _logRepository = logRepository;
             _responseHelper = responseHelper;
-            _signInAccountValidator = signInAccountValidator;
-            _emailValidator = emailValidator;
+            _signInAccountValidator = new ValidationHelper<SignInAccountModel>(new SignInAccountValidator());
+            _emailValidator = new ValidationHelper<EmailModel>(new EmailValidator());
         }
 
         public async Task<ResponseModel> SignInAccount(SignInAccountModel signInAccount) => await _responseHelper.TryCatch(
             "AuthQuery.SignInAccount",
             async () =>
             {
-                ValidationResult validationResult = await _signInAccountValidator.ValidateAsync(signInAccount);
-                if (!validationResult.IsValid)
+                ResponseModel response = _signInAccountValidator.Validate(signInAccount);
+                if (response.status_code == StatusCodes.Status400BadRequest)
                 {
-                    return new ResponseModel()
-                    {
-                        message = validationResult.Errors.FirstOrDefault()!.ErrorMessage,
-                    };
+                    return response;
                 }
-                ResponseModel response = await _authQuery.SignInAccount(signInAccount);
+                response = await _authQuery.SignInAccount(signInAccount);
                 if (response.status_code == StatusCodes.Status400BadRequest)
                 {
                     return response;
@@ -58,15 +54,12 @@ namespace YMA.DataAccess.Queries
             "AuthQuery.SendPasswordResetEmail",
             async () =>
             {
-                ValidationResult validationResult = await _emailValidator.ValidateAsync(email);
-                if (!validationResult.IsValid)
+                ResponseModel response = _emailValidator.Validate(email);
+                if (response.status_code == StatusCodes.Status400BadRequest)
                 {
-                    return new ResponseModel()
-                    {
-                        message = validationResult.Errors.FirstOrDefault()!.ErrorMessage,
-                    };
+                    return response;
                 }
-                ResponseModel response = await _authQuery.SendPasswordResetEmail(email.email!);
+                response = await _authQuery.SendPasswordResetEmail(email.email!);
                 if (response.status_code == StatusCodes.Status400BadRequest)
                 {
                     return response;

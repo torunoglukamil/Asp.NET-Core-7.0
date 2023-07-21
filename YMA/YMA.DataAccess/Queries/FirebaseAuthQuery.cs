@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Firebase.Auth;
+using Microsoft.AspNetCore.Http;
 using YMA.DataAccess.Helpers;
+using YMA.DataAccess.Providers;
 using YMA.Entities.Interfaces;
 using YMA.Entities.Models;
 
@@ -7,12 +9,12 @@ namespace YMA.DataAccess.Queries
 {
     public class FirebaseAuthQuery : IAuthQuery
     {
-        private readonly FirebaseAuthHelper _firebaseAuthHelper;
+        private readonly FirebaseAuthProvider _firebaseAuth;
         private readonly ResponseHelper _responseHelper;
 
-        public FirebaseAuthQuery(FirebaseAuthHelper firebaseAuthHelper, ResponseHelper responseHelper)
+        public FirebaseAuthQuery(FirebaseAuthenticationProvider firebaseAuthenticationProvider, ResponseHelper responseHelper)
         {
-            _firebaseAuthHelper = firebaseAuthHelper;
+            _firebaseAuth = firebaseAuthenticationProvider.FirebaseAuth;
             _responseHelper = responseHelper;
         }
 
@@ -20,7 +22,7 @@ namespace YMA.DataAccess.Queries
             "FirebaseAuthQuery.SignInAccount",
             async () =>
             {
-                await _firebaseAuthHelper.FirebaseAuth.SignInWithEmailAndPasswordAsync(signInAccount.email, signInAccount.password);
+                await _firebaseAuth.SignInWithEmailAndPasswordAsync(signInAccount.email, signInAccount.password);
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status200OK,
@@ -32,7 +34,7 @@ namespace YMA.DataAccess.Queries
             "FirebaseAuthQuery.SendPasswordResetEmail",
             async () =>
             {
-                await _firebaseAuthHelper.FirebaseAuth.SendPasswordResetEmailAsync(email);
+                await _firebaseAuth.SendPasswordResetEmailAsync(email);
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status200OK,

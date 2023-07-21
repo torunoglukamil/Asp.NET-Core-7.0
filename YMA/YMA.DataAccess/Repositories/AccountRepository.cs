@@ -1,11 +1,10 @@
-﻿using FluentValidation;
-using FluentValidation.Results;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using YMA.DataAccess.Helpers;
 using YMA.DataAccess.Queries;
 using YMA.Entities.Converters;
 using YMA.Entities.Entities;
 using YMA.Entities.Models;
+using YMA.Entities.Validators;
 
 namespace YMA.DataAccess.Repositories
 {
@@ -14,37 +13,34 @@ namespace YMA.DataAccess.Repositories
         private readonly ymaContext _db;
         private readonly AccountQuery _accountQuery;
         private readonly ResponseHelper _responseHelper;
-        private readonly IValidator<AccountModel> _accountValidator;
+        private readonly ValidationHelper<AccountModel> _accountValidator;
 
-        public AccountRepository(ymaContext db, AccountQuery accountQuery, ResponseHelper responseHelper, IValidator<AccountModel> accountValidator)
+        public AccountRepository(ymaContext db, AccountQuery accountQuery, ResponseHelper responseHelper)
         {
             _db = db;
             _accountQuery = accountQuery;
             _responseHelper = responseHelper;
-            _accountValidator = accountValidator;
+            _accountValidator = new ValidationHelper<AccountModel>(new AccountValidator());
         }
 
-        public async Task<ResponseModel> CreateAccountValidate(AccountModel account) => await _responseHelper.TryCatch(
+        public ResponseModel CreateAccountValidate(AccountModel account) => _responseHelper.TryCatch(
             "AccountRepository.CreateAccountValidate",
-            async () =>
+            () =>
             {
-                ValidationResult validationResult = await _accountValidator.ValidateAsync(account);
-                if (!validationResult.IsValid)
+                ResponseModel response = _accountValidator.Validate(account);
+                if (response.status_code == StatusCodes.Status400BadRequest)
                 {
-                    return new ResponseModel()
-                    {
-                        message = validationResult.Errors.FirstOrDefault()!.ErrorMessage,
-                    };
+                    return response;
                 }
-                ResponseModel emailResponse = _accountQuery.CheckIfEmailAlreadyInUse(account.email!, null);
-                if (emailResponse.status_code == StatusCodes.Status400BadRequest)
+                response = _accountQuery.CheckIfEmailAlreadyInUse(account.email!, null);
+                if (response.status_code == StatusCodes.Status400BadRequest)
                 {
-                    return emailResponse;
+                    return response;
                 }
-                ResponseModel phoneResponse = _accountQuery.CheckIfPhoneAlreadyInUse(account.phone!, null);
-                if (phoneResponse.status_code == StatusCodes.Status400BadRequest)
+                response = _accountQuery.CheckIfPhoneAlreadyInUse(account.phone!, null);
+                if (response.status_code == StatusCodes.Status400BadRequest)
                 {
-                    return phoneResponse;
+                    return response;
                 }
                 return new ResponseModel()
                 {
@@ -70,29 +66,26 @@ namespace YMA.DataAccess.Repositories
             }
         );
 
-        public async Task<ResponseModel> UpdateAccount(AccountModel account) => await _responseHelper.TryCatch(
+        public ResponseModel UpdateAccount(AccountModel account) => _responseHelper.TryCatch(
             "AccountRepository.UpdateAccount",
-            async () =>
+            () =>
             {
-                ValidationResult validationResult = await _accountValidator.ValidateAsync(account);
-                if (!validationResult.IsValid)
+                ResponseModel response = _accountValidator.Validate(account);
+                if (response.status_code == StatusCodes.Status400BadRequest)
                 {
-                    return new ResponseModel()
-                    {
-                        message = validationResult.Errors.FirstOrDefault()!.ErrorMessage,
-                    };
+                    return response;
                 }
-                ResponseModel accountResponse = _accountQuery.GetAccountById(account.id, true);
-                if (accountResponse.status_code == StatusCodes.Status400BadRequest)
+                response = _accountQuery.GetAccountById(account.id, true);
+                if (response.status_code == StatusCodes.Status400BadRequest)
                 {
-                    return accountResponse;
+                    return response;
                 }
-                ResponseModel phoneResponse = _accountQuery.CheckIfPhoneAlreadyInUse(account.phone!, account.id);
-                if (phoneResponse.status_code == StatusCodes.Status400BadRequest)
+                account _account = response.data!;
+                response = _accountQuery.CheckIfPhoneAlreadyInUse(account.phone!, account.id);
+                if (response.status_code == StatusCodes.Status400BadRequest)
                 {
-                    return phoneResponse;
+                    return response;
                 }
-                account _account = accountResponse.data!;
                 _account.first_name = account.first_name;
                 _account.last_name = account.last_name;
                 _account.phone = account.phone;

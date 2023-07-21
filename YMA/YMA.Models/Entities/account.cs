@@ -22,4 +22,6 @@ public partial class account
     public bool? is_disabled { get; set; }
 
     public virtual address? default_address { get; set; }
+
+    public virtual ICollection<favorite_product> favorite_products { get; set; } = new List<favorite_product>();
 }

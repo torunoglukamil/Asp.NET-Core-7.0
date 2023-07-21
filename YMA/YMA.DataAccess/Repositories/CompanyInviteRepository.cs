@@ -1,11 +1,10 @@
-﻿using FluentValidation;
-using FluentValidation.Results;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using YMA.DataAccess.Helpers;
 using YMA.DataAccess.Queries;
 using YMA.Entities.Converters;
 using YMA.Entities.Entities;
 using YMA.Entities.Models;
+using YMA.Entities.Validators;
 
 namespace YMA.DataAccess.Repositories
 {
@@ -14,29 +13,26 @@ namespace YMA.DataAccess.Repositories
         private readonly ymaContext _db;
         private readonly CompanyInviteQuery _companyInviteQuery;
         private readonly ResponseHelper _responseHelper;
-        private readonly IValidator<CompanyInviteModel> _companyInviteValidator;
-        private readonly IValidator<ReplyCompanyInviteModel> _replyCompanyInviteValidator;
+        private readonly ValidationHelper<CompanyInviteModel> _companyInviteValidator;
+        private readonly ValidationHelper<ReplyCompanyInviteModel> _replyCompanyInviteValidator;
 
-        public CompanyInviteRepository(ymaContext db, CompanyInviteQuery companyInviteQuery, ResponseHelper responseHelper, IValidator<CompanyInviteModel> companyInviteValidator, IValidator<ReplyCompanyInviteModel> replyCompanyInviteValidator)
+        public CompanyInviteRepository(ymaContext db, CompanyInviteQuery companyInviteQuery, ResponseHelper responseHelper)
         {
             _db = db;
             _companyInviteQuery = companyInviteQuery;
             _responseHelper = responseHelper;
-            _companyInviteValidator = companyInviteValidator;
-            _replyCompanyInviteValidator = replyCompanyInviteValidator;
+            _companyInviteValidator = new ValidationHelper<CompanyInviteModel>(new CompanyInviteValidator());
+            _replyCompanyInviteValidator = new ValidationHelper<ReplyCompanyInviteModel>(new ReplyCompanyInviteValidator());
         }
 
-        public async Task<ResponseModel> CreateCompanyInvite(CompanyInviteModel companyInvite) => await _responseHelper.TryCatch(
+        public ResponseModel CreateCompanyInvite(CompanyInviteModel companyInvite) => _responseHelper.TryCatch(
             "CompanyInviteRepository.CreateCompanyInvite",
-            async () =>
+            () =>
             {
-                ValidationResult validationResult = await _companyInviteValidator.ValidateAsync(companyInvite);
-                if (!validationResult.IsValid)
+                ResponseModel response = _companyInviteValidator.Validate(companyInvite);
+                if (response.status_code == StatusCodes.Status400BadRequest)
                 {
-                    return new ResponseModel()
-                    {
-                        message = validationResult.Errors.FirstOrDefault()!.ErrorMessage,
-                    };
+                    return response;
                 }
                 company_invite _companyInvite = CompanyInviteConverter.ToCompanyInvite(companyInvite);
                 _companyInvite.create_date = DateTime.Now;
@@ -50,19 +46,16 @@ namespace YMA.DataAccess.Repositories
             }
         );
 
-        public async Task<ResponseModel> ReplyCompanyInvite(ReplyCompanyInviteModel replyCompanyInvite) => await _responseHelper.TryCatch(
+        public ResponseModel ReplyCompanyInvite(ReplyCompanyInviteModel replyCompanyInvite) => _responseHelper.TryCatch(
             "CompanyInviteRepository.ReplyCompanyInvite",
-            async () =>
+            () =>
             {
-                ValidationResult validationResult = await _replyCompanyInviteValidator.ValidateAsync(replyCompanyInvite);
-                if (!validationResult.IsValid)
+                ResponseModel response = _replyCompanyInviteValidator.Validate(replyCompanyInvite);
+                if (response.status_code == StatusCodes.Status400BadRequest)
                 {
-                    return new ResponseModel()
-                    {
-                        message = validationResult.Errors.FirstOrDefault()!.ErrorMessage,
-                    };
+                    return response;
                 }
-                ResponseModel response = _companyInviteQuery.GetCompanyInviteById(replyCompanyInvite.id);
+                response = _companyInviteQuery.GetCompanyInviteById(replyCompanyInvite.id);
                 if (response.status_code == StatusCodes.Status400BadRequest)
                 {
                     return response;

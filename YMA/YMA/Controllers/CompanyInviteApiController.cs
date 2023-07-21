@@ -16,10 +16,10 @@ namespace YMA.Controllers
 
         [HttpPost]
         [Route("api/[controller]/CreateCompanyInvite")]
-        public async Task<ResponseModel> CreateCompanyInvite([FromBody] CompanyInviteModel companyInvite) => await _companyInviteService.Repository.CreateCompanyInvite(companyInvite);
+        public ResponseModel CreateCompanyInvite([FromBody] CompanyInviteModel companyInvite) => _companyInviteService.Repository.CreateCompanyInvite(companyInvite);
 
         [HttpPut]
         [Route("api/[controller]/ReplyCompanyInvite")]
-        public async Task<ResponseModel> ReplyCompanyInvite([FromBody] ReplyCompanyInviteModel replyCompanyInvite) => await _companyInviteService.Repository.ReplyCompanyInvite(replyCompanyInvite);
+        public ResponseModel ReplyCompanyInvite([FromBody] ReplyCompanyInviteModel replyCompanyInvite) => _companyInviteService.Repository.ReplyCompanyInvite(replyCompanyInvite);
     }
 }

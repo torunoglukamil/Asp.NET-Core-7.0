@@ -31,6 +31,8 @@ public partial class ymaContext : DbContext
 
     public virtual DbSet<exchange> exchanges { get; set; }
 
+    public virtual DbSet<favorite_product> favorite_products { get; set; }
+
     public virtual DbSet<featured_brand> featured_brands { get; set; }
 
     public virtual DbSet<featured_category> featured_categories { get; set; }
@@ -110,6 +112,21 @@ public partial class ymaContext : DbContext
         modelBuilder.Entity<exchange>(entity =>
         {
             entity.HasKey(e => e.id).HasName("exchanges_pkey");
+        });
+
+        modelBuilder.Entity<favorite_product>(entity =>
+        {
+            entity.HasKey(e => e.id).HasName("favorite_products_pkey");
+
+            entity.Property(e => e.create_date).HasColumnType("timestamp without time zone");
+
+            entity.HasOne(d => d.account).WithMany(p => p.favorite_products)
+                .HasForeignKey(d => d.account_id)
+                .HasConstraintName("favorite_products_fkey_accounts");
+
+            entity.HasOne(d => d.product).WithMany(p => p.favorite_products)
+                .HasForeignKey(d => d.product_id)
+                .HasConstraintName("favorite_products_fkey_products");
         });
 
         modelBuilder.Entity<featured_brand>(entity =>

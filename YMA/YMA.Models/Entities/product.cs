@@ -43,5 +43,7 @@ public partial class product
 
     public virtual company? company { get; set; }
 
+    public virtual ICollection<favorite_product> favorite_products { get; set; } = new List<favorite_product>();
+
     public virtual ICollection<featured_product> featured_products { get; set; } = new List<featured_product>();
 }

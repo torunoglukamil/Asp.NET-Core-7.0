@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Firebase.Auth;
+using Microsoft.AspNetCore.Http;
 using YMA.DataAccess.Helpers;
+using YMA.DataAccess.Providers;
 using YMA.Entities.Interfaces;
 using YMA.Entities.Models;
 
@@ -7,12 +9,12 @@ namespace YMA.DataAccess.Repositories
 {
     public class FirebaseAuthRepository : IAuthRepository
     {
-        private readonly FirebaseAuthHelper _firebaseAuthHelper;
+        private readonly FirebaseAuthProvider _firebaseAuth;
         private readonly ResponseHelper _responseHelper;
 
-        public FirebaseAuthRepository(FirebaseAuthHelper firebaseAuthHelper, ResponseHelper responseHelper)
+        public FirebaseAuthRepository(FirebaseAuthenticationProvider firebaseAuthenticationProvider, ResponseHelper responseHelper)
         {
-            _firebaseAuthHelper = firebaseAuthHelper;
+            _firebaseAuth = firebaseAuthenticationProvider.FirebaseAuth;
             _responseHelper = responseHelper;
         }
 
@@ -20,7 +22,7 @@ namespace YMA.DataAccess.Repositories
             "FirebaseAuthRepository.CreateAccount",
             async () =>
             {
-                await _firebaseAuthHelper.FirebaseAuth.CreateUserWithEmailAndPasswordAsync(createAccount.email, createAccount.password);
+                await _firebaseAuth.CreateUserWithEmailAndPasswordAsync(createAccount.email, createAccount.password);
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status200OK,

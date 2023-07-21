@@ -20,7 +20,7 @@ namespace YMA.Controllers
 
         [HttpPut]
         [Route("api/[controller]/UpdateAccount")]
-        public async Task<ResponseModel> UpdateAccount([FromBody] AccountModel account) => await _accountService.Repository.UpdateAccount(account);
+        public ResponseModel UpdateAccount([FromBody] AccountModel account) => _accountService.Repository.UpdateAccount(account);
 
         [HttpDelete]
         [Route("api/[controller]/DisableAccount/{id}")]

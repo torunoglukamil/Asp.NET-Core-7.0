@@ -1,9 +1,8 @@
-﻿using FluentValidation;
-using FluentValidation.Results;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using YMA.DataAccess.Helpers;
 using YMA.Entities.Interfaces;
 using YMA.Entities.Models;
+using YMA.Entities.Validators;
 
 namespace YMA.DataAccess.Repositories
 {
@@ -12,29 +11,31 @@ namespace YMA.DataAccess.Repositories
         private readonly IAuthRepository _authRepository;
         private readonly AccountRepository _accountRepository;
         private readonly ResponseHelper _responseHelper;
-        private readonly IValidator<CreateAccountModel> _createAccountValidator;
+        private readonly ValidationHelper<CreateAccountModel> _createAccountValidator;
 
-        public AuthRepository(IAuthRepository authRepository, AccountRepository accountRepository, ResponseHelper responseHelper, IValidator<CreateAccountModel> createAccountValidator)
+        public AuthRepository(IAuthRepository authRepository, AccountRepository accountRepository, ResponseHelper responseHelper)
         {
             _authRepository = authRepository;
             _accountRepository = accountRepository;
             _responseHelper = responseHelper;
-            _createAccountValidator = createAccountValidator;
+            _createAccountValidator = new ValidationHelper<CreateAccountModel>(new CreateAccountValidator());
         }
 
         public async Task<ResponseModel> CreateAccount(CreateAccountModel createAccount, AccountModel account) => await _responseHelper.TryCatch(
             "AuthRepository.CreateAccount",
             async () =>
             {
-                ValidationResult validationResult = await _createAccountValidator.ValidateAsync(createAccount);
-                if (!validationResult.IsValid)
+                ResponseModel response = _createAccountValidator.Validate(createAccount);
+                if (response.status_code == StatusCodes.Status400BadRequest)
                 {
-                    return new ResponseModel()
-                    {
-                        message = validationResult.Errors.FirstOrDefault()!.ErrorMessage,
-                    };
+                    return response;
                 }
-                ResponseModel response = await _accountRepository.CreateAccountValidate(account);
+                response = _createAccountValidator.Validate(createAccount);
+                if (response.status_code == StatusCodes.Status400BadRequest)
+                {
+                    return response;
+                }
+                response = _accountRepository.CreateAccountValidate(account);
                 if (response.status_code == StatusCodes.Status400BadRequest)
                 {
                     return response;
