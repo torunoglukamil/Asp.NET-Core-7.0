@@ -15,6 +15,10 @@ namespace YMA.Controllers
         }
 
         [HttpGet]
+        [Route("api/[controller]/GetFavoriteProductList/{accountId}/{searchText?}")]
+        public ResponseModel GetFavoriteProductList(int accountId, string? searchText) => _productService.Query.GetFavoriteProductList(accountId, searchText);
+
+        [HttpGet]
         [Route("api/[controller]/GetFeaturedProductList/{length?}/{searchText?}")]
         public ResponseModel GetFeaturedProductList(int? length, string? searchText) => _productService.Query.GetFeaturedProductList(length, searchText);
 

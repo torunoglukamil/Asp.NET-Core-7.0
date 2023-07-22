@@ -14,12 +14,12 @@ namespace YMA.Controllers
             _favoriteProductService = favoriteProductService;
         }
 
-        [HttpGet]
-        [Route("api/[controller]/GetFavoriteProductIdList/{accountId}")]
-        public ResponseModel GetFavoriteProductIdList(int accountId) => _favoriteProductService.Query.GetFavoriteProductIdList(accountId);
-
         [HttpPut]
         [Route("api/[controller]/UpdateFavoriteProduct/{productId}/{accountId}")]
         public ResponseModel UpdateFavoriteProduct(int productId, int accountId) => _favoriteProductService.Repository.UpdateFavoriteProduct(productId, accountId);
+
+        [HttpDelete]
+        [Route("api/[controller]/DeleteAllFavoriteProducts/{accountId}")]
+        public ResponseModel DeleteAllFavoriteProducts(int accountId) => _favoriteProductService.Repository.DeleteAllFavoriteProducts(accountId);
     }
 }

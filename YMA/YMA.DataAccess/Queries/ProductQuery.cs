@@ -57,6 +57,26 @@ namespace YMA.DataAccess.Queries
             return productModelList;
         }
 
+        public ResponseModel GetFavoriteProductList(int accountId, string? searchText)
+        {
+            List<product> productList = new();
+            _db.favorite_products.Where(x => x.account_id == accountId).OrderByDescending(x => x.create_date).ToList().ForEach(x =>
+            {
+                product? product = _db.products.Where(y => y.id == x.product_id).Where(x => x.is_disabled == false).FirstOrDefault();
+                if (product != null)
+                {
+                    productList.Add(product);
+                }
+            });
+            List<ProductModel> productModelList = GetProductModelList(productList);
+            productModelList = ProductHelper.GetProductListBySearch(productModelList, searchText);
+            return new ResponseModel()
+            {
+                status_code = StatusCodes.Status200OK,
+                data = productModelList,
+            };
+        }
+
         private List<product> GetFeaturedProductList()
         {
             List<product> productList = new();

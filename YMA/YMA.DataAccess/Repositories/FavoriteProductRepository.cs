@@ -1,4 +1,5 @@
-﻿using YMA.DataAccess.Helpers;
+﻿using Microsoft.AspNetCore.Http;
+using YMA.DataAccess.Helpers;
 using YMA.DataAccess.Queries;
 using YMA.Entities.Entities;
 using YMA.Entities.Models;
@@ -36,7 +37,22 @@ namespace YMA.DataAccess.Repositories
                         create_date = DateTime.Now,
                     });
                 }
+                _db.SaveChanges();
                 return _favoriteProductQuery.GetFavoriteProductIdList(accountId);
+            }
+        );
+
+        public ResponseModel DeleteAllFavoriteProducts(int accountId) => _responseHelper.TryCatch(
+            "FavoriteProductRepository.DeleteAllFavoriteProducts",
+            () =>
+            {
+                List<favorite_product> favoriteProductList = _db.favorite_products.Where(x => x.account_id == accountId).ToList();
+                favoriteProductList.ForEach(x => _db.favorite_products.Remove(x));
+                _db.SaveChanges();
+                return new ResponseModel()
+                {
+                    status_code = StatusCodes.Status200OK,
+                };
             }
         );
     }
