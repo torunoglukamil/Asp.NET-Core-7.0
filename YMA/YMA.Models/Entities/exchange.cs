@@ -5,6 +5,8 @@ namespace YMA.Entities.Entities;
 
 public partial class exchange
 {
+    public string id { get; set; } = null!;
+
     public string? currency { get; set; }
 
     public double? unit_price { get; set; }
@@ -18,6 +20,4 @@ public partial class exchange
     public int? order_number { get; set; }
 
     public bool? is_disabled { get; set; }
-
-    public int id { get; set; }
 }

@@ -5,7 +5,7 @@ namespace YMA.Entities.Entities;
 
 public partial class version
 {
-    public int id { get; set; }
+    public string id { get; set; } = null!;
 
     public string? name { get; set; }
 

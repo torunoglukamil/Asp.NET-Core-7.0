@@ -17,7 +17,7 @@ namespace YMA.DataAccess.Queries
             _responseHelper = responseHelper;
         }
 
-        public ResponseModel GetAccountById(int id, bool returnDbAccount = false) => _responseHelper.TryCatch(
+        public ResponseModel GetAccountById(string id, bool returnDbAccount = false) => _responseHelper.TryCatch(
             "AccountQuery.GetAccountById",
             () =>
             {
@@ -71,7 +71,7 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel CheckIfEmailAlreadyInUse(String email, int? accountId)
+        public ResponseModel CheckIfEmailAlreadyInUse(string email, string? accountId)
         {
             account? account = _db.accounts.Where(x => x.email == email).FirstOrDefault();
             if (account != null && (account.id != accountId))
@@ -87,7 +87,7 @@ namespace YMA.DataAccess.Queries
             };
         }
 
-        public ResponseModel CheckIfPhoneAlreadyInUse(String? phone, int? accountId)
+        public ResponseModel CheckIfPhoneAlreadyInUse(string? phone, string? accountId)
         {
             if (phone != null)
             {

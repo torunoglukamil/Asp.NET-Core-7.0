@@ -17,7 +17,7 @@ namespace YMA.DataAccess.Queries
             _responseHelper = responseHelper;
         }
 
-        public ResponseModel GetBrandById(int id) => _responseHelper.TryCatch(
+        public ResponseModel GetBrandById(string id) => _responseHelper.TryCatch(
             "BrandQuery.GetBrandById",
             () =>
             {

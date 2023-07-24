@@ -16,11 +16,11 @@ namespace YMA.DataAccess.Queries
             _responseHelper = responseHelper;
         }
 
-        public ResponseModel GetFavoriteProductIdList(int accountId) => _responseHelper.TryCatch(
+        public ResponseModel GetFavoriteProductIdList(string accountId) => _responseHelper.TryCatch(
             "FavoriteProductQuery.GetFavoriteProductIdList",
             () =>
             {
-                List<int> favoriteProductIdList = _db.favorite_products.Where(x => x.account_id == accountId).Select(x => x.product_id ?? 0).ToList();
+                List<string> favoriteProductIdList = _db.favorite_products.Where(x => x.account_id == accountId).Select(x => x.product_id!).ToList();
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status200OK,

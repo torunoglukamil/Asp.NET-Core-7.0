@@ -16,10 +16,10 @@ namespace YMA.Controllers
 
         [HttpPut]
         [Route("api/[controller]/UpdateFavoriteProduct/{productId}/{accountId}")]
-        public ResponseModel UpdateFavoriteProduct(int productId, int accountId) => _favoriteProductService.Repository.UpdateFavoriteProduct(productId, accountId);
+        public ResponseModel UpdateFavoriteProduct(string productId, string accountId) => _favoriteProductService.Repository.UpdateFavoriteProduct(productId, accountId);
 
         [HttpDelete]
         [Route("api/[controller]/DeleteAllFavoriteProducts/{accountId}")]
-        public ResponseModel DeleteAllFavoriteProducts(int accountId) => _favoriteProductService.Repository.DeleteAllFavoriteProducts(accountId);
+        public ResponseModel DeleteAllFavoriteProducts(string accountId) => _favoriteProductService.Repository.DeleteAllFavoriteProducts(accountId);
     }
 }

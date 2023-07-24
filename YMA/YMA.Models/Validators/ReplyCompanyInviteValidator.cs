@@ -10,7 +10,7 @@ namespace YMA.Entities.Validators
             RuleFor(x => x.id)
                 .NotNull()
                 .WithMessage("Davet ID geçersiz.")
-                .GreaterThan(0)
+                .NotEmpty()
                 .WithMessage("Davet ID geçersiz.");
             RuleFor(x => x.is_accepted)
                 .NotNull()

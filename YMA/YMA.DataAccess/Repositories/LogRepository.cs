@@ -17,9 +17,7 @@ namespace YMA.DataAccess.Repositories
         {
             try
             {
-                log _log = LogConverter.ToLog(log);
-                _log.create_date = DateTime.Now;
-                _db.logs.Add(_log);
+                _db.logs.Add(LogConverter.ToLog(log));
                 _db.SaveChanges();
             }
             catch (Exception) { }

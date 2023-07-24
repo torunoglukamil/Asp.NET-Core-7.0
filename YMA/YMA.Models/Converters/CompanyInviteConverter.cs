@@ -18,11 +18,13 @@ namespace YMA.Entities.Converters
 
         public static company_invite ToCompanyInvite(CompanyInviteModel company_invite) => new()
         {
+            id = Guid.NewGuid().ToString(),
             receiver_id = company_invite.receiver_id,
             sender_id = company_invite.sender_id,
             is_buying = company_invite.is_buying,
             is_selling = company_invite.is_selling,
             is_current_account_registration = company_invite.is_current_account_registration,
+            create_date = DateTime.Now,
         };
     }
 }

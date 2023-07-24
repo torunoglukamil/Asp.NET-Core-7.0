@@ -10,12 +10,12 @@ namespace YMA.Entities.Validators
             RuleFor(x => x.receiver_id)
                 .NotNull()
                 .WithMessage("Alıcı ID geçersiz.")
-                .GreaterThan(0)
+                .NotEmpty()
                 .WithMessage("Alıcı ID geçersiz.");
             RuleFor(x => x.sender_id)
                 .NotNull()
                 .WithMessage("Gönderen ID geçersiz.")
-                .GreaterThan(0)
+                .NotEmpty()
                 .WithMessage("Gönderen ID geçersiz.");
             RuleFor(x => x.is_buying)
                 .NotNull()

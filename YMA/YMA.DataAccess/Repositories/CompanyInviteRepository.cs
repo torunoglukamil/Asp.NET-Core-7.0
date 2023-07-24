@@ -34,9 +34,7 @@ namespace YMA.DataAccess.Repositories
                 {
                     return response;
                 }
-                company_invite _companyInvite = CompanyInviteConverter.ToCompanyInvite(companyInvite);
-                _companyInvite.create_date = DateTime.Now;
-                _db.company_invites.Add(_companyInvite);
+                _db.company_invites.Add(CompanyInviteConverter.ToCompanyInvite(companyInvite));
                 _db.SaveChanges();
                 return new ResponseModel()
                 {
@@ -55,7 +53,7 @@ namespace YMA.DataAccess.Repositories
                 {
                     return response;
                 }
-                response = _companyInviteQuery.GetCompanyInviteById(replyCompanyInvite.id);
+                response = _companyInviteQuery.GetCompanyInviteById(replyCompanyInvite.id!);
                 if (response.status_code == StatusCodes.Status400BadRequest)
                 {
                     return response;

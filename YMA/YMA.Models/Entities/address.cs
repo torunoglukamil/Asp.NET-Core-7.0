@@ -5,7 +5,7 @@ namespace YMA.Entities.Entities;
 
 public partial class address
 {
-    public int id { get; set; }
+    public string id { get; set; } = null!;
 
     public string? title { get; set; }
 
@@ -19,5 +19,5 @@ public partial class address
 
     public DateTime? create_date { get; set; }
 
-    public virtual ICollection<account> accounts { get; set; } = new List<account>();
+    public bool? is_disabled { get; set; }
 }

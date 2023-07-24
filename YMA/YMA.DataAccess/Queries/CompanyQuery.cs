@@ -19,7 +19,7 @@ namespace YMA.DataAccess.Queries
             _responseHelper = responseHelper;
         }
 
-        public ResponseModel GetCompanyById(int id) => _responseHelper.TryCatch(
+        public ResponseModel GetCompanyById(string id) => _responseHelper.TryCatch(
             "CompanyQuery.GetCompanyById",
             () =>
             {
@@ -46,7 +46,7 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetCompanyList(int companyId, string? searchText) => _responseHelper.TryCatch(
+        public ResponseModel GetCompanyList(string companyId, string? searchText) => _responseHelper.TryCatch(
             "CompanyQuery.GetCompanyList",
             () =>
             {
@@ -54,7 +54,7 @@ namespace YMA.DataAccess.Queries
                 companyList = CompanyHelper.GetCompanyListBySearch(companyList, searchText);
                 companyList.ForEach(x =>
                 {
-                    ResponseModel response = _companyInviteQuery.GetCompanyInviteList(x.id, companyId);
+                    ResponseModel response = _companyInviteQuery.GetCompanyInviteList(x.id!, companyId);
                     x.company_invite_list = response.data;
                 });
                 return new ResponseModel()
@@ -65,7 +65,7 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetContractedCompanyList(int companyId, string? searchText) => _responseHelper.TryCatch(
+        public ResponseModel GetContractedCompanyList(string companyId, string? searchText) => _responseHelper.TryCatch(
             "CompanyQuery.GetContractedCompanyList",
             () =>
             {
@@ -90,7 +90,7 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetBuyingCompanyList(int companyId, string? searchText) => _responseHelper.TryCatch(
+        public ResponseModel GetBuyingCompanyList(string companyId, string? searchText) => _responseHelper.TryCatch(
             "CompanyQuery.GetBuyingCompanyList",
             () =>
             {
@@ -118,7 +118,7 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetSellingCompanyList(int companyId, string? searchText) => _responseHelper.TryCatch(
+        public ResponseModel GetSellingCompanyList(string companyId, string? searchText) => _responseHelper.TryCatch(
             "CompanyQuery.GetSellingCompanyList",
             () =>
             {
@@ -146,7 +146,7 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetNotContractedCompanyList(int companyId, string? searchText) => _responseHelper.TryCatch(
+        public ResponseModel GetNotContractedCompanyList(string companyId, string? searchText) => _responseHelper.TryCatch(
             "CompanyQuery.GetNotContractedCompanyList",
             () =>
             {
@@ -176,7 +176,7 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetFeaturedCompanyList(int companyId, int? length) => _responseHelper.TryCatch(
+        public ResponseModel GetFeaturedCompanyList(string companyId, int? length) => _responseHelper.TryCatch(
             "CompanyQuery.GetFeaturedCompanyList",
             () =>
             {

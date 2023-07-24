@@ -12,7 +12,7 @@ public class AddressModel
     private string? _district;
     private string? _neighbourhood;
 
-    public int id { get; set; }
+    public string? id { get; set; }
 
     public string? title
     {

@@ -11,7 +11,7 @@ public class AccountModel
     private string? _email;
     private string? _phone;
 
-    public int id { get; set; }
+    public string? id { get; set; }
 
     public string? first_name
     {
@@ -48,5 +48,5 @@ public class AccountModel
         }
     }
 
-    public int? default_address_id { get; set; }
+    public string? default_address_id { get; set; }
 }

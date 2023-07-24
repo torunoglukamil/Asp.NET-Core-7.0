@@ -17,7 +17,7 @@ namespace YMA.DataAccess.Queries
             _responseHelper = responseHelper;
         }
 
-        public ResponseModel GetCategoryById(int id) => _responseHelper.TryCatch(
+        public ResponseModel GetCategoryById(string id) => _responseHelper.TryCatch(
             "CategoryQuery.GetCategoryById",
             () =>
             {

@@ -19,7 +19,7 @@ namespace YMA.DataAccess.Repositories
             _responseHelper = responseHelper;
         }
 
-        public ResponseModel UpdateFavoriteProduct(int productId, int accountId) => _responseHelper.TryCatch(
+        public ResponseModel UpdateFavoriteProduct(string productId, string accountId) => _responseHelper.TryCatch(
             "FavoriteProductRepository.UpdateFavoriteProduct",
             () =>
             {
@@ -32,6 +32,7 @@ namespace YMA.DataAccess.Repositories
                 {
                     _db.favorite_products.Add(new favorite_product()
                     {
+                        id = Guid.NewGuid().ToString(),
                         product_id = productId,
                         account_id = accountId,
                         create_date = DateTime.Now,
@@ -42,7 +43,7 @@ namespace YMA.DataAccess.Repositories
             }
         );
 
-        public ResponseModel DeleteAllFavoriteProducts(int accountId) => _responseHelper.TryCatch(
+        public ResponseModel DeleteAllFavoriteProducts(string accountId) => _responseHelper.TryCatch(
             "FavoriteProductRepository.DeleteAllFavoriteProducts",
             () =>
             {

@@ -17,7 +17,7 @@ namespace YMA.DataAccess.Queries
             _responseHelper = responseHelper;
         }
 
-        public ResponseModel GetCompanyInviteById(int id) => _responseHelper.TryCatch(
+        public ResponseModel GetCompanyInviteById(string id) => _responseHelper.TryCatch(
             "CompanyInviteQuery.GetCompanyInviteById",
             () =>
             {
@@ -37,7 +37,7 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetCompanyInviteList(int companyId1, int companyId2) => _responseHelper.TryCatch(
+        public ResponseModel GetCompanyInviteList(string companyId1, string companyId2) => _responseHelper.TryCatch(
             "CompanyInviteQuery.GetCompanyInviteList",
             () =>
             {

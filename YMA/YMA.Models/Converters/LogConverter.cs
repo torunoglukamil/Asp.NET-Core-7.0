@@ -7,9 +7,11 @@ namespace YMA.Entities.Converters
     {
         public static log ToLog(LogModel log) => new()
         {
+            id = Guid.NewGuid().ToString(),
             type = log.type,
             message = log.message,
             data = log.data,
+            create_date = DateTime.Now,
         };
     }
 }

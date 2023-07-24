@@ -53,10 +53,7 @@ namespace YMA.DataAccess.Repositories
             "AccountRepository.CreateAccount",
             () =>
             {
-                account _account = AccountConverter.ToAccount(account);
-                _account.create_date = DateTime.Now;
-                _account.is_disabled = false;
-                _db.accounts.Add(_account);
+                _db.accounts.Add(AccountConverter.ToAccount(account));
                 _db.SaveChanges();
                 return new ResponseModel()
                 {
@@ -75,7 +72,7 @@ namespace YMA.DataAccess.Repositories
                 {
                     return response;
                 }
-                response = _accountQuery.GetAccountById(account.id, true);
+                response = _accountQuery.GetAccountById(account.id!, true);
                 if (response.status_code == StatusCodes.Status400BadRequest)
                 {
                     return response;
@@ -98,7 +95,7 @@ namespace YMA.DataAccess.Repositories
             }
         );
 
-        public ResponseModel DisableAccount(int id) => _responseHelper.TryCatch(
+        public ResponseModel DisableAccount(string id) => _responseHelper.TryCatch(
             "AccountRepository.DisableAccount",
             () =>
             {
@@ -127,7 +124,7 @@ namespace YMA.DataAccess.Repositories
             }
         );
 
-        public ResponseModel ActivateAccount(int id) => _responseHelper.TryCatch(
+        public ResponseModel ActivateAccount(string id) => _responseHelper.TryCatch(
             "AccountRepository.ActivateAccount",
             () =>
             {

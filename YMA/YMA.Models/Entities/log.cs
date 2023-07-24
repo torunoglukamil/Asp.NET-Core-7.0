@@ -5,6 +5,8 @@ namespace YMA.Entities.Entities;
 
 public partial class log
 {
+    public string id { get; set; } = null!;
+
     public string? type { get; set; }
 
     public string? message { get; set; }
@@ -12,6 +14,4 @@ public partial class log
     public string? data { get; set; }
 
     public DateTime? create_date { get; set; }
-
-    public int id { get; set; }
 }

@@ -5,7 +5,7 @@ namespace YMA.Entities.Entities;
 
 public partial class product
 {
-    public int id { get; set; }
+    public string id { get; set; } = null!;
 
     public string? name { get; set; }
 
@@ -25,25 +25,15 @@ public partial class product
 
     public double? discount { get; set; }
 
-    public int? brand_id { get; set; }
+    public int? stock_counter { get; set; }
 
-    public int? category_id { get; set; }
+    public string? brand_id { get; set; }
 
-    public int? company_id { get; set; }
+    public string? category_id { get; set; }
+
+    public string? company_id { get; set; }
 
     public DateTime? create_date { get; set; }
 
     public bool? is_disabled { get; set; }
-
-    public int? stock_counter { get; set; }
-
-    public virtual brand? brand { get; set; }
-
-    public virtual category? category { get; set; }
-
-    public virtual company? company { get; set; }
-
-    public virtual ICollection<favorite_product> favorite_products { get; set; } = new List<favorite_product>();
-
-    public virtual ICollection<featured_product> featured_products { get; set; } = new List<featured_product>();
 }

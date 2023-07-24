@@ -28,36 +28,30 @@ namespace YMA.DataAccess.Queries
             List<ProductModel> productModelList = new();
             productList.ForEach(x =>
             {
-                int? brandId = x.brand_id;
-                int? categoryId = x.category_id;
-                int? companyId = x.company_id;
-                if (brandId != null && categoryId != null && companyId != null)
+                ResponseModel response = _brandQuery.GetBrandById(x.brand_id!);
+                if (response.status_code == StatusCodes.Status400BadRequest)
                 {
-                    ResponseModel response = _brandQuery.GetBrandById(brandId ?? 1);
-                    if (response.status_code == StatusCodes.Status400BadRequest)
-                    {
-                        return;
-                    }
-                    BrandModel brand = response.data!;
-                    response = _categoryQuery.GetCategoryById(categoryId ?? 1);
-                    if (response.status_code == StatusCodes.Status400BadRequest)
-                    {
-                        return;
-                    }
-                    CategoryModel category = response.data!;
-                    response = _companyQuery.GetCompanyById(companyId ?? 1);
-                    if (response.status_code == StatusCodes.Status400BadRequest)
-                    {
-                        return;
-                    }
-                    CompanyModel company = response.data!;
-                    productModelList.Add(ProductConverter.ToModel(x, brand, category, company));
+                    return;
                 }
+                BrandModel brand = response.data!;
+                response = _categoryQuery.GetCategoryById(x.category_id!);
+                if (response.status_code == StatusCodes.Status400BadRequest)
+                {
+                    return;
+                }
+                CategoryModel category = response.data!;
+                response = _companyQuery.GetCompanyById(x.company_id!);
+                if (response.status_code == StatusCodes.Status400BadRequest)
+                {
+                    return;
+                }
+                CompanyModel company = response.data!;
+                productModelList.Add(ProductConverter.ToModel(x, brand, category, company));
             });
             return productModelList;
         }
 
-        public ResponseModel GetFavoriteProductList(int accountId, string? searchText)
+        public ResponseModel GetFavoriteProductList(string accountId, string? searchText)
         {
             List<product> productList = new();
             _db.favorite_products.Where(x => x.account_id == accountId).OrderByDescending(x => x.create_date).ToList().ForEach(x =>
@@ -110,7 +104,7 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetCategoryProductList(int id, string? searchText) => _responseHelper.TryCatch(
+        public ResponseModel GetCategoryProductList(string id, string? searchText) => _responseHelper.TryCatch(
             "ProductQuery.GetCategoryProductList",
             () =>
             {
@@ -133,7 +127,7 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetBrandProductList(int id, string? searchText) => _responseHelper.TryCatch(
+        public ResponseModel GetBrandProductList(string id, string? searchText) => _responseHelper.TryCatch(
             "ProductQuery.GetBrandProductList",
             () =>
             {
@@ -156,7 +150,7 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetCompanyProductList(int id, string? searchText) => _responseHelper.TryCatch(
+        public ResponseModel GetCompanyProductList(string id, string? searchText) => _responseHelper.TryCatch(
             "ProductQuery.GetCompanyProductList",
             () =>
             {

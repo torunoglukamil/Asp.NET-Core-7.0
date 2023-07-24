@@ -5,11 +5,11 @@ namespace YMA.Entities.Entities;
 
 public partial class company_invite
 {
-    public int id { get; set; }
+    public string id { get; set; } = null!;
 
-    public int? receiver_id { get; set; }
+    public string? receiver_id { get; set; }
 
-    public int? sender_id { get; set; }
+    public string? sender_id { get; set; }
 
     public bool? is_buying { get; set; }
 
@@ -22,8 +22,4 @@ public partial class company_invite
     public DateTime? reply_date { get; set; }
 
     public DateTime? create_date { get; set; }
-
-    public virtual company? receiver { get; set; }
-
-    public virtual company? sender { get; set; }
 }

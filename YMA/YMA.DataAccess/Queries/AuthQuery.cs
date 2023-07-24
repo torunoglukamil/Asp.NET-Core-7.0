@@ -48,12 +48,12 @@ namespace YMA.DataAccess.Queries
                     return response;
                 }
                 AccountModel account = response.data!;
-                response = _favoriteProductQuery.GetFavoriteProductIdList(account.id);
-                List<int> favoriteProductIdList = response.data!;
+                response = _favoriteProductQuery.GetFavoriteProductIdList(account.id!);
+                List<string> favoriteProductIdList = response.data!;
                 _logRepository.CreateLog(new LogModel()
                 {
                     type = "login",
-                    data = account.id.ToString(),
+                    data = account.id!.ToString(),
                 });
                 return new ResponseModel()
                 {
