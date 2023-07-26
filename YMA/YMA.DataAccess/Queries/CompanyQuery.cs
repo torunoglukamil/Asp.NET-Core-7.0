@@ -49,17 +49,20 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetCompanyList(string companyId, string? searchText) => _responseHelper.TryCatch(
+        public ResponseModel GetCompanyList(string requestingCompanyId, string? searchText) => _responseHelper.TryCatch(
             "CompanyQuery.GetCompanyList",
             () =>
             {
-                List<CompanyModel> companyList = _db.companies.Where(x => x.is_disabled == false).Where(x => x.id != companyId).OrderBy(x => x.name).Select(CompanyConverter.ToModel).ToList();
-                companyList = CompanyHelper.GetCompanyListBySearch(companyList, searchText);
-                companyList.ForEach(x =>
+                List<CompanyModel> companyList = new();
+                _db.companies.Where(x => x.id != requestingCompanyId).OrderBy(x => x.name).ToList().ForEach(x =>
                 {
-                    ResponseModel response = _companyInviteQuery.GetCompanyInviteList(x.id!, companyId);
-                    x.company_invite_list = response.data;
+                    ResponseModel response = GetCompanyById(x.id, requestingCompanyId);
+                    if (response.status_code == StatusCodes.Status200OK)
+                    {
+                        companyList.Add(response.data);
+                    }
                 });
+                companyList = CompanyHelper.GetCompanyListBySearch(companyList, searchText);
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status200OK,
@@ -68,11 +71,11 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetContractedCompanyList(string companyId, string? searchText) => _responseHelper.TryCatch(
+        public ResponseModel GetContractedCompanyList(string requestingCompanyId, string? searchText) => _responseHelper.TryCatch(
             "CompanyQuery.GetContractedCompanyList",
             () =>
             {
-                ResponseModel response = GetCompanyList(companyId, searchText);
+                ResponseModel response = GetCompanyList(requestingCompanyId, searchText);
                 List<CompanyModel> companyList = new();
                 ((List<CompanyModel>)(response.data!)).ForEach(x =>
                 {
@@ -93,25 +96,25 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetBuyingCompanyList(string companyId, string? searchText) => _responseHelper.TryCatch(
+        public ResponseModel GetBuyingCompanyList(string requestingCompanyId, string? searchText) => _responseHelper.TryCatch(
             "CompanyQuery.GetBuyingCompanyList",
             () =>
             {
-                ResponseModel response = GetContractedCompanyList(companyId, searchText);
+                ResponseModel response = GetContractedCompanyList(requestingCompanyId, searchText);
                 List<CompanyModel> companyList = new();
                 ((List<CompanyModel>)(response.data!)).ForEach(x =>
                 {
-                    foreach (CompanyInviteModel companyInvite in x.company_invite_list!)
+                    x.company_invite_list!.ForEach(y =>
                     {
-                        if ((companyInvite.receiver_id == companyId) && (companyInvite.is_selling ?? false))
+                        if ((y.receiver_id == requestingCompanyId) && (y.is_selling ?? false))
                         {
                             companyList.Add(x);
                         }
-                        else if ((companyInvite.sender_id == companyId) && (companyInvite.is_buying ?? false))
+                        else if ((y.sender_id == requestingCompanyId) && (y.is_buying ?? false))
                         {
                             companyList.Add(x);
                         }
-                    }
+                    });
                 });
                 return new ResponseModel()
                 {
@@ -121,25 +124,25 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetSellingCompanyList(string companyId, string? searchText) => _responseHelper.TryCatch(
+        public ResponseModel GetSellingCompanyList(string requestingCompanyId, string? searchText) => _responseHelper.TryCatch(
             "CompanyQuery.GetSellingCompanyList",
             () =>
             {
-                ResponseModel response = GetContractedCompanyList(companyId, searchText);
+                ResponseModel response = GetContractedCompanyList(requestingCompanyId, searchText);
                 List<CompanyModel> companyList = new();
                 ((List<CompanyModel>)(response.data!)).ForEach(x =>
                 {
-                    foreach (CompanyInviteModel companyInvite in x.company_invite_list!)
+                    x.company_invite_list!.ForEach(y =>
                     {
-                        if ((companyInvite.receiver_id == companyId) && (companyInvite.is_buying ?? false))
+                        if ((y.receiver_id == requestingCompanyId) && (y.is_buying ?? false))
                         {
                             companyList.Add(x);
                         }
-                        else if ((companyInvite.sender_id == companyId) && (companyInvite.is_selling ?? false))
+                        else if ((y.sender_id == requestingCompanyId) && (y.is_selling ?? false))
                         {
                             companyList.Add(x);
                         }
-                    }
+                    });
                 });
                 return new ResponseModel()
                 {
@@ -149,11 +152,11 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetNotContractedCompanyList(string companyId, string? searchText) => _responseHelper.TryCatch(
+        public ResponseModel GetNotContractedCompanyList(string requestingCompanyId, string? searchText) => _responseHelper.TryCatch(
             "CompanyQuery.GetNotContractedCompanyList",
             () =>
             {
-                ResponseModel response = GetCompanyList(companyId, searchText);
+                ResponseModel response = GetCompanyList(requestingCompanyId, searchText);
                 List<CompanyModel> companyList = new();
                 ((List<CompanyModel>)(response.data!)).ForEach(x =>
                 {
@@ -179,17 +182,17 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetFeaturedCompanyList(string companyId, int? length) => _responseHelper.TryCatch(
+        public ResponseModel GetFeaturedCompanyList(string requestingCompanyId, int? length) => _responseHelper.TryCatch(
             "CompanyQuery.GetFeaturedCompanyList",
             () =>
             {
                 List<CompanyModel> companyList = new();
-                _db.featured_companies.OrderByDescending(x => x.order_counter).ToList().ForEach(x =>
+                _db.featured_companies.Where(x => x.company_id != requestingCompanyId).OrderByDescending(x => x.order_counter).ToList().ForEach(x =>
                 {
-                    company? company = _db.companies.Where(y => y.id == x.company_id).Where(x => x.is_disabled == false).FirstOrDefault();
-                    if (company != null && company.id != companyId)
+                    ResponseModel response = GetCompanyById(x.id, requestingCompanyId);
+                    if (response.status_code == StatusCodes.Status200OK)
                     {
-                        companyList.Add(CompanyConverter.ToModel(company));
+                        companyList.Add(response.data);
                     }
                 });
                 if ((length ?? 0) != 0 && companyList.Count > length)

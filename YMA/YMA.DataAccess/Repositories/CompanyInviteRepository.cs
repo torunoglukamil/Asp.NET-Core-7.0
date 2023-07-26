@@ -15,7 +15,6 @@ namespace YMA.DataAccess.Repositories
         private readonly CompanyQuery _companyQuery;
         private readonly ResponseHelper _responseHelper;
         private readonly ValidationHelper<CompanyInviteModel> _companyInviteValidator;
-        private readonly ValidationHelper<ReplyCompanyInviteModel> _replyCompanyInviteValidator;
 
         public CompanyInviteRepository(ymaContext db, CompanyInviteQuery companyInviteQuery, CompanyQuery companyQuery, ResponseHelper responseHelper)
         {
@@ -24,7 +23,6 @@ namespace YMA.DataAccess.Repositories
             _companyQuery = companyQuery;
             _responseHelper = responseHelper;
             _companyInviteValidator = new ValidationHelper<CompanyInviteModel>(new CompanyInviteValidator());
-            _replyCompanyInviteValidator = new ValidationHelper<ReplyCompanyInviteModel>(new ReplyCompanyInviteValidator());
         }
 
         public ResponseModel CreateCompanyInvite(CompanyInviteModel companyInvite) => _responseHelper.TryCatch(
@@ -76,28 +74,94 @@ namespace YMA.DataAccess.Repositories
             }
         );
 
-        public ResponseModel ReplyCompanyInvite(ReplyCompanyInviteModel replyCompanyInvite) => _responseHelper.TryCatch(
-            "CompanyInviteRepository.ReplyCompanyInvite",
+        public ResponseModel AcceptCompanyInviteById(string companyInviteId) => _responseHelper.TryCatch(
+            "CompanyInviteRepository.AcceptCompanyInviteById",
             () =>
             {
-                ResponseModel response = _replyCompanyInviteValidator.Validate(replyCompanyInvite);
-                if (response.status_code == StatusCodes.Status400BadRequest)
-                {
-                    return response;
-                }
-                response = _companyInviteQuery.GetCompanyInviteById(replyCompanyInvite.id!);
+                ResponseModel response = _companyInviteQuery.GetCompanyInviteById(companyInviteId);
                 if (response.status_code == StatusCodes.Status400BadRequest)
                 {
                     return response;
                 }
                 company_invite companyInvite = response.data!;
-                companyInvite.is_accepted = replyCompanyInvite.is_accepted;
-                companyInvite.reply_date = DateTime.Now;
-                _db.SaveChanges();
+                if (companyInvite.is_accepted == false)
+                {
+                    return new ResponseModel()
+                    {
+                        message = companyInvite.reply_date == null ? "Kabul etmek istediğiniz daveti firma önceden iptal etti." : "Kabul etmek istediğiniz daveti önceden reddettiniz.",
+                    };
+                }
+                if (companyInvite.is_accepted == null)
+                {
+                    companyInvite.is_accepted = true;
+                    companyInvite.reply_date = DateTime.Now;
+                    _db.SaveChanges();
+                }
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status200OK,
-                    message = "Davet başarıyla yanıtlandı.",
+                    message = "Gelen davet kabul edildi.",
+                };
+            }
+        );
+
+        public ResponseModel RejectCompanyInviteById(string companyInviteId) => _responseHelper.TryCatch(
+            "CompanyInviteRepository.RejectCompanyInviteById",
+            () =>
+            {
+                ResponseModel response = _companyInviteQuery.GetCompanyInviteById(companyInviteId);
+                if (response.status_code == StatusCodes.Status400BadRequest)
+                {
+                    return response;
+                }
+                company_invite companyInvite = response.data!;
+                if (companyInvite.is_accepted == true)
+                {
+                    return new ResponseModel()
+                    {
+                        message = "Reddetmek istediğiniz daveti önceden kabul ettiniz.",
+                    };
+                }
+                if (companyInvite.is_accepted == null)
+                {
+                    companyInvite.is_accepted = false;
+                    companyInvite.reply_date = DateTime.Now;
+                    _db.SaveChanges();
+                }
+                return new ResponseModel()
+                {
+                    status_code = StatusCodes.Status200OK,
+                    message = "Gelen davet reddedildi.",
+                };
+            }
+        );
+
+        public ResponseModel CancelCompanyInviteById(string companyInviteId) => _responseHelper.TryCatch(
+            "CompanyInviteRepository.CancelCompanyInviteById",
+            () =>
+            {
+                ResponseModel response = _companyInviteQuery.GetCompanyInviteById(companyInviteId);
+                if (response.status_code == StatusCodes.Status400BadRequest)
+                {
+                    return response;
+                }
+                company_invite companyInvite = response.data!;
+                if (companyInvite.is_accepted == true)
+                {
+                    return new ResponseModel()
+                    {
+                        message = "İptal etmek istediğiniz daveti firma önceden kabul etti.",
+                    };
+                }
+                if (companyInvite.is_accepted == null)
+                {
+                    companyInvite.is_accepted = false;
+                    _db.SaveChanges();
+                }
+                return new ResponseModel()
+                {
+                    status_code = StatusCodes.Status200OK,
+                    message = "Gönderilen davet iptal edildi.",
                 };
             }
         );

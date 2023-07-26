@@ -15,5 +15,7 @@
         public bool? is_current_account_registration { get; set; }
 
         public bool? is_accepted { get; set; }
+
+        public CompanyModel? company { get; set; }
     }
 }

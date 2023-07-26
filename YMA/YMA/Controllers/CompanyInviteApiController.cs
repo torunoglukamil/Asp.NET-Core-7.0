@@ -14,14 +14,6 @@ namespace YMA.Controllers
             _companyInviteService = companyInviteService;
         }
 
-        [HttpPost]
-        [Route("api/[controller]/CreateCompanyInvite")]
-        public ResponseModel CreateCompanyInvite([FromBody] CompanyInviteModel companyInvite) => _companyInviteService.Repository.CreateCompanyInvite(companyInvite);
-
-        [HttpPut]
-        [Route("api/[controller]/ReplyCompanyInvite")]
-        public ResponseModel ReplyCompanyInvite([FromBody] ReplyCompanyInviteModel replyCompanyInvite) => _companyInviteService.Repository.ReplyCompanyInvite(replyCompanyInvite);
-
         [HttpGet]
         [Route("api/[controller]/GetIncomingCompanyInviteList/{companyId}")]
         public ResponseModel GetIncomingCompanyInviteList(string companyId) => _companyInviteService.Query.GetIncomingCompanyInviteList(companyId);
@@ -33,5 +25,21 @@ namespace YMA.Controllers
         [HttpGet]
         [Route("api/[controller]/GetIncomingCompanyInviteCount/{companyId}")]
         public ResponseModel GetIncomingCompanyInviteCount(string companyId) => _companyInviteService.Query.GetIncomingCompanyInviteCount(companyId);
+
+        [HttpPost]
+        [Route("api/[controller]/CreateCompanyInvite")]
+        public ResponseModel CreateCompanyInvite([FromBody] CompanyInviteModel companyInvite) => _companyInviteService.Repository.CreateCompanyInvite(companyInvite);
+
+        [HttpPut]
+        [Route("api/[controller]/AcceptCompanyInviteById/{companyInviteId}")]
+        public ResponseModel AcceptCompanyInviteById(string companyInviteId) => _companyInviteService.Repository.AcceptCompanyInviteById(companyInviteId);
+
+        [HttpPut]
+        [Route("api/[controller]/RejectCompanyInviteById/{companyInviteId}")]
+        public ResponseModel RejectCompanyInviteById(string companyInviteId) => _companyInviteService.Repository.RejectCompanyInviteById(companyInviteId);
+
+        [HttpPut]
+        [Route("api/[controller]/CancelCompanyInviteById/{companyInviteId}")]
+        public ResponseModel CancelCompanyInviteById(string companyInviteId) => _companyInviteService.Repository.CancelCompanyInviteById(companyInviteId);
     }
 }

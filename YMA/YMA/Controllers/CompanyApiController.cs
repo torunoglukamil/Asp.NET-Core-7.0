@@ -15,27 +15,27 @@ namespace YMA.Controllers
         }
 
         [HttpGet]
-        [Route("api/[controller]/GetCompanyList/{companyId}/{searchText?}")]
-        public ResponseModel GetCompanyList(string companyId, string? searchText) => _companyService.Query.GetCompanyList(companyId, searchText);
+        [Route("api/[controller]/GetCompanyList/{requestingCompanyId}/{searchText?}")]
+        public ResponseModel GetCompanyList(string requestingCompanyId, string? searchText) => _companyService.Query.GetCompanyList(requestingCompanyId, searchText);
 
         [HttpGet]
-        [Route("api/[controller]/GetContractedCompanyList/{companyId}/{searchText?}")]
-        public ResponseModel GetContractedCompanyList(string companyId, string? searchText) => _companyService.Query.GetContractedCompanyList(companyId, searchText);
+        [Route("api/[controller]/GetContractedCompanyList/{requestingCompanyId}/{searchText?}")]
+        public ResponseModel GetContractedCompanyList(string requestingCompanyId, string? searchText) => _companyService.Query.GetContractedCompanyList(requestingCompanyId, searchText);
 
         [HttpGet]
-        [Route("api/[controller]/GetBuyingCompanyList/{companyId}/{searchText?}")]
-        public ResponseModel GetBuyingCompanyList(string companyId, string? searchText) => _companyService.Query.GetBuyingCompanyList(companyId, searchText);
+        [Route("api/[controller]/GetBuyingCompanyList/{requestingCompanyId}/{searchText?}")]
+        public ResponseModel GetBuyingCompanyList(string requestingCompanyId, string? searchText) => _companyService.Query.GetBuyingCompanyList(requestingCompanyId, searchText);
 
         [HttpGet]
-        [Route("api/[controller]/GetSellingCompanyList/{companyId}/{searchText?}")]
-        public ResponseModel GetSellingCompanyList(string companyId, string? searchText) => _companyService.Query.GetSellingCompanyList(companyId, searchText);
+        [Route("api/[controller]/GetSellingCompanyList/{requestingCompanyId}/{searchText?}")]
+        public ResponseModel GetSellingCompanyList(string requestingCompanyId, string? searchText) => _companyService.Query.GetSellingCompanyList(requestingCompanyId, searchText);
 
         [HttpGet]
-        [Route("api/[controller]/GetNotContractedCompanyList/{companyId}/{searchText?}")]
-        public ResponseModel GetNotContractedCompanyList(string companyId, string? searchText) => _companyService.Query.GetNotContractedCompanyList(companyId, searchText);
+        [Route("api/[controller]/GetNotContractedCompanyList/{requestingCompanyId}/{searchText?}")]
+        public ResponseModel GetNotContractedCompanyList(string requestingCompanyId, string? searchText) => _companyService.Query.GetNotContractedCompanyList(requestingCompanyId, searchText);
 
         [HttpGet]
-        [Route("api/[controller]/GetFeaturedCompanyList/{companyId}/{length?}")]
-        public ResponseModel GetFeaturedCompanyList(string companyId, int? length) => _companyService.Query.GetFeaturedCompanyList(companyId, length);
+        [Route("api/[controller]/GetFeaturedCompanyList/{requestingCompanyId}/{length?}")]
+        public ResponseModel GetFeaturedCompanyList(string requestingCompanyId, int? length) => _companyService.Query.GetFeaturedCompanyList(requestingCompanyId, length);
     }
 }

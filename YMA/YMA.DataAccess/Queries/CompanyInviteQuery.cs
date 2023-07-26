@@ -17,11 +17,11 @@ namespace YMA.DataAccess.Queries
             _responseHelper = responseHelper;
         }
 
-        public ResponseModel GetCompanyInviteById(string companyId) => _responseHelper.TryCatch(
+        public ResponseModel GetCompanyInviteById(string companyInviteId) => _responseHelper.TryCatch(
             "CompanyInviteQuery.GetCompanyInviteById",
             () =>
             {
-                company_invite? companyInvite = _db.company_invites.Where(x => x.id == companyId).FirstOrDefault();
+                company_invite? companyInvite = _db.company_invites.Where(x => x.id == companyInviteId).FirstOrDefault();
                 if (companyInvite == null)
                 {
                     return new ResponseModel()
@@ -58,14 +58,41 @@ namespace YMA.DataAccess.Queries
             }
           );
 
+        private CompanyModel? GetCompanyById(string companyId, string requestingCompanyId)
+        {
+            company? company = _db.companies.Where(x => x.id == companyId).FirstOrDefault();
+            if (company == null)
+            {
+                return null;
+            }
+            if (company.is_disabled ?? false)
+            {
+                return null;
+            }
+            CompanyModel companyModel = CompanyConverter.ToModel(company);
+            ResponseModel response = GetCompanyInviteList(companyId, requestingCompanyId);
+            companyModel.company_invite_list = response.data;
+            return companyModel;
+        }
+
         public ResponseModel GetIncomingCompanyInviteList(string companyId) => _responseHelper.TryCatch(
             "CompanyInviteQuery.GetIncomingCompanyInviteList",
             () =>
             {
+                List<CompanyInviteModel> companyInviteList = new();
+                _db.company_invites.Where(x => x.receiver_id == companyId && x.is_accepted == null).OrderByDescending(x => x.create_date).Select(CompanyInviteConverter.ToModel).ToList().ForEach(x =>
+                {
+                    CompanyModel? company = GetCompanyById(x.sender_id!, x.receiver_id!);
+                    if (company != null)
+                    {
+                        x.company = company;
+                        companyInviteList.Add(x);
+                    }
+                });
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status200OK,
-                    data = _db.company_invites.Where(x => x.receiver_id == companyId && x.is_accepted == null).OrderByDescending(x => x.create_date).Select(CompanyInviteConverter.ToModel).ToList(),
+                    data = companyInviteList,
                 };
             }
           );
@@ -74,10 +101,20 @@ namespace YMA.DataAccess.Queries
             "CompanyInviteQuery.GetSentCompanyInviteList",
             () =>
             {
+                List<CompanyInviteModel> companyInviteList = new();
+                _db.company_invites.Where(x => x.sender_id == companyId && x.is_accepted == null).OrderByDescending(x => x.create_date).Select(CompanyInviteConverter.ToModel).ToList().ForEach(x =>
+                {
+                    CompanyModel? company = GetCompanyById(x.receiver_id!, x.sender_id!);
+                    if (company != null)
+                    {
+                        x.company = company;
+                        companyInviteList.Add(x);
+                    }
+                });
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status200OK,
-                    data = _db.company_invites.Where(x => x.sender_id == companyId && x.is_accepted == null).OrderByDescending(x => x.create_date).Select(CompanyInviteConverter.ToModel).ToList(),
+                    data = companyInviteList,
                 };
             }
           );
