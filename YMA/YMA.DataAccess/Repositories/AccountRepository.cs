@@ -95,11 +95,11 @@ namespace YMA.DataAccess.Repositories
             }
         );
 
-        public ResponseModel DisableAccount(string id) => _responseHelper.TryCatch(
+        public ResponseModel DisableAccount(string accountId) => _responseHelper.TryCatch(
             "AccountRepository.DisableAccount",
             () =>
             {
-                account? account = _db.accounts.Where(x => x.id == id).FirstOrDefault();
+                account? account = _db.accounts.Where(x => x.id == accountId).FirstOrDefault();
                 if (account == null)
                 {
                     return new ResponseModel()
@@ -124,11 +124,11 @@ namespace YMA.DataAccess.Repositories
             }
         );
 
-        public ResponseModel ActivateAccount(string id) => _responseHelper.TryCatch(
+        public ResponseModel ActivateAccount(string accountId) => _responseHelper.TryCatch(
             "AccountRepository.ActivateAccount",
             () =>
             {
-                account? account = _db.accounts.Where(x => x.id == id).FirstOrDefault();
+                account? account = _db.accounts.Where(x => x.id == accountId).FirstOrDefault();
                 if (account == null)
                 {
                     return new ResponseModel()

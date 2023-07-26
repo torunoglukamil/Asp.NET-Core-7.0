@@ -17,11 +17,11 @@ namespace YMA.DataAccess.Queries
             _responseHelper = responseHelper;
         }
 
-        public ResponseModel GetBrandById(string id) => _responseHelper.TryCatch(
+        public ResponseModel GetBrandById(string brandId) => _responseHelper.TryCatch(
             "BrandQuery.GetBrandById",
             () =>
             {
-                brand? brand = _db.brands.Where(x => x.id == id).FirstOrDefault();
+                brand? brand = _db.brands.Where(x => x.id == brandId).FirstOrDefault();
                 if (brand == null)
                 {
                     return new ResponseModel()
@@ -48,7 +48,7 @@ namespace YMA.DataAccess.Queries
             "BrandQuery.GetBrandList",
             () =>
             {
-                List<BrandModel> brandList = _db.brands.Where(x => x.is_disabled == false).OrderBy(x => x.name).Select(x => BrandConverter.ToModel(x)).ToList();
+                List<BrandModel> brandList = _db.brands.Where(x => x.is_disabled == false).OrderBy(x => x.name).Select(BrandConverter.ToModel).ToList();
                 brandList = BrandHelper.GetBrandListBySearch(brandList, searchText);
                 return new ResponseModel()
                 {

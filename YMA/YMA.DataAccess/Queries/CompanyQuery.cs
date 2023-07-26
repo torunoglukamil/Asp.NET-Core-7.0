@@ -19,11 +19,11 @@ namespace YMA.DataAccess.Queries
             _responseHelper = responseHelper;
         }
 
-        public ResponseModel GetCompanyById(string id) => _responseHelper.TryCatch(
+        public ResponseModel GetCompanyById(string companyId, string requestingCompanyId) => _responseHelper.TryCatch(
             "CompanyQuery.GetCompanyById",
             () =>
             {
-                company? company = _db.companies.Where(x => x.id == id).FirstOrDefault();
+                company? company = _db.companies.Where(x => x.id == companyId).FirstOrDefault();
                 if (company == null)
                 {
                     return new ResponseModel()
@@ -38,10 +38,13 @@ namespace YMA.DataAccess.Queries
                         message = "Firma devre dışı.",
                     };
                 }
+                CompanyModel companyModel = CompanyConverter.ToModel(company);
+                ResponseModel response = _companyInviteQuery.GetCompanyInviteList(companyId, requestingCompanyId);
+                companyModel.company_invite_list = response.data;
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status200OK,
-                    data = CompanyConverter.ToModel(company),
+                    data = companyModel,
                 };
             }
           );
@@ -50,7 +53,7 @@ namespace YMA.DataAccess.Queries
             "CompanyQuery.GetCompanyList",
             () =>
             {
-                List<CompanyModel> companyList = _db.companies.Where(x => x.is_disabled == false).Where(x => x.id != companyId).OrderBy(x => x.name).Select(x => CompanyConverter.ToModel(x)).ToList();
+                List<CompanyModel> companyList = _db.companies.Where(x => x.is_disabled == false).Where(x => x.id != companyId).OrderBy(x => x.name).Select(CompanyConverter.ToModel).ToList();
                 companyList = CompanyHelper.GetCompanyListBySearch(companyList, searchText);
                 companyList.ForEach(x =>
                 {

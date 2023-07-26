@@ -21,7 +21,7 @@ namespace YMA.DataAccess.Queries
             "AdQuery.GetAdList",
             () =>
             {
-                List<AdModel> adList = _db.ads.Where(x => x.is_disabled == false).OrderBy(x => x.order_number).Select(x => AdConverter.ToModel(x)).ToList();
+                List<AdModel> adList = _db.ads.Where(x => x.is_disabled == false).OrderBy(x => x.order_number).Select(AdConverter.ToModel).ToList();
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status200OK,

@@ -15,19 +15,19 @@ namespace YMA.Controllers
         }
 
         [HttpGet]
-        [Route("api/[controller]/GetAccountById/{id}")]
-        public ResponseModel GetAccountById(string id) => _accountService.Query.GetAccountById(id);
+        [Route("api/[controller]/GetAccountById/{accountId}")]
+        public ResponseModel GetAccountById(string accountId) => _accountService.Query.GetAccountById(accountId);
 
         [HttpPut]
         [Route("api/[controller]/UpdateAccount")]
         public ResponseModel UpdateAccount([FromBody] AccountModel account) => _accountService.Repository.UpdateAccount(account);
 
         [HttpDelete]
-        [Route("api/[controller]/DisableAccount/{id}")]
-        public ResponseModel DisableAccount(string id) => _accountService.Repository.DisableAccount(id);
+        [Route("api/[controller]/DisableAccount/{accountId}")]
+        public ResponseModel DisableAccount(string accountId) => _accountService.Repository.DisableAccount(accountId);
 
         [HttpPut]
-        [Route("api/[controller]/ActivateAccount/{id}")]
-        public ResponseModel ActivateAccount(string id) => _accountService.Repository.ActivateAccount(id);
+        [Route("api/[controller]/ActivateAccount/{accountId}")]
+        public ResponseModel ActivateAccount(string accountId) => _accountService.Repository.ActivateAccount(accountId);
     }
 }

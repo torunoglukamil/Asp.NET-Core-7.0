@@ -21,7 +21,7 @@ namespace YMA.DataAccess.Queries
             "ExchangeQuery.GetExchangeList",
             () =>
             {
-                List<ExchangeModel> exchangeList = _db.exchanges.Where(x => x.is_disabled == false).OrderBy(x => x.order_number).Select(x => ExchangeConverter.ToModel(x)).ToList();
+                List<ExchangeModel> exchangeList = _db.exchanges.Where(x => x.is_disabled == false).OrderBy(x => x.order_number).Select(ExchangeConverter.ToModel).ToList();
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status200OK,

@@ -17,11 +17,11 @@ namespace YMA.DataAccess.Queries
             _responseHelper = responseHelper;
         }
 
-        public ResponseModel GetCategoryById(string id) => _responseHelper.TryCatch(
+        public ResponseModel GetCategoryById(string categoryId) => _responseHelper.TryCatch(
             "CategoryQuery.GetCategoryById",
             () =>
             {
-                category? category = _db.categories.Where(x => x.id == id).FirstOrDefault();
+                category? category = _db.categories.Where(x => x.id == categoryId).FirstOrDefault();
                 if (category == null)
                 {
                     return new ResponseModel()
@@ -48,7 +48,7 @@ namespace YMA.DataAccess.Queries
             "CategoryQuery.GetCategoryList",
             () =>
             {
-                List<CategoryModel> categoryList = _db.categories.Where(x => x.is_disabled == false).OrderBy(x => x.name).Select(x => CategoryConverter.ToModel(x)).ToList();
+                List<CategoryModel> categoryList = _db.categories.Where(x => x.is_disabled == false).OrderBy(x => x.name).Select(CategoryConverter.ToModel).ToList();
                 categoryList = CategoryHelper.GetCategoryListBySearch(categoryList, searchText);
                 return new ResponseModel()
                 {

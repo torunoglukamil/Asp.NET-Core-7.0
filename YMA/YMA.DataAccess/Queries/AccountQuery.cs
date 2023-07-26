@@ -17,11 +17,11 @@ namespace YMA.DataAccess.Queries
             _responseHelper = responseHelper;
         }
 
-        public ResponseModel GetAccountById(string id, bool returnDbAccount = false) => _responseHelper.TryCatch(
+        public ResponseModel GetAccountById(string accountId, bool returnDbAccount = false) => _responseHelper.TryCatch(
             "AccountQuery.GetAccountById",
             () =>
             {
-                account? account = _db.accounts.Where(x => x.id == id).FirstOrDefault();
+                account? account = _db.accounts.Where(x => x.id == accountId).FirstOrDefault();
                 if (account == null)
                 {
                     return new ResponseModel()

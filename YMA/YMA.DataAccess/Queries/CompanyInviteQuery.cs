@@ -17,11 +17,11 @@ namespace YMA.DataAccess.Queries
             _responseHelper = responseHelper;
         }
 
-        public ResponseModel GetCompanyInviteById(string id) => _responseHelper.TryCatch(
+        public ResponseModel GetCompanyInviteById(string companyId) => _responseHelper.TryCatch(
             "CompanyInviteQuery.GetCompanyInviteById",
             () =>
             {
-                company_invite? companyInvite = _db.company_invites.Where(x => x.id == id).FirstOrDefault();
+                company_invite? companyInvite = _db.company_invites.Where(x => x.id == companyId).FirstOrDefault();
                 if (companyInvite == null)
                 {
                     return new ResponseModel()
@@ -42,17 +42,56 @@ namespace YMA.DataAccess.Queries
             () =>
             {
                 List<CompanyInviteModel> companyInviteList = new();
-                _db.company_invites.ToList().ForEach(x =>
+                _db.company_invites.Where(x => x.receiver_id == companyId1 && x.sender_id == companyId2 && x.is_accepted != false).ToList().ForEach(x =>
                 {
-                    if (((x.receiver_id == companyId1 && x.sender_id == companyId2) || (x.receiver_id == companyId2 && x.sender_id == companyId1)) && x.is_accepted != false)
-                    {
-                        companyInviteList.Add(CompanyInviteConverter.ToModel(x));
-                    }
+                    companyInviteList.Add(CompanyInviteConverter.ToModel(x));
+                });
+                _db.company_invites.Where(x => x.receiver_id == companyId2 && x.sender_id == companyId1 && x.is_accepted != false).ToList().ForEach(x =>
+                {
+                    companyInviteList.Add(CompanyInviteConverter.ToModel(x));
                 });
                 return new ResponseModel()
                 {
                     status_code = StatusCodes.Status200OK,
                     data = companyInviteList,
+                };
+            }
+          );
+
+        public ResponseModel GetIncomingCompanyInviteList(string companyId) => _responseHelper.TryCatch(
+            "CompanyInviteQuery.GetIncomingCompanyInviteList",
+            () =>
+            {
+                return new ResponseModel()
+                {
+                    status_code = StatusCodes.Status200OK,
+                    data = _db.company_invites.Where(x => x.receiver_id == companyId && x.is_accepted == null).OrderByDescending(x => x.create_date).Select(CompanyInviteConverter.ToModel).ToList(),
+                };
+            }
+          );
+
+        public ResponseModel GetSentCompanyInviteList(string companyId) => _responseHelper.TryCatch(
+            "CompanyInviteQuery.GetSentCompanyInviteList",
+            () =>
+            {
+                return new ResponseModel()
+                {
+                    status_code = StatusCodes.Status200OK,
+                    data = _db.company_invites.Where(x => x.sender_id == companyId && x.is_accepted == null).OrderByDescending(x => x.create_date).Select(CompanyInviteConverter.ToModel).ToList(),
+                };
+            }
+          );
+
+        public ResponseModel GetIncomingCompanyInviteCount(string companyId) => _responseHelper.TryCatch(
+            "CompanyInviteQuery.GetIncomingCompanyInviteCount",
+            () =>
+            {
+                ResponseModel response = GetIncomingCompanyInviteList(companyId);
+                List<CompanyInviteModel> incomingCompanyInviteList = response.data!;
+                return new ResponseModel()
+                {
+                    status_code = StatusCodes.Status200OK,
+                    data = incomingCompanyInviteList.Count,
                 };
             }
           );

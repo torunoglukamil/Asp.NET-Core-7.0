@@ -23,7 +23,7 @@ namespace YMA.DataAccess.Queries
             _responseHelper = responseHelper;
         }
 
-        private List<ProductModel> GetProductModelList(List<product> productList)
+        private List<ProductModel> GetProductModelList(List<product> productList, string requestingCompanyId)
         {
             List<ProductModel> productModelList = new();
             productList.ForEach(x =>
@@ -40,7 +40,7 @@ namespace YMA.DataAccess.Queries
                     return;
                 }
                 CategoryModel category = response.data!;
-                response = _companyQuery.GetCompanyById(x.company_id!);
+                response = _companyQuery.GetCompanyById(x.company_id!, requestingCompanyId);
                 if (response.status_code == StatusCodes.Status400BadRequest)
                 {
                     return;
@@ -51,7 +51,7 @@ namespace YMA.DataAccess.Queries
             return productModelList;
         }
 
-        public ResponseModel GetFavoriteProductList(string accountId, string? searchText)
+        public ResponseModel GetFavoriteProductList(string accountId, string requestingCompanyId, string? searchText)
         {
             List<product> productList = new();
             _db.favorite_products.Where(x => x.account_id == accountId).OrderByDescending(x => x.create_date).ToList().ForEach(x =>
@@ -62,7 +62,7 @@ namespace YMA.DataAccess.Queries
                     productList.Add(product);
                 }
             });
-            List<ProductModel> productModelList = GetProductModelList(productList);
+            List<ProductModel> productModelList = GetProductModelList(productList, requestingCompanyId);
             productModelList = ProductHelper.GetProductListBySearch(productModelList, searchText);
             return new ResponseModel()
             {
@@ -85,12 +85,12 @@ namespace YMA.DataAccess.Queries
             return productList;
         }
 
-        public ResponseModel GetFeaturedProductList(int? length, string? searchText) => _responseHelper.TryCatch(
+        public ResponseModel GetFeaturedProductList(string requestingCompanyId, int? length, string? searchText) => _responseHelper.TryCatch(
             "ProductQuery.GetFeaturedProductList",
             () =>
             {
                 List<product> productList = GetFeaturedProductList();
-                List<ProductModel> productModelList = GetProductModelList(productList);
+                List<ProductModel> productModelList = GetProductModelList(productList, requestingCompanyId);
                 productModelList = ProductHelper.GetProductListBySearch(productModelList, searchText);
                 if ((length ?? 0) != 0 && productModelList.Count > length)
                 {
@@ -104,7 +104,7 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetCategoryProductList(string id, string? searchText) => _responseHelper.TryCatch(
+        public ResponseModel GetCategoryProductList(string categoryId, string requestingCompanyId, string? searchText) => _responseHelper.TryCatch(
             "ProductQuery.GetCategoryProductList",
             () =>
             {
@@ -112,12 +112,12 @@ namespace YMA.DataAccess.Queries
                 List<product> categoryProductList = new();
                 productList.ForEach(x =>
                 {
-                    if (x.category_id == id)
+                    if (x.category_id == categoryId)
                     {
                         categoryProductList.Add(x);
                     }
                 });
-                List<ProductModel> productModelList = GetProductModelList(categoryProductList);
+                List<ProductModel> productModelList = GetProductModelList(categoryProductList, requestingCompanyId);
                 productModelList = ProductHelper.GetProductListBySearch(productModelList, searchText);
                 return new ResponseModel()
                 {
@@ -127,7 +127,7 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetBrandProductList(string id, string? searchText) => _responseHelper.TryCatch(
+        public ResponseModel GetBrandProductList(string brandId, string requestingCompanyId, string? searchText) => _responseHelper.TryCatch(
             "ProductQuery.GetBrandProductList",
             () =>
             {
@@ -135,12 +135,12 @@ namespace YMA.DataAccess.Queries
                 List<product> brandProductList = new();
                 productList.ForEach(x =>
                 {
-                    if (x.brand_id == id)
+                    if (x.brand_id == brandId)
                     {
                         brandProductList.Add(x);
                     }
                 });
-                List<ProductModel> productModelList = GetProductModelList(brandProductList);
+                List<ProductModel> productModelList = GetProductModelList(brandProductList, requestingCompanyId);
                 productModelList = ProductHelper.GetProductListBySearch(productModelList, searchText);
                 return new ResponseModel()
                 {
@@ -150,7 +150,7 @@ namespace YMA.DataAccess.Queries
             }
           );
 
-        public ResponseModel GetCompanyProductList(string id, string? searchText) => _responseHelper.TryCatch(
+        public ResponseModel GetCompanyProductList(string companyId, string requestingCompanyId, string? searchText) => _responseHelper.TryCatch(
             "ProductQuery.GetCompanyProductList",
             () =>
             {
@@ -158,12 +158,12 @@ namespace YMA.DataAccess.Queries
                 List<product> companyProductList = new();
                 productList.ForEach(x =>
                 {
-                    if (x.company_id == id)
+                    if (x.company_id == companyId)
                     {
                         companyProductList.Add(x);
                     }
                 });
-                List<ProductModel> productModelList = GetProductModelList(companyProductList);
+                List<ProductModel> productModelList = GetProductModelList(companyProductList, requestingCompanyId);
                 productModelList = ProductHelper.GetProductListBySearch(productModelList, searchText);
                 return new ResponseModel()
                 {

@@ -19,13 +19,19 @@ namespace YMA.Entities.Validators
                 .WithMessage("Gönderen ID geçersiz.");
             RuleFor(x => x.is_buying)
                 .NotNull()
-                .WithMessage("Satın alma değeri geçersiz.");
+                .WithMessage("Satın alma değeri geçersiz.")
+                .NotEqual(false)
+                .When(x => x.is_selling == false)
+                .WithMessage("Bir işlem seçiniz.");
             RuleFor(x => x.is_selling)
                 .NotNull()
-                .WithMessage("Satış yapma değeri geçersiz.");
+                .WithMessage("Satış yapma değeri geçersiz.")
+                .NotEqual(false)
+                .When(x => x.is_buying == false)
+                .WithMessage("Bir işlem seçiniz."); ;
             RuleFor(x => x.is_current_account_registration)
                 .NotNull()
-                .WithMessage("Cari hesap kaydı değeri geçersiz.");
+                .WithMessage("Cari hesap kaydı seçiniz.");
         }
     }
 }
